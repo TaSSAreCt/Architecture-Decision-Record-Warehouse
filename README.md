@@ -19,7 +19,7 @@
   <h3 align="center">Formal Model of Architecture Decision Records for Cyber-Physical Systems of Systems</h3>
 
   <p align="center">
-    Model-Based Architecture Decision Recording
+
   </p>
 </div>
 
