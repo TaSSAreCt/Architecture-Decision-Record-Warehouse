@@ -1,0 +1,52 @@
+{
+    [
+        {
+            "system": {
+                "id":
+                "title":
+                "systemElementList": [
+                    {
+                        "systemElement": {
+                            "id":
+                            "title":
+                        }
+                    }
+                ]
+                "issueList": [
+                    {
+                        "issue": {
+                            "id":
+                            "title":
+                            "alternativeList": [
+                                {
+                                    "alternative": {
+                                        "id":
+                                        "title":
+                                        "isSelected": true / false
+                                        architectureRationalList: [
+                                            {
+                                                "architectureRationale": {
+                                                    "id":
+                                                    "title":
+                                                }
+                                            }
+                                        ]
+                                        architectureRequirementList: [
+                                            {
+                                                "architectureRequirement": {
+                                                    "id":
+                                                    "title":
+                                                    "value":
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
