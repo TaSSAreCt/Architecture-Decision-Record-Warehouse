@@ -1,1 +1,0 @@
-# Software Architecture Tool (SAT)

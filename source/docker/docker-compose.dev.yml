@@ -1,0 +1,44 @@
+services:
+
+  frontend:
+    container_name: frontend
+    hostname: frontend
+    build:
+      context: ../frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - adrw-net
+  
+  backend:
+    container_name: backend
+    hostname: backend
+    build:
+      context: ../backend/
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db-neo4j
+    networks:
+      - adrw-net
+
+  db-neo4j:
+    container_name: db-neo4j
+    hostname: db-neo4j
+    image: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/secret123
+      - NEO4J_dbms_default__database=neo4j
+    volumes:
+      - $HOME/neo4j/data:/data
+    networks:
+      - adrw-net
+
+networks:
+  adrw-net:
+    driver: bridge

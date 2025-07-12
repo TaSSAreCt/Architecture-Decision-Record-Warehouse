@@ -1,5 +1,5 @@
 import type {Actions} from "@sveltejs/kit";
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 import {RequireRelationshipRequestDto} from "$lib/dto/request/entity/RequireRelationshipRequestDto";
 
 export const actions = {
@@ -13,7 +13,7 @@ export const actions = {
         dto.nonFunctionalRequirement.id = formData.get("nonFunctionalRequirementId") as string;
         dto.systemClass.id = formData.get("systemId") as string;
 
-        await fetch(`${SAT}/api/v1/relationships/require`, {
+        await fetch(`${BACKEND}/api/v1/relationships/require`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/require+json",

@@ -1,7 +1,7 @@
 import type {Actions} from "@sveltejs/kit";
 import {AlternativeAggregateRequestDto} from "$lib/dto/request/aggregate/AlternativeAggregateRequestDto";
 import {IssueRequestDto} from "$lib/dto/request/entity/IssueRequestDto";
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 import {ArchitecturalKnowledgeRequestDto} from "$lib/dto/request/aggregate/ArchitecturalKnowledgeRequestDto";
 
 export const actions = {
@@ -16,7 +16,7 @@ export const actions = {
         const alternativeAggregates : AlternativeAggregateRequestDto[] = JSON.parse(formData.get("alternativeAggregates") as string);
         const architecturalKnowledgeRequestDto = ArchitecturalKnowledgeRequestDto.create(issue, alternativeAggregates);
 
-        await fetch(`${SAT}/api/v1/architectural-knowledge`, {
+        await fetch(`${BACKEND}/api/v1/architectural-knowledge`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/architectural-knowledge+json",

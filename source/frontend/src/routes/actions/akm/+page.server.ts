@@ -1,4 +1,4 @@
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 import type {Actions} from "@sveltejs/kit";
 
 export const actions = {
@@ -7,7 +7,7 @@ export const actions = {
 
         const form = await request.formData();
 
-        await fetch(`${SAT}/api/v1/architectural-requirements`, {
+        await fetch(`${BACKEND}/api/v1/architectural-requirements`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/architecture-requirement+json",
