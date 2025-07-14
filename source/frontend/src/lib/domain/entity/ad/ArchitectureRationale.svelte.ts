@@ -1,5 +1,3 @@
-import type {ArchitectureRationaleResponseDto} from "$lib/dto/response/entity/ArchitectureRationaleResponseDto";
-
 export class ArchitectureRationale {
 
     id : string = $state<string>("");
@@ -16,16 +14,7 @@ export class ArchitectureRationale {
         return new ArchitectureRationale();
     }
 
-    static fromJson = (architecturalRationaleResponseDto : ArchitectureRationaleResponseDto): ArchitectureRationale => {
-        const architectureRationale = new ArchitectureRationale();
-
-        architectureRationale.id = architecturalRationaleResponseDto.id;
-        architectureRationale.title = architecturalRationaleResponseDto.title;
-        architectureRationale.context = architecturalRationaleResponseDto.context;
-        architectureRationale.decision = architecturalRationaleResponseDto.decision;
-        architectureRationale.status = architecturalRationaleResponseDto.status;
-        architectureRationale.consequences = architecturalRationaleResponseDto.consequences;
-
-        return architectureRationale;
+    getYStatement() : string {
+        return ""
     }
 }
