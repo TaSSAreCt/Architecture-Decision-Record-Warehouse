@@ -1,9 +1,8 @@
-import {SystemOfSystems} from "$lib/domain/aggregate/SystemOfSystems.svelte.js";
-import {AdrWarehouseResponseDto} from "$lib/dto/response/aggregate/adrWarehouseResponseDto";
+import {System} from "$lib/domain/entity/sos/System.svelte";
 
 export class AdrWarehouse {
 
-    systemsOfSystems : SystemOfSystems[] = $state<SystemOfSystems[]>([]);
+    systemsOfSystems : System[] = $state<System[]>([]);
 
     constructor() {}
 
@@ -11,11 +10,11 @@ export class AdrWarehouse {
         return new AdrWarehouse();
     }
 
-    getSystemOfSystems = (id: string): SystemOfSystems | undefined => {
+    getSystemOfSystems = (id: string): System | undefined => {
 
-        function traverse(systemOfSystems: SystemOfSystems, id: string): SystemOfSystems | undefined {
-            for (const child of systemOfSystems.childSystems) {
-                if (child.system.id === id) {
+        function traverse(systemOfSystems: System, id: string): System | undefined {
+            for (const child of systemOfSystems.systemList) {
+                if (child.id === id) {
                     return child;
                 }
 
@@ -27,7 +26,7 @@ export class AdrWarehouse {
         }
 
         for (const systemOfSystems of this.systemsOfSystems) {
-            if (systemOfSystems.system.id === id) {
+            if (systemOfSystems.id === id) {
                 return systemOfSystems;
             }
 
@@ -39,22 +38,22 @@ export class AdrWarehouse {
     };
 
 
-    getSystems = () : SystemOfSystems[] => {
+    getSystems = () : System[] => {
 
-        function traverse(sos : SystemOfSystems[], child : SystemOfSystems) {
+        function traverse(sos : System[], child : System) {
             sos.push(child);
 
-            child.childSystems.forEach(childSystem => {
-                traverse(sos, childSystem);
+            child.systemList.forEach((system) => {
+                traverse(sos, system);
             })
         }
 
-        const sos : SystemOfSystems[] = [];
+        const sos : System[] = [];
 
         this.systemsOfSystems.forEach(systemOfSystems => {
             sos.push(systemOfSystems);
 
-            systemOfSystems.childSystems.forEach(child => {
+            systemOfSystems.systemList.forEach(child => {
                 traverse(sos, child);
             })
         })

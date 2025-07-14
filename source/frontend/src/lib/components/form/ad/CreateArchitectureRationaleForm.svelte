@@ -1,7 +1,7 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import {ArchitectureDecision} from "$lib/domain/aggregate/ArchitectureDecision.svelte";
-    import {ArchitectureRationale} from "$lib/domain/entity/ad/ArchitectureRationale.svelte.js";
+    import {ArchitectureRationale} from "$lib/domain/entity/ad/Rationale.svelte.js";
     import {AlternativeAggregate} from "$lib/domain/aggregate/AlternativeAggregate.svelte";
     import {getContext} from "svelte";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
@@ -16,6 +16,8 @@
 
     const constraint : Constraint[] = selectionManager.selectedSystemOfSystems.systemElementAggregates.flatMap(systemElement => systemElement.constraints);
     const nfr : NonFunctionalRequirement[] = selectionManager.selectedSystemOfSystems.nonFunctionalRequirements;
+
+    const alternativeIsSelected = $state(false);
 
 </script>
 
@@ -83,7 +85,11 @@
             {/each}
         </div>
 
-        <input class="w3-input" placeholder="Title" id="title" type="text" name="title"><br>
+        {#if }
+        <label for="title">Title:</label><br>
+        <input class="w3-input" placeholder="Title" id="title" type="text" name="title" value="ADR 1"><br>
+
+        <label for="context">Context:</label><br>
         <input class="w3-input" placeholder="Context" id="context" type="text" name="context"><br>
         <input class="w3-input" placeholder="Decision" id="decision" type="text" name="decision"><br>
         <input class="w3-input" placeholder="Status" id="status" type="text" name="status"><br>

@@ -1,4 +1,4 @@
-import {ArchitectureRationale} from "$lib/domain/entity/ad/ArchitectureRationale.svelte.js";
+import {ArchitectureRationale} from "$lib/domain/entity/ad/Rationale.svelte.js";
 
 export class ArchitectureRationaleResponseDto {
     id : string = "";

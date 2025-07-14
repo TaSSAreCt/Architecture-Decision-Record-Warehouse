@@ -1,5 +1,5 @@
 import {Alternative} from "$lib/domain/entity/ad/Alternative.svelte.js";
-import {ArchitectureRationale} from "$lib/domain/entity/ad/ArchitectureRationale.svelte.js";
+import {Rationale} from "$lib/domain/entity/ad/Rationale.svelte.js";
 import {ForcedBy} from "$lib/domain/aggregate/ForcedBy.svelte";
 import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
 import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte";
@@ -7,7 +7,7 @@ import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequi
 export class AlternativeAggregate {
 
     alternative = $state<Alternative>(Alternative.create());
-    architectureRationales = $state<ArchitectureRationale[]>([]);
+    architectureRationales = $state<Rationale[]>([]);
     forcedBy = $state<ForcedBy[]>([]);
 
     constructor() {}
