@@ -15,7 +15,6 @@ import java.util.Optional;
 @Component
 public class ConstraintRepository implements ConstraintPort {
 
-    private final Neo4jClient client;
     private final ConstraintCypherPort repository;
 
     @Override

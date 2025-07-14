@@ -8,9 +8,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Node("ArchitecturePrinciple")
 @Getter @Setter
@@ -23,7 +21,7 @@ public class ArchitecturePrincipleNode {
     private String title;
 
     @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
-    public Set<InfluenceRelationship> forcesRelationships = new HashSet<>();
+    public List<InfluenceRelationship> forcesRelationships;
 
     public ArchitecturePrincipleNode() {}
 

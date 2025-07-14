@@ -1,45 +1,23 @@
 package ch.unisg.backend.infrastructure.repository.sdn.mapper;
 
+import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
 import ch.unisg.backend.infrastructure.repository.sdn.node.AlternativeNode;
 
+import java.util.List;
+
 public class AlternativeMapper {
-    public static AlternativeAggregate toAlternativeAggregate(AlternativeNode alternativeNode) {
 
-        AlternativeAggregate alternativeAggregate = AlternativeAggregate.create(alternativeNode.getId(), alternativeNode.getTitle());
+    public static List<Alternative> toAlternativeList(List<AlternativeNode> alternativeNodeList) {
+        return alternativeNodeList.stream().map(AlternativeMapper::toAlternative).toList();
+    }
 
-        alternativeNode.getIntentionNodes().forEach(intentionNode -> {
-            intentionNode.forcesRelationships.forEach(forcesRelationship -> {
-                if (forcesRelationship.getTarget().getId() == alternativeNode.getId()) {
-                    alternativeAggregate.getForcedBy().add(ForcedBy.create(IntentionMapper.toIntention(intentionNode), forcesRelationship.getValue()));
-                }
-            });
+    public static Alternative toAlternative(AlternativeNode alternativeNode) {
 
-        });
+        Alternative alternative = Alternative.create(alternativeNode.getId(), alternativeNode.getTitle());
+        alternative.getRationaleList().addAll(RationaleMapper.toRationaleList(alternativeNode.getRationaleNodeList()));
 
-        alternativeNode.getNonFunctionalRequirementNodes().forEach(nonFunctionalRequirementNode -> {
-            nonFunctionalRequirementNode.forcesRelationships.forEach(forcesRelationship -> {
-                if (forcesRelationship.getTarget().getId() == alternativeNode.getId()) {
-                    alternativeAggregate.getForcedBy().add(ForcedBy.create(NonFunctionalRequirementMapper.toNonFunctionalRequirement(nonFunctionalRequirementNode), forcesRelationship.getValue()));
-                }
-            });
-        });
+        // TODO: Implement Influence
 
-        alternativeNode.getConstraintNodes().forEach(constraintNode -> {
-            constraintNode.forcesRelationships.forEach(forcesRelationship -> {
-                if (forcesRelationship.getTarget().getId() == alternativeNode.getId()) {
-                    alternativeAggregate.getForcedBy().add(ForcedBy.create(ConstraintMapper.toConstraint(constraintNode), forcesRelationship.getValue()));
-                }
-            });
-        });
-
-        alternativeNode.getArchitecturePrincipleNodes().forEach(architecturePrincipleNode -> {
-            architecturePrincipleNode.forcesRelationships.forEach(forcesRelationship -> {
-                if (forcesRelationship.getTarget().getId() == alternativeNode.getId()) {
-                    alternativeAggregate.getForcedBy().add(ForcedBy.create(ArchitecturalPrincipleMapper.toArchitecturalPrinciple(architecturePrincipleNode), forcesRelationship.getValue()));
-                }
-            });
-        });
-
-        return alternativeAggregate;
+        return alternative;
     }
 }

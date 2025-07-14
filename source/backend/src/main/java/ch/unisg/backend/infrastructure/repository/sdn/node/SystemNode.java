@@ -31,7 +31,7 @@ public class SystemNode {
     public Set<NonFunctionalRequirementNode> nonFunctionalRequirementNodes = new HashSet<>();
 
     @Relationship(type = "HAS", direction = Relationship.Direction.OUTGOING)
-    public Set<ArchitectureRationaleNode> architectureRationaleNodes;
+    public Set<RationaleNode> architectureRationaleNodes;
 
     public SystemNode() {}
     public SystemNode(UUID id) {

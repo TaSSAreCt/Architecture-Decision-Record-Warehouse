@@ -25,7 +25,6 @@ public class IssueRepository implements IssuePort {
         entity.setTitle(issue.getTitle());
 
         repository.save(entity);
-
     }
 
     @Override

@@ -3,6 +3,7 @@ package ch.unisg.backend.core.application;
 import ch.unisg.backend.core.domain.aggregate.*;
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
 import ch.unisg.backend.core.domain.entities.classes.ar.*;
+import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.port.in.SoftwareArchitectureUseCase;
 import ch.unisg.backend.core.port.in.command.CreateArchitectureRequirement;
 import ch.unisg.backend.core.port.out.*;
@@ -36,56 +37,27 @@ public class SoftwareArchitectureService implements SoftwareArchitectureUseCase 
         ArchitectureRequirement architectureRequirement = ArchitectureRequirement.create(command.id());
         Alternative alternative = Alternative.create(command.alternativeId());
 
-        relationshipManagerPort.create(
-            ForcedBy.create(
-                command.value(),
-                architectureRequirement,
-                alternative
-            )
-        );
+        // TODO: Implement Influence
     }
 
     @Override
-    public ArchitectureDecisionRecordWarehouse getSoftwareArchitectureRepresentation() {
-
-        ArchitectureDecisionRecordWarehouse softwareArchitecture = ArchitectureDecisionRecordWarehouse.create();
-
-        softwareArchitecturePort.getSoftwareArchitecture(softwareArchitecture);
-
-        return softwareArchitecture;
-    }
-
-    @Override
-    public ArchitecturalDecisions getArchitecturalDecisions() {
-        ArchitecturalDecisions architecturalDecisions = ArchitecturalDecisions.create();
-
-        softwareArchitecturePort.getArchitecturalDecisions(architecturalDecisions);
-
-        return architecturalDecisions;
-    }
-
-    @Override
-    public List<SystemOfSystems> getSystemsOfSystems() {
-
-
-        List<SystemOfSystems> systemsOfSystems = new ArrayList<>();
-
+    public List<SystemClass> getSystemsOfSystems() {
+        List<SystemClass> systemsOfSystems = new ArrayList<>();
         softwareArchitecturePort.getSystemsOfSystems(systemsOfSystems);
-
         return systemsOfSystems;
     }
 
     @Override
-    public ArchitecturalRequirements getArchitecturalRequirements() {
+    public ArchitectureRequirement getArchitecturalRequirements() {
 
-        ArchitecturalRequirements architecturalRequirements = ArchitecturalRequirements.create();
+        ArchitectureRequirement architectureRequirement = ArchitectureRequirement.create();
 
-        constraintPort.readAll(architecturalRequirements.getConstraint());
-        architecturePrinciplePort.readAll(architecturalRequirements.getArchitecturePrinciple());
-        intentionPort.readAll(architecturalRequirements.getIntention());
-        nonFunctionalRequirementPort.readAll(architecturalRequirements.getNonFunctionalRequirement());
+        constraintPort.readAll(architectureRequirement.getConstraintList());
+        architecturePrinciplePort.readAll(architectureRequirement.getArchitecturePrincipleList());
+        intentionPort.readAll(architectureRequirement.getIntentionList());
+        nonFunctionalRequirementPort.readAll(architectureRequirement.getNonFunctionalRequirementList());
 
-        return architecturalRequirements;
+        return architectureRequirement;
     }
 
     @Override

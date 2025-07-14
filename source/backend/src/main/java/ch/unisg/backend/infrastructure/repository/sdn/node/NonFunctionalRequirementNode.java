@@ -9,6 +9,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class NonFunctionalRequirementNode {
     private String title;
 
     @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
-    public Set<InfluenceRelationship> forcesRelationships = new HashSet<>();
+    public List<InfluenceRelationship> forcesRelationships;
 
     public NonFunctionalRequirementNode(UUID id, String title) {
         this.id = id;

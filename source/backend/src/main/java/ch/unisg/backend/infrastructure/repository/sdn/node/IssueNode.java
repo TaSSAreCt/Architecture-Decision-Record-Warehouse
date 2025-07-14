@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class IssueNode {
     public IssueNode() {}
 
     @Relationship(type = "SOLVED_BY", direction = Relationship.Direction.OUTGOING)
-    public Set<AlternativeNode> alternativeNodes = new HashSet<>();
+    public List<AlternativeNode> alternativeNodes;
 
 
 }

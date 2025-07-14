@@ -1,5 +1,7 @@
 package ch.unisg.backend.controller.http.dto.response;
 
+import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +16,10 @@ public class SystemsOfSystemsResponseDto extends ResponseDto{
      *
      *
      */
-    public static List<HashMap<String, Object>> toJson(List<SystemOfSystems> systemsOfSystems) {
+    public static List<HashMap<String, Object>> toJson(List<SystemClass> systemsOfSystems) {
         List<HashMap<String, Object>> systemsOfSystemsDto = new ArrayList<>();
 
-        for (SystemOfSystems systemOfSystem : systemsOfSystems) {
+        for (SystemClass systemOfSystem : systemsOfSystems) {
             HashMap<String, Object> systemMap = buildSystemMap(systemOfSystem);
             systemsOfSystemsDto.add(systemMap);
         }
@@ -29,19 +31,19 @@ public class SystemsOfSystemsResponseDto extends ResponseDto{
      *
      *
      */
-    private static HashMap<String, Object> buildSystemMap(SystemOfSystems systemOfSystems) {
+    private static HashMap<String, Object> buildSystemMap(SystemClass systemOfSystems) {
         HashMap<String, Object> systemMap = new HashMap<>();
 
-        if (systemOfSystems == null || systemOfSystems.getSystemClass() == null) {
+        if (systemOfSystems == null) {
             return systemMap;
         }
 
-        systemMap.put("id", systemOfSystems.getSystemClass().getId().toString());
-        systemMap.put("title", systemOfSystems.getSystemClass().getTitle());
+        systemMap.put("id", systemOfSystems.getId().toString());
+        systemMap.put("title", systemOfSystems.getTitle());
 
         List<HashMap<String, Object>> childSystems = new ArrayList<>();
 
-        for (SystemOfSystems child : systemOfSystems.getSystemOfSystemsList()) {
+        for (SystemClass child : systemOfSystems.getSystemList()) {
             childSystems.add(buildSystemMap(child));
         }
 

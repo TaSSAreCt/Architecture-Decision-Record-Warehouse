@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,7 +22,7 @@ public class IntentionNode {
     private String title;
 
     @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
-    public Set<InfluenceRelationship> forcesRelationships = new HashSet<>();
+    public List<InfluenceRelationship> forcesRelationships;
 
     public IntentionNode(UUID id, String title) {
         this.id = id;

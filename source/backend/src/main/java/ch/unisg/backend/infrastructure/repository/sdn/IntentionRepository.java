@@ -17,7 +17,6 @@ import java.util.UUID;
 @Component
 public class IntentionRepository implements IntentionPort {
 
-    private final Neo4jClient client;
     private final IntentionCypherPort repository;
 
     @Override

@@ -3,7 +3,7 @@ package ch.unisg.backend.controller.http;
 import ch.unisg.backend.controller.http.dto.request.node.ArchitectureRequirementRequestDto;
 import ch.unisg.backend.controller.http.dto.response.*;
 import ch.unisg.backend.core.domain.aggregate.*;
-import ch.unisg.backend.core.domain.entities.classes.ar.ArchitecturalRequirements;
+import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.port.in.SoftwareArchitectureUseCase;
 import ch.unisg.backend.core.port.in.command.CreateArchitectureRequirement;
 import lombok.RequiredArgsConstructor;
@@ -83,7 +83,7 @@ public class ArchitecturalKnowledgeController {
      */
     @GetMapping(path = "/systems-of-systems")
     public ResponseEntity<List<HashMap<String, Object>>> getSystemsOfSystems() {
-        List<SystemOfSystems> systemsOfSystems = softwareArchitectureUseCase.getSystemsOfSystems();
+        List<SystemClass> systemsOfSystems = softwareArchitectureUseCase.getSystemsOfSystems();
         return ResponseEntity.ok(SystemsOfSystemsResponseDto.toJson(systemsOfSystems));
     }
 
@@ -94,7 +94,7 @@ public class ArchitecturalKnowledgeController {
     @GetMapping(path = "/architectural-knowledge-cpsos")
     public ResponseEntity<List<HashMap<String, Object>>> getSoftwareArchitectureRepresentation() {
 
-        ArchitectureDecisionRecordWarehouse softwareArchitecture = softwareArchitectureUseCase.getSoftwareArchitectureRepresentation();
+        ArchitectureDecisionRecordWarehouse softwareArchitecture = softwareArchitectureUseCase.getSystemsOfSystems();
 
         return ResponseEntity.ok(ArchitecturalKnowledgeWithCPSoSDto.toJson(softwareArchitecture));
     }

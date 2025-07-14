@@ -1,21 +1,22 @@
 package ch.unisg.backend.infrastructure.repository.sdn;
 
-import ch.unisg.backend.core.domain.aggregate.*;
-import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
-import ch.unisg.backend.core.domain.entities.classes.sos.SystemElement;
+import ch.unisg.backend.core.domain.aggregate.ArchitecturalKnowledge;
+import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.port.out.SoftwareArchitecturePort;
-import ch.unisg.backend.infrastructure.repository.sdn.mapper.ArchitecturalDecisionListMapper;
-import ch.unisg.backend.infrastructure.repository.sdn.mapper.ArchitecturalKnowledgeMapper;
-import ch.unisg.backend.infrastructure.repository.sdn.mapper.SystemMapper;
-import ch.unisg.backend.infrastructure.repository.sdn.mapper.NonFunctionalRequirementListMapper;
 import ch.unisg.backend.infrastructure.repository.sdn.api.ArchitectureRationaleCypherPort;
 import ch.unisg.backend.infrastructure.repository.sdn.api.IssueCypherPort;
 import ch.unisg.backend.infrastructure.repository.sdn.api.SystemCypherPort;
-import ch.unisg.backend.infrastructure.repository.sdn.node.*;
+import ch.unisg.backend.infrastructure.repository.sdn.mapper.IssueMapper;
+import ch.unisg.backend.infrastructure.repository.sdn.mapper.SystemMapper;
+import ch.unisg.backend.infrastructure.repository.sdn.node.IssueNode;
+import ch.unisg.backend.infrastructure.repository.sdn.node.SystemNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  *
@@ -31,45 +32,8 @@ public class SoftwareArchitectureRepository implements SoftwareArchitecturePort 
 
     @Override
     public void getArchitecturalKnowledge(ArchitecturalKnowledge architecturalKnowledge) {
-
         Set<IssueNode> issueNodes = new HashSet<>(issueRepository.findAll());
-
-        Collection<ArchitectureDecision> architecturalDecisions = ArchitecturalKnowledgeMapper.toArchitecturalKnowledge(issueNodes);
-
-        architecturalKnowledge.getArchitectureDecisions().addAll(architecturalDecisions);
-
-    }
-
-    /**
-     *
-     */
-    @Override
-    public  void getArchitecturalDecisions(ArchitecturalDecisions architecturalDecisions) {
-
-        List<IssueNode> issueNodeList = issueRepository.findAll();
-
-        issueNodeList.forEach(issueNode -> {
-
-            ArchitectureDecision architectureDecision = ArchitectureDecision.create();
-
-            architectureDecision.getIssue().setId(issueNode.getId());
-            architectureDecision.getIssue().setTitle(issueNode.getTitle());
-
-            for (AlternativeNode alternativeNode : issueNode.alternativeNodes) {
-
-                architectureDecision.getAlternativeAggregates().add(
-                        AlternativeAggregate.create(
-                                alternativeNode.getId(),
-                                alternativeNode.getTitle()
-                        )
-                );
-
-            }
-
-            architecturalDecisions.getValue().add(architectureDecision);
-
-
-        });
+        architecturalKnowledge.getIssueList().addAll(IssueMapper.toIssueList(issueNodes));
     }
 
     /**
@@ -77,31 +41,7 @@ public class SoftwareArchitectureRepository implements SoftwareArchitecturePort 
      *
      */
     @Override
-    public void getSystemsOfSystems(List<SystemOfSystems> systemsOfSystems) {
-
-        List<SystemNode> systemNodes = repository.findRoot();
-
-        systemNodes.forEach(systemNode -> {
-            SystemOfSystems systemOfSystems = SystemOfSystems.create();
-
-            systemOfSystems.setSystemClass(SystemMapper.toSystem(systemNode));
-
-            Optional<SystemNode> nodes = repository.findById(systemNode.getId());
-            nodes.ifPresent(node -> {
-                traverseSystem(node, systemOfSystems);
-            });
-
-            systemsOfSystems.add(systemOfSystems);
-        });
-
-    }
-
-    /**
-     *
-     *
-     */
-    @Override
-    public void getSoftwareArchitecture(ArchitectureDecisionRecordWarehouse softwareArchitecture) {
+    public void getSystemsOfSystems(List<SystemClass> systemsOfSystems) {
 
         // find all root nodes
         List<SystemNode> rootNodes = repository.findRoot();
@@ -109,30 +49,15 @@ public class SoftwareArchitectureRepository implements SoftwareArchitecturePort 
         // iterate of the root nodes
         rootNodes.forEach(rootNode -> {
 
-            // create a system of systems
-            SystemOfSystems systemOfSystems = SystemOfSystems.create();
-
-            // initialize the base system of the system of systems
-            systemOfSystems.setSystemClass(SystemMapper.toSystem(rootNode));
-
             // find the system node of root nodes
             Optional<SystemNode> systemNodes = repository.findById(rootNode.getId());
-            systemNodes.ifPresent(systemNode -> {
+            systemNodes.ifPresent(node -> {
 
-                // add architectural decisions
-                systemOfSystems.getArchitecturalDecisions().addAll(ArchitecturalDecisionListMapper.toArchitecturalDecisionList(systemNode));
+                SystemClass systemClass = SystemMapper.toSystem(node);
+                traverseSystem(node, systemClass);
+                systemsOfSystems.add(systemClass);
 
-                // add non-functional requirements
-                systemOfSystems.getNonFunctionalRequirements().addAll(NonFunctionalRequirementListMapper.toNonFunctionalRequirementList(systemNode.nonFunctionalRequirementNodes));
-
-                // add system elements
-                systemOfSystems.getSystemElementAggregateList().addAll(SystemElementAggregateListMapper.toSystemElementAggregate(systemNode.systemElementNodes));
-
-                // traverse the system recursively
-                traverseSystem(systemNode, systemOfSystems);
             });
-
-            softwareArchitecture.getSystemsOfSystems().add(systemOfSystems);
         });
 
     }
@@ -141,46 +66,16 @@ public class SoftwareArchitectureRepository implements SoftwareArchitecturePort 
      *
      *
      */
-    public void traverseSystem(SystemNode systemNode, SystemOfSystems systemOfSystems) {
+    public void traverseSystem(SystemNode systemNode, SystemClass system) {
         if (systemNode == null) {
             return;
         }
 
         if (systemNode.getSystemNodes() != null && !systemNode.getSystemNodes().isEmpty()) {
-            for (SystemNode child : systemNode.getSystemNodes()) {
-
-                SystemOfSystems sos = SystemOfSystems.create();
-
-                sos.getArchitecturalDecisions().addAll(ArchitecturalDecisionListMapper.toArchitecturalDecisionList(child));
-                sos.getNonFunctionalRequirements().addAll(NonFunctionalRequirementListMapper.toNonFunctionalRequirementList(child.nonFunctionalRequirementNodes));
-
-                child.systemElementNodes.forEach(systemElementNode -> {
-
-                    SystemElementAggregate systemElementAggregate = SystemElementAggregate.create();
-
-                    /* Constraint */
-                    for (ConstraintNode constraintNode : systemElementNode.constraintNodes) {
-                        systemElementAggregate.getConstraintList().add(Constraint.create(
-                           constraintNode.getId(),
-                           constraintNode.getTitle()
-                        ));
-                    }
-
-                    systemElementAggregate.setSystemElement(
-                            SystemElement.create(
-                                    systemElementNode.getId(),
-                                    systemElementNode.getTitle()
-                            )
-                    );
-
-                    sos.getSystemElementAggregateList().add(systemElementAggregate);
-                });
-
-                sos.setSystemClass(SystemMapper.toSystem(child));
-
-                traverseSystem(child, sos);
-
-                systemOfSystems.getSystemOfSystemsList().add(sos);
+            for (SystemNode childSystemNode : systemNode.getSystemNodes()) {
+                SystemClass childSystem = SystemMapper.toSystem(childSystemNode);
+                traverseSystem(childSystemNode, childSystem);
+                system.getSystemList().add(childSystem);
             }
         }
     }

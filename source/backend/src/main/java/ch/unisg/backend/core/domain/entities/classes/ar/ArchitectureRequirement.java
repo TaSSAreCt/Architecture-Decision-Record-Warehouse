@@ -8,10 +8,10 @@ import java.util.List;
 @Getter
 public class ArchitectureRequirement {
 
-    private final List<Constraint> constraint = new ArrayList<>();
-    private final List<ArchitecturePrinciple> architecturePrinciple = new ArrayList<>();
-    private final List<Intention> intention = new ArrayList<>();
-    private final List<NonFunctionalRequirement> nonFunctionalRequirement = new ArrayList<>();
+    private final List<Constraint> constraintList = new ArrayList<>();
+    private final List<ArchitecturePrinciple> architecturePrincipleList = new ArrayList<>();
+    private final List<Intention> intentionList = new ArrayList<>();
+    private final List<NonFunctionalRequirement> nonFunctionalRequirementList = new ArrayList<>();
 
     private ArchitectureRequirement() {}
 

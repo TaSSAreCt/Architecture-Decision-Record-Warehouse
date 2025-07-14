@@ -3,7 +3,7 @@ package ch.unisg.backend.infrastructure.repository.sdn;
 import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.port.out.ArchitectureRationalePort;
 import ch.unisg.backend.infrastructure.repository.sdn.api.ArchitectureRationaleCypherPort;
-import ch.unisg.backend.infrastructure.repository.sdn.node.ArchitectureRationaleNode;
+import ch.unisg.backend.infrastructure.repository.sdn.node.RationaleNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ public class RationaleRepository implements ArchitectureRationalePort {
     @Override
     public void create(Rationale architectureRationale) {
 
-        ArchitectureRationaleNode entity = ArchitectureRationaleNode.create(
+        RationaleNode entity = RationaleNode.create(
                 architectureRationale.getId(),
                 architectureRationale.getTitle(),
                 architectureRationale.getContext(),
@@ -37,7 +37,7 @@ public class RationaleRepository implements ArchitectureRationalePort {
     @Override
     public Rationale readById(Rationale architectureRationale) {
 
-        Optional<ArchitectureRationaleNode> entity = repository.findById(architectureRationale.getId());
+        Optional<RationaleNode> entity = repository.findById(architectureRationale.getId());
 
         entity.ifPresent(architectureRationaleNode -> architectureRationale.setTitle(architectureRationaleNode.getTitle()));
 

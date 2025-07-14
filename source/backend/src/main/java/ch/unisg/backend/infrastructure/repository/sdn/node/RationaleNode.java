@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Node("ArchitectureRationale")
 @Getter @Setter
-public class ArchitectureRationaleNode {
+public class RationaleNode {
 
     @Id
     private UUID id;
@@ -31,10 +31,10 @@ public class ArchitectureRationaleNode {
     @Property("Consequences")
     private String consequences;
 
-    @Relationship(type = "JUSTIFIED_BY", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "JUSTIFIES", direction = Relationship.Direction.OUTGOING)
     private AlternativeNode alternativeNode;
 
-    public ArchitectureRationaleNode(
+    public RationaleNode(
             UUID id,
             String title,
             String context,
@@ -50,7 +50,7 @@ public class ArchitectureRationaleNode {
         this.consequences = consequences;
     }
 
-    public static ArchitectureRationaleNode create(
+    public static RationaleNode create(
             UUID id,
             String title,
             String context,
@@ -58,6 +58,6 @@ public class ArchitectureRationaleNode {
             String status,
             String consequences
     ) {
-        return new ArchitectureRationaleNode(id, title, context, decision, status, consequences);
+        return new RationaleNode(id, title, context, decision, status, consequences);
     }
 }

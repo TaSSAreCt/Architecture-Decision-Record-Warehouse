@@ -33,8 +33,8 @@ public class AlternativeNode {
     @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
     private List<NonFunctionalRequirementNode> nonFunctionalRequirementNodes;
 
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    public List<IssueNode> issues;
+    @Relationship(type = "Justifies", direction = Relationship.Direction.INCOMING)
+    private List<RationaleNode> rationaleNodeList;
 
     public AlternativeNode(UUID id, String title) {
         this.id = id;

@@ -3,11 +3,12 @@ package ch.unisg.backend.core.domain.aggregate;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
 import ch.unisg.backend.core.domain.entities.classes.ar.ArchitectureRequirement;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 public class ArchitecturalKnowledge {
 
     private final List<Issue> issueList = new ArrayList<>();

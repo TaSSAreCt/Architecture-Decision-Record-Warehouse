@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,10 +23,10 @@ public class SystemElementNode {
     private String title;
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
-    public Set<SystemNode> systemNodes = new HashSet<>();
+    public List<SystemNode> systemNodes;
 
     @Relationship(type = "CONSTRAINED_BY",direction = Relationship.Direction.OUTGOING)
-    public Set<ConstraintNode> constraintNodes = new HashSet<>();
+    public List<ConstraintNode> constraintNodes;
 
     public SystemElementNode(UUID id, String title) {
         this.id = id;
