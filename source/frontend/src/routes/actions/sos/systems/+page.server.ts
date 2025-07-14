@@ -1,4 +1,4 @@
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 import type {Actions} from "@sveltejs/kit";
 import {RaiseRelationshipRequestDto} from "$lib/dto/request/relationship/RaiseRelationshipRequestDto";
 import {SystemClassRequestDto} from "$lib/dto/request/entity/SystemClassRequestDto";
@@ -13,7 +13,7 @@ export const actions = {
         systemDto.id = form.get("id") as string;
         systemDto.title = form.get("title") as string;
 
-        await fetch(`${SAT}/api/v1/systems`, {
+        await fetch(`${BACKEND}/api/v1/systems`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/system+json",
@@ -22,7 +22,7 @@ export const actions = {
         });
 
         if (form.get('parentSystemId') as string) {
-            await fetch(`${SAT}/api/v1/relationships/part-of`, {
+            await fetch(`${BACKEND}/api/v1/relationships/part-of`, {
                method: 'POST',
                headers: {
                    "Content-Type": "application/part-of+json",
@@ -46,7 +46,7 @@ export const actions = {
         dto.system.id = formData.get("systemId") as string;
         dto.issue.id = formData.get("issueId") as string;
 
-        const response = await fetch(`${SAT}/api/v1/relationships/raise`, {
+        const response = await fetch(`${BACKEND}/api/v1/relationships/raise`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/raise+json",

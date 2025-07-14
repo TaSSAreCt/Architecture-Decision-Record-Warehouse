@@ -1,7 +1,7 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import {ArchitectureDecision} from "$lib/domain/aggregate/ArchitectureDecision.svelte";
-    import {ArchitectureRationale} from "$lib/domain/entity/ad/Rationale.svelte.js";
+    import {ArchitectureRationale} from "$lib/domain/entity/ad/ArchitectureRationale.svelte.js";
     import {AlternativeAggregate} from "$lib/domain/aggregate/AlternativeAggregate.svelte";
     import {getContext} from "svelte";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
@@ -14,10 +14,16 @@
     const selectionManager : SelectionManager = getContext('selectionManager');
     const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
 
+    const date = new Date();
+
+    const title = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}_${architectureDecision.issue.title}`;
+    const context = ``;
+    const decision = ``;
+    const status = ``;
+    const consequence = ``;
+
     const constraint : Constraint[] = selectionManager.selectedSystemOfSystems.systemElementAggregates.flatMap(systemElement => systemElement.constraints);
     const nfr : NonFunctionalRequirement[] = selectionManager.selectedSystemOfSystems.nonFunctionalRequirements;
-
-    const alternativeIsSelected = $state(false);
 
 </script>
 
@@ -48,14 +54,18 @@
         <div class="option-group">
 
             {#each architectureDecision.alternatives as alternative}
+
+
+
                 <p>
                     {#if alternative.getRanked(constraint, nfr) > 0}
                         <input type="radio" name="alternativeId" id={alternative.alternative.id} class="option w3-border-green" value={alternative.alternative.id} required>
-                        <label for={alternative.alternative.id} class="w3-center option-label tooltip w3-border-green"><span class="tooltiptext">Force:
-                        <br><br>
-                            {#each alternative.forcedBy as forcedBy}
-                            <p>{forcedBy.architectureRequirement.value.title} ({forcedBy.impact})</p>
+                        <label for={alternative.alternative.id} class="w3-center option-label tooltip w3-border-green"><span class="tooltiptext">Force:<br>
+
+                        {#each alternative.forcedBy as forcedBy}
+                            {forcedBy.architectureRequirement.value.title} ({forcedBy.impact})<br>
                         {/each}
+
                     </span>{alternative.alternative.title}</label>
                     {/if}
 
@@ -85,15 +95,11 @@
             {/each}
         </div>
 
-        {#if }
-        <label for="title">Title:</label><br>
-        <input class="w3-input" placeholder="Title" id="title" type="text" name="title" value="ADR 1"><br>
-
-        <label for="context">Context:</label><br>
-        <input class="w3-input" placeholder="Context" id="context" type="text" name="context"><br>
-        <input class="w3-input" placeholder="Decision" id="decision" type="text" name="decision"><br>
-        <input class="w3-input" placeholder="Status" id="status" type="text" name="status"><br>
-        <input class="w3-input" placeholder="Consequences" id="consequences" type="text" name="consequences"><br>
+        <input class="w3-input" placeholder="Title" id="title" type="text" name="title" value={title}><br>
+        <input class="w3-input" placeholder="Context" id="context" type="text" name="context" value={context}><br>
+        <input class="w3-input" placeholder="Decision" id="decision" type="text" name="decision" value={decision}><br>
+        <input class="w3-input" placeholder="Status" id="status" type="text" name="status" value={status}><br>
+        <input class="w3-input" placeholder="Consequence" id="consequences" type="text" name="consequences" value={consequence}><br>
 
         <button class="w3-button" type="submit">justify</button>
     </form>

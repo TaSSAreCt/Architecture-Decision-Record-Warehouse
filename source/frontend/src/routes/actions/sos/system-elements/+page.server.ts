@@ -1,4 +1,4 @@
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 import type {Actions} from "@sveltejs/kit";
 
 export const actions = {
@@ -9,7 +9,7 @@ export const actions = {
 
         const systemId = form.get("systemId") as string;
 
-        await fetch(`${SAT}/api/v1/systems/${systemId}/system-elements`, {
+        await fetch(`${BACKEND}/api/v1/systems/${systemId}/system-elements`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/system-element+json",

@@ -72,7 +72,7 @@ To get a local copy up and running follow these simple example steps.
    ```
 2. Start docker compose
    ```sh
-    docker compose -f source/docker/docker-compose-dev.yml up --build -d
+    docker compose -f source/docker/docker-compose.dev.yml up --build -d
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

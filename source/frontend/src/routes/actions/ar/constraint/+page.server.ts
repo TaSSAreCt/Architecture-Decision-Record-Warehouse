@@ -1,6 +1,6 @@
 import type {Actions} from "@sveltejs/kit";
 import {ConstrainedByRelationshipRequestDto} from "$lib/dto/request/relationship/ConstrainedByRelationshipRequestDto";
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 
 export const actions = {
 
@@ -13,7 +13,7 @@ export const actions = {
         dto.constraint.id = formData.get("constrainedId") as string;
         dto.systemElement.id = formData.get("systemElementId") as string;
 
-        const response = await fetch(`${SAT}/api/v1/relationships/constrained-by`, {
+        const response = await fetch(`${BACKEND}/api/v1/relationships/constrained-by`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/constrained-by+json",

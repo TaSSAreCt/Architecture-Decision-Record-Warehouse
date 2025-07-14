@@ -1,4 +1,4 @@
-import {SAT} from "$env/static/private";
+import {BACKEND} from "$env/static/private";
 import type {Actions} from "@sveltejs/kit";
 
 export const actions = {
@@ -9,7 +9,7 @@ export const actions = {
 
         const issueId = String(form.get("issueId"));
 
-        await fetch(`${SAT}/api/v1/issues/${issueId}/alternatives`, {
+        await fetch(`${BACKEND}/api/v1/issues/${issueId}/alternatives`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/alternative+json",
