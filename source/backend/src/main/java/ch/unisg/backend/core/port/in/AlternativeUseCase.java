@@ -3,7 +3,7 @@ package ch.unisg.backend.core.port.in;
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
 import ch.unisg.backend.core.port.in.command.CreateAlternativeWithIssueCommand;
 import ch.unisg.backend.core.port.in.command.classes.AlternativeCommand;
-import ch.unisg.backend.core.port.in.query.classes.AlternativeQuery;
+import ch.unisg.backend.core.port.in.query.AlternativeQuery;
 
 
 public interface AlternativeUseCase {

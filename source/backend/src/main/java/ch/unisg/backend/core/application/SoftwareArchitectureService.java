@@ -3,7 +3,6 @@ package ch.unisg.backend.core.application;
 import ch.unisg.backend.core.domain.aggregate.*;
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
 import ch.unisg.backend.core.domain.entities.classes.ar.*;
-import ch.unisg.backend.core.domain.entities.relationships.ForcedBy;
 import ch.unisg.backend.core.port.in.SoftwareArchitectureUseCase;
 import ch.unisg.backend.core.port.in.command.CreateArchitectureRequirement;
 import ch.unisg.backend.core.port.out.*;
@@ -47,9 +46,9 @@ public class SoftwareArchitectureService implements SoftwareArchitectureUseCase 
     }
 
     @Override
-    public SoftwareArchitecture getSoftwareArchitectureRepresentation() {
+    public ArchitectureDecisionRecordWarehouse getSoftwareArchitectureRepresentation() {
 
-        SoftwareArchitecture softwareArchitecture = SoftwareArchitecture.create();
+        ArchitectureDecisionRecordWarehouse softwareArchitecture = ArchitectureDecisionRecordWarehouse.create();
 
         softwareArchitecturePort.getSoftwareArchitecture(softwareArchitecture);
 

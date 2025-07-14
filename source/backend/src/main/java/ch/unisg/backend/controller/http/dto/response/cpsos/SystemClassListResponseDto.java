@@ -1,7 +1,6 @@
 package ch.unisg.backend.controller.http.dto.response.cpsos;
 
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
-import ch.unisg.backend.core.domain.entities.classes.sos.SystemClassList;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -16,12 +15,12 @@ public class SystemClassListResponseDto {
         this.systemClassList = new ArrayList<>();
     }
 
-    public static ArrayList<Object> toJson(SystemClassList systemClassList) {
+    public static ArrayList<Object> toJson(List<SystemClass> systemClassList) {
 
         ArrayList<Object> dto = new ArrayList<>();
 
-        for (SystemClass element : systemClassList.getSystemClassList()) {
-            dto.add(SystemClassResponseDto.toJson(element.getId(), element.getTitle()));
+        for (SystemClass element : systemClassList) {
+            dto.add(SystemClassResponseDto.toJson(element));
         }
 
         return dto;

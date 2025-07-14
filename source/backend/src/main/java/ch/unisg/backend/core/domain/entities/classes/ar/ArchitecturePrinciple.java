@@ -1,16 +1,17 @@
 package ch.unisg.backend.core.domain.entities.classes.ar;
 
-import ch.unisg.backend.core.domain.aggregate.ArchitecturalRequirement;
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ArchitecturePrinciple extends MetaClass implements ArchitecturalRequirement {
+@Getter
+public class ArchitecturePrinciple extends MetaClass {
 
     public ArchitecturePrinciple() {}
     public ArchitecturePrinciple(UUID id) {
-        super(id, "");
+        super(id, null);
     }
     public ArchitecturePrinciple(UUID id, String title) {
         super(id, title);

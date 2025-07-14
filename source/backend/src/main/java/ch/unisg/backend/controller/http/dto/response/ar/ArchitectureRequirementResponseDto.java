@@ -14,17 +14,38 @@ public class ArchitectureRequirementResponseDto {
         return URI.create(LOCATION + id.toString());
     }
 
-    public ArchitectureRequirementResponseDto() {
-
-    }
+    public ArchitectureRequirementResponseDto() {}
 
     public static HashMap<String, Object> toJson(ArchitectureRequirement architectureRequirement) {
 
         HashMap<String, Object> result = new HashMap<>();
 
-        result.put("id", architectureRequirement.getId());
-        result.put("title", architectureRequirement.getTitle());
-        result.put("value", architectureRequirement.getValue());
+        result.put(
+                "nonFunctionalRequirementList",
+                architectureRequirement
+                        .getNonFunctionalRequirement()
+                        .stream().map(NonFunctionalRequirementResponseDto::create));
+
+        result.put(
+                "constraintList",
+                architectureRequirement
+                        .getConstraint()
+                        .stream().map(ConstraintResponseDto::create)
+        );
+
+        result.put(
+                "intentionList",
+                architectureRequirement
+                        .getIntention()
+                        .stream().map(IntentionResponseDto::create)
+        );
+
+        result.put(
+                "architecturePrinciple",
+                architectureRequirement
+                        .getArchitecturePrinciple()
+                        .stream().map(ArchitecturePrincipleResponseDto::create)
+        );
 
         return result;
 

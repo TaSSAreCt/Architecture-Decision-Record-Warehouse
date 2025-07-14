@@ -3,7 +3,7 @@ package ch.unisg.backend.core.application;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
 import ch.unisg.backend.core.port.in.IssueUseCase;
 import ch.unisg.backend.core.port.in.command.classes.IssueCommand;
-import ch.unisg.backend.core.port.in.query.classes.IssueQuery;
+import ch.unisg.backend.core.port.in.query.IssueQuery;
 import ch.unisg.backend.core.port.out.IssuePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

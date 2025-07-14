@@ -1,6 +1,6 @@
-import {ArchitectureRationale} from "$lib/domain/entity/ad/Rationale.svelte.js";
+import {Madr} from "$lib/domain/entity/ad/M-adr.svelte";
 
-export class ArchitectureRationaleResponseDto {
+export class MadrRationaleResponseDto {
     id : string = "";
     title : string = "";
     context : string = "";
@@ -9,19 +9,23 @@ export class ArchitectureRationaleResponseDto {
     consequences : string = "";
 }
 
-export function fromArchitectureRationaleResponseDto(architectureRationaleResponseDto : ArchitectureRationaleResponseDto) : ArchitectureRationale {
-    const architectureRationale : ArchitectureRationale = ArchitectureRationale.create();
-
-    architectureRationale.id = architectureRationaleResponseDto.id;
-    architectureRationale.title = architectureRationaleResponseDto.title;
-    architectureRationale.context = architectureRationaleResponseDto.context;
-    architectureRationale.decision = architectureRationaleResponseDto.decision;
-    architectureRationale.status = architectureRationaleResponseDto.status;
-    architectureRationale.consequences = architectureRationaleResponseDto.consequences;
-
-    return architectureRationale;
+export function fromMadrRationalesResponseDto(
+    architecturalRationalesResponseDto : MadrRationaleResponseDto[]
+) : Madr[] {
+    return architecturalRationalesResponseDto.map(fromMadrRationaleResponseDto);
 }
 
-export function fromArchitectureRationalesResponseDto(architecturalRationalesResponseDto : ArchitectureRationaleResponseDto[]) : ArchitectureRationale[] {
-    return architecturalRationalesResponseDto.map(fromArchitectureRationaleResponseDto);
+export function fromMadrRationaleResponseDto(
+    madrRationaleResponseDto : MadrRationaleResponseDto
+) : Madr {
+    const rationale : Madr = Madr.create();
+
+    rationale.id = madrRationaleResponseDto.id;
+    rationale.title = madrRationaleResponseDto.title;
+    rationale.context = madrRationaleResponseDto.context;
+    rationale.decision = madrRationaleResponseDto.decision;
+    rationale.status = madrRationaleResponseDto.status;
+    rationale.consequences = madrRationaleResponseDto.consequences;
+
+    return rationale;
 }

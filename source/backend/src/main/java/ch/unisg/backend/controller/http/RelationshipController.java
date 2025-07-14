@@ -1,6 +1,6 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.relationship.*;
+import ch.unisg.backend.controller.http.dto.request.relationship.*;
 import ch.unisg.backend.controller.http.dto.response.ar.ForcedByResponseDto;
 import ch.unisg.backend.controller.http.dto.response.relationship.*;
 import ch.unisg.backend.core.port.in.RelationshipManagerUseCase;

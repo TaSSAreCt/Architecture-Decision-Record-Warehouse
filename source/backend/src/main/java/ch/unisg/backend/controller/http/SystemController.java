@@ -1,12 +1,12 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.aggregate.CreateSystemRequestDto;
+import ch.unisg.backend.controller.http.dto.request.CreateSystemRequestDto;
 import ch.unisg.backend.controller.http.dto.response.cpsos.SystemClassListResponseDto;
+import ch.unisg.backend.controller.http.dto.response.cpsos.SystemClassResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
-import ch.unisg.backend.core.domain.entities.classes.sos.SystemClassList;
 import ch.unisg.backend.core.port.in.SystemUseCase;
 import ch.unisg.backend.core.port.in.command.classes.SystemCommand;
-import ch.unisg.backend.core.port.in.query.classes.SystemQuery;
+import ch.unisg.backend.core.port.in.query.SystemQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -42,13 +43,13 @@ public class SystemController {
 
         SystemClass systemClass = systemUseCase.getSystemById(query);
 
-        return ResponseEntity.ok(systemClass.toJSON());
+        return ResponseEntity.ok(SystemClassResponseDto.toJson(systemClass));
     }
 
     @GetMapping(path = "/systems")
     public ResponseEntity<ArrayList<Object>> getSystems() {
 
-        SystemClassList systemClassList = systemUseCase.getSystemList();
+        List<SystemClass> systemClassList = systemUseCase.getSystemList();
 
         return ResponseEntity.ok(SystemClassListResponseDto.toJson(systemClassList));
     }

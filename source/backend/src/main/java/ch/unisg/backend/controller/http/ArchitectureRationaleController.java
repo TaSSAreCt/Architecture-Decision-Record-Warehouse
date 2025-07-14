@@ -1,11 +1,11 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.ArchitectureRationaleRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.ArchitectureRationaleRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ad.ArchitectureRationaleResponseDto;
-import ch.unisg.backend.core.domain.entities.classes.ad.ArchitectureRationale;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.port.in.ArchitectureRationaleUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ArchitectureRationaleCommand;
-import ch.unisg.backend.core.port.in.query.classes.ArchitectureRationaleQuery;
+import ch.unisg.backend.core.port.in.query.ArchitectureRationaleQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +47,7 @@ public class ArchitectureRationaleController {
 
         ArchitectureRationaleQuery query = new ArchitectureRationaleQuery(architectureRationaleId);
 
-        ArchitectureRationale architectureRationale = architectureRationaleUseCase.findById(query);
+        Rationale architectureRationale = architectureRationaleUseCase.findById(query);
 
         return ResponseEntity.ok(ArchitectureRationaleResponseDto.create(architectureRationale));
     }

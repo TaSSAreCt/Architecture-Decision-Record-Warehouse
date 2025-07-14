@@ -1,16 +1,16 @@
 <script lang="ts">
 
-    import {AlternativeAggregate} from "$lib/domain/aggregate/AlternativeAggregate.svelte";
     import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
     import {Intention} from "$lib/domain/entity/ar/Intention.svelte";
     import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte";
     import {ArchitecturePrinciple} from "$lib/domain/entity/ar/ArchitecturePrinciple.svelte";
-    import {ForcedBy} from "$lib/domain/aggregate/ForcedBy.svelte";
     import {enhance} from "$app/forms";
     import {getContext} from "svelte";
-    import {ArchitecturalRequirements} from "$lib/domain/aggregate/ArchitecturalRequirements.svelte.js";
+    import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequirements.svelte.js";
+    import {Alternative} from "$lib/domain/entity/ad/Alternative.svelte";
+    import {Influence} from "$lib/domain/entity/ad/Influence.svelte";
 
-    const { alternativeAggregate } : { alternativeAggregate : AlternativeAggregate } = $props();
+    const { alternative } : { alternative : Alternative } = $props();
 
     const architecturalRequirements : ArchitecturalRequirements = getContext('architecturalRequirements');
 
@@ -26,11 +26,14 @@
 
         const id = crypto.randomUUID();
         formData.set("id", id);
-        formData.set("alternativeId", alternativeAggregate.alternative.id)
+
+        if (alternative.id) {
+            formData.set("alternative", alternative.id);
+        }
 
         const value = formData.get("impact");
         const architectureRequirementType = String(formData.get("architectureRequirementType"));
-        const title = formData.get("title");
+        const title = String(formData.get("title"));
 
          let architectureRequirement;
 
@@ -39,36 +42,34 @@
 
             architectureRequirement.id = id;
             architectureRequirement.title = title;
-            architecturalRequirements.constraints.push(architectureRequirement);
+            architecturalRequirements.constraintList.push(architectureRequirement);
 
          } else if (architectureRequirementType === "intention") {
             architectureRequirement = Intention.create();
             architectureRequirement.id = id;
             architectureRequirement.title = title;
-            architecturalRequirements.intentions.push(architectureRequirement);
+            architecturalRequirements.intentionList.push(architectureRequirement);
 
          } else if (architectureRequirementType === "architecturePrinciple") {
             architectureRequirement = ArchitecturePrinciple.create();
             architectureRequirement.id = id;
             architectureRequirement.title = title;
-            architecturalRequirements.architecturalPrinciples.push(architectureRequirement);
+            architecturalRequirements.architecturePrincipleList.push(architectureRequirement);
 
          } else {
             architectureRequirement = NonFunctionalRequirement.create();
             architectureRequirement.id = id;
             architectureRequirement.title = title;
-            architecturalRequirements.nonFunctionalRequirements.push(architectureRequirement);
+            architecturalRequirements.nonFunctionalRequirementList.push(architectureRequirement);
          }
 
          return async ({result}) => {
             if (result) {
                 console.log("Architecture requirement is created.");
-                document.getElementById("architectureRequirement").reset();
 
-                alternativeAggregate.forcedBy.push(ForcedBy.create({
-                    value: architectureRequirement,
-                    type: architectureRequirementType
-                 }, value));
+                const influence : Influence = Influence.create();
+
+                alternative.influenceList.push(Influence.create());
 
             }
         }
@@ -99,23 +100,23 @@
                 <div class="w3-left" style="width: 400px">
                     <div class="w3-left" style="width: 400px;">
 
-                        <input list="architectureRequirementList" class="w3-input" placeholder="Architecture requirement title" id="title" type="text" name="title"><br>
+                        <input list="architectureRequirementList" class="w3-input" placeholder="Architecture requirement title" id="title" type="text" name="title" required><br>
 
                         <datalist id="architectureRequirementList">
 
-                            {#each architecturalRequirements.constraints as constraint}
+                            {#each architecturalRequirements.constraintList as constraint}
                                 <option value={constraint.title}></option>
                             {/each}
 
-                            {#each architecturalRequirements.intentions as intention}
+                            {#each architecturalRequirements.intentionList as intention}
                                 <option value={intention.title}></option>
                             {/each}
 
-                            {#each architecturalRequirements.architecturalPrinciples as architecturePrinciple}
+                            {#each architecturalRequirements.architecturePrincipleList as architecturePrinciple}
                                 <option value={architecturePrinciple.title}></option>
                             {/each}
 
-                            {#each architecturalRequirements.nonFunctionalRequirements as nfr}
+                            {#each architecturalRequirements.nonFunctionalRequirementList as nfr}
                                 <option value={nfr.title}></option>
                             {/each}
                         </datalist>
@@ -130,16 +131,16 @@
         </div>
 
     </form>
-
-    {#if alternativeAggregate.forcedBy.length !== 0}
+    <!--
+    {#if alternative.influenceList.length !== 0}
         <div class="w3-border w3-border-green">
-            {#each alternativeAggregate.forcedBy as force}
-                <p style="padding-left: 20px"> + {force.architectureRequirement.value.title}</p>
+            {#each alternative.influenceList as influence}
+                <p style="padding-left: 20px"> + {influence.architectureRequirement.value.title}</p>
             {/each}
         </div>
 
         <hr style="height:1px;border:none;color:#333;background-color:#333;">
 
     {/if}
-
+    -->
 </div>

@@ -5,7 +5,7 @@ import ch.unisg.backend.core.domain.entities.classes.ar.Intention;
 import ch.unisg.backend.core.port.in.IntentionUseCase;
 import ch.unisg.backend.core.port.in.command.classes.IntentionCommand;
 import ch.unisg.backend.core.port.in.command.relationships.ForcedByCommand;
-import ch.unisg.backend.core.port.in.query.classes.IntentionQuery;
+import ch.unisg.backend.core.port.in.query.IntentionQuery;
 import ch.unisg.backend.core.port.out.IntentionPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,14 +26,6 @@ public class IntentionService implements IntentionUseCase {
         intentionPort.create(intention);
 
         return intention;
-    }
-
-    @Override
-    public UUID force(ForcedByCommand forcedByCommand) {
-
-        Alternative alternative = Alternative.create(forcedByCommand.alternative().id());
-        Intention intention = Intention.create(forcedByCommand.architectureRequirement().id());
-        return intentionPort.force(alternative, intention);
     }
 
     @Override

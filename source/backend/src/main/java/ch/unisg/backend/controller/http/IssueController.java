@@ -1,11 +1,11 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.IssueRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.IssueRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ad.IssueResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
 import ch.unisg.backend.core.port.in.IssueUseCase;
 import ch.unisg.backend.core.port.in.command.classes.IssueCommand;
-import ch.unisg.backend.core.port.in.query.classes.IssueQuery;
+import ch.unisg.backend.core.port.in.query.IssueQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -4,7 +4,7 @@ import ch.unisg.backend.controller.http.dto.response.ar.ArchitecturePrincipleRes
 import ch.unisg.backend.controller.http.dto.response.ar.ConstraintResponseDto;
 import ch.unisg.backend.controller.http.dto.response.ar.IntentionResponseDto;
 import ch.unisg.backend.controller.http.dto.response.ar.NonFunctionalRequirementResponseDto;
-import ch.unisg.backend.core.domain.aggregate.ArchitecturalRequirements;
+import ch.unisg.backend.core.domain.entities.classes.ar.ArchitecturalRequirements;
 import ch.unisg.backend.core.domain.entities.classes.ar.ArchitecturePrinciple;
 import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
 import ch.unisg.backend.core.domain.entities.classes.ar.Intention;

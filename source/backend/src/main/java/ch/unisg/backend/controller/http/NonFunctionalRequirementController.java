@@ -1,11 +1,11 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.NonFunctionalRequirementRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.NonFunctionalRequirementRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ar.NonFunctionalRequirementResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 import ch.unisg.backend.core.port.in.NonFunctionalRequirementUseCase;
 import ch.unisg.backend.core.port.in.command.classes.NonFunctionalRequirementCommand;
-import ch.unisg.backend.core.port.in.query.classes.NonFunctionalRequirementQuery;
+import ch.unisg.backend.core.port.in.query.NonFunctionalRequirementQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 export class NonFunctionalRequirement {
-    id : string = $state("");
-    title : string = $state("");
+    id : string | undefined = $state();
+    title : string | undefined = $state();
 
     constructor() {
     }

@@ -4,8 +4,8 @@ import {Issue} from "$lib/domain/entity/ad/Issue.svelte";
 
 export class System {
 
-    id : string = $state("");
-    title : string = $state("");
+    id : string | undefined = $state<string>();
+    title : string | undefined = $state<string>();
     systemList = $state<System[]>([]);
     systemElementList : SystemElement[] = $state([]);
     nonFunctionalRequirementList : NonFunctionalRequirement[] = $state([]);

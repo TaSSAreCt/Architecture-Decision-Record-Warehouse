@@ -1,8 +1,5 @@
 package ch.unisg.backend.controller.http.dto.response;
 
-import ch.unisg.backend.core.domain.aggregate.ArchitecturalDecisions;
-import ch.unisg.backend.core.domain.aggregate.ArchitectureDecision;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

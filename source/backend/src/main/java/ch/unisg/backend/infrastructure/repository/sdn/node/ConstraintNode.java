@@ -1,6 +1,6 @@
 package ch.unisg.backend.infrastructure.repository.sdn.node;
 
-import ch.unisg.backend.infrastructure.repository.sdn.relationship.ForcesRelationship;
+import ch.unisg.backend.infrastructure.repository.sdn.relationship.InfluenceRelationship;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -22,8 +22,8 @@ public class ConstraintNode {
     @Property("title")
     private String title;
 
-    @Relationship(type = "FORCED_BY", direction = Relationship.Direction.INCOMING)
-    public Set<ForcesRelationship> forcesRelationships = new HashSet<>();
+    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
+    public Set<InfluenceRelationship> forcesRelationships = new HashSet<>();
 
     public ConstraintNode(UUID id, String title) {
         this.id = id;

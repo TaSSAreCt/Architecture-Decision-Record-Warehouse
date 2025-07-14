@@ -5,7 +5,7 @@ import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemElement;
 import ch.unisg.backend.core.port.in.SystemElementUseCase;
 import ch.unisg.backend.core.port.in.command.CreateSystemElementCommand;
-import ch.unisg.backend.core.port.in.query.classes.SystemElementQuery;
+import ch.unisg.backend.core.port.in.query.SystemElementQuery;
 import ch.unisg.backend.core.port.out.SystemElementPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

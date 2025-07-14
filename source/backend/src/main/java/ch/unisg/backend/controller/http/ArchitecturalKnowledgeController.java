@@ -1,9 +1,9 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.aggregate.ArchitecturalKnowledgeRequestDto;
-import ch.unisg.backend.controller.http.dto.request.entity.concept.ArchitectureRequirementRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.ArchitectureRequirementRequestDto;
 import ch.unisg.backend.controller.http.dto.response.*;
 import ch.unisg.backend.core.domain.aggregate.*;
+import ch.unisg.backend.core.domain.entities.classes.ar.ArchitecturalRequirements;
 import ch.unisg.backend.core.port.in.SoftwareArchitectureUseCase;
 import ch.unisg.backend.core.port.in.command.CreateArchitectureRequirement;
 import lombok.RequiredArgsConstructor;
@@ -61,18 +61,6 @@ public class ArchitecturalKnowledgeController {
      *
      *
      */
-    @GetMapping(path = "/architectural-decisions")
-    public ResponseEntity<List<HashMap<String, Object>>> getArchitecturalDecisions() {
-
-        ArchitecturalDecisions architecturalDecisions = softwareArchitectureUseCase.getArchitecturalDecisions();
-
-        return ResponseEntity.ok(ArchitecturalDecisionsResponseDto.toJson(architecturalDecisions));
-    }
-
-    /**
-     *
-     *
-     */
     @GetMapping(path = "/architectural-knowledge")
     public ResponseEntity<List<HashMap<String, Object>>> getArchitecturalKnowledge() {
 
@@ -93,27 +81,6 @@ public class ArchitecturalKnowledgeController {
      *
      *
      */
-    @PostMapping(path = "/architectural-knowledge")
-    public ResponseEntity<String> addArchitecturalKnowledge(
-            @RequestBody ArchitecturalKnowledgeRequestDto payload
-    ) {
-
-
-        /*
-        CreateArchitecturalKnowledgeCommand command = CreateArchitecturalKnowledgeCommand.create(
-                IssueCommand.create(payload.getIssue().getId(), payload.getIssue().getTitle()),
-                AlternativeCommand.create(payload.)
-        );
-
-         */
-
-        return ResponseEntity.ok("");
-    }
-
-    /**
-     *
-     *
-     */
     @GetMapping(path = "/systems-of-systems")
     public ResponseEntity<List<HashMap<String, Object>>> getSystemsOfSystems() {
         List<SystemOfSystems> systemsOfSystems = softwareArchitectureUseCase.getSystemsOfSystems();
@@ -127,7 +94,7 @@ public class ArchitecturalKnowledgeController {
     @GetMapping(path = "/architectural-knowledge-cpsos")
     public ResponseEntity<List<HashMap<String, Object>>> getSoftwareArchitectureRepresentation() {
 
-        SoftwareArchitecture softwareArchitecture = softwareArchitectureUseCase.getSoftwareArchitectureRepresentation();
+        ArchitectureDecisionRecordWarehouse softwareArchitecture = softwareArchitectureUseCase.getSoftwareArchitectureRepresentation();
 
         return ResponseEntity.ok(ArchitecturalKnowledgeWithCPSoSDto.toJson(softwareArchitecture));
     }

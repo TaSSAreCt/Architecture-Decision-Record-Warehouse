@@ -1,11 +1,12 @@
 import {Rationale} from "$lib/domain/entity/ad/Rationale.svelte";
-import type {Influence} from "$lib/domain/entity/ad/Influence.svelte";
+import {Influence} from "$lib/domain/entity/ad/Influence.svelte";
 
 export class Alternative {
-    id : string = $state("");
-    title : string = $state("");
-    rationaleList : Rationale[] = $state([]);
-    influenceList : Influence[] = $state([]);
+
+    id : string | undefined = $state<string | undefined>();
+    title : string | undefined = $state<string | undefined>();
+    rationaleList : Rationale[] = $state<Rationale[]>([]);
+    influenceList : Influence[] = $state<Influence[]>([]);
 
     constructor() {
     }

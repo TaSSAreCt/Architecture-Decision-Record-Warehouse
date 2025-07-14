@@ -1,9 +1,8 @@
 package ch.unisg.backend.core.application;
 
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
-import ch.unisg.backend.core.domain.entities.classes.ad.ArchitectureRationale;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
-import ch.unisg.backend.core.domain.entities.classes.ar.ArchitectureRequirement;
 import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
@@ -77,24 +76,16 @@ public class RelationshipManagerService implements RelationshipManagerUseCase {
 
     @Override
     public UUID create(JustifiedByCommand command) {
-        ArchitectureRationale architectureRationale = ArchitectureRationale.create(command.architectureRationale().id());
+        Rationale architectureRationale = Rationale.create(command.architectureRationale().id());
         Alternative alternative = Alternative.create(command.alternative().id());
 
         return relationshipManagerPort.create(JustifiedBy.create(UUID.randomUUID(), architectureRationale, alternative));
     }
 
     @Override
-    public UUID create(ForcedByCommand command) {
-        ArchitectureRequirement architectureRequirement = ArchitectureRequirement.create(command.architectureRequirement().id());
-        Alternative alternative = Alternative.create(command.alternative().id());
-
-        return relationshipManagerPort.create(ForcedBy.create(UUID.randomUUID(), command.value(), architectureRequirement, alternative));
-    }
-
-    @Override
     public UUID create(HasCommand command) {
         SystemClass systemClass = SystemClass.create(command.systemCommand().id());
-        ArchitectureRationale architectureRationale = ArchitectureRationale.create(command.architectureRationaleCommand().id());
+        Rationale architectureRationale = Rationale.create(command.architectureRationaleCommand().id());
 
         return relationshipManagerPort.create(Has.create(UUID.randomUUID(), systemClass, architectureRationale));
     }

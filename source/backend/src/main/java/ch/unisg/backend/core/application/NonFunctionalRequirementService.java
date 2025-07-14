@@ -3,7 +3,7 @@ package ch.unisg.backend.core.application;
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 import ch.unisg.backend.core.port.in.NonFunctionalRequirementUseCase;
 import ch.unisg.backend.core.port.in.command.classes.NonFunctionalRequirementCommand;
-import ch.unisg.backend.core.port.in.query.classes.NonFunctionalRequirementQuery;
+import ch.unisg.backend.core.port.in.query.NonFunctionalRequirementQuery;
 import ch.unisg.backend.core.port.out.NonFunctionalRequirementPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

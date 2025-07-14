@@ -3,7 +3,6 @@ package ch.unisg.backend.controller.http.dto.response.ad;
 import ch.unisg.backend.controller.http.dto.response.ResponseDto;
 import ch.unisg.backend.controller.http.dto.response.ar.ArchitecturalRequirementsResponseDto;
 import ch.unisg.backend.controller.http.dto.response.ar.ForcedByResponseDto;
-import ch.unisg.backend.core.domain.aggregate.AlternativeAggregate;
 import lombok.Getter;
 import lombok.Setter;
 

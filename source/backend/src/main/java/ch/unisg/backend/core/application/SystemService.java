@@ -1,13 +1,15 @@
 package ch.unisg.backend.core.application;
 
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
-import ch.unisg.backend.core.domain.entities.classes.sos.SystemClassList;
 import ch.unisg.backend.core.port.in.SystemUseCase;
 import ch.unisg.backend.core.port.in.command.classes.SystemCommand;
-import ch.unisg.backend.core.port.in.query.classes.SystemQuery;
+import ch.unisg.backend.core.port.in.query.SystemQuery;
 import ch.unisg.backend.core.port.out.SystemPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -31,8 +33,7 @@ public class SystemService implements SystemUseCase {
     }
 
     @Override
-    public SystemClassList getSystemList() {
-        SystemClassList systemClassList = SystemClassList.create();
-        return systemPort.findSystems(systemClassList);
+    public List<SystemClass> getSystemList() {
+        return systemPort.findSystems();
     }
 }

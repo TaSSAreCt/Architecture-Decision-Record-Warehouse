@@ -1,11 +1,11 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.ArchitecturePrincipleRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.ArchitecturePrincipleRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ar.ArchitecturePrincipleResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ar.ArchitecturePrinciple;
 import ch.unisg.backend.core.port.in.ArchitecturePrincipleUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ArchitecturePrincipleCommand;
-import ch.unisg.backend.core.port.in.query.classes.ArchitecturePrincipleQuery;
+import ch.unisg.backend.core.port.in.query.ArchitecturePrincipleQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

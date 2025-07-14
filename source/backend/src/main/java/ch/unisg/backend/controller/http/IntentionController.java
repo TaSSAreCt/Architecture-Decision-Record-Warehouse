@@ -1,11 +1,11 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.ConstraintRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.ConstraintRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ar.IntentionResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ar.Intention;
 import ch.unisg.backend.core.port.in.IntentionUseCase;
 import ch.unisg.backend.core.port.in.command.classes.IntentionCommand;
-import ch.unisg.backend.core.port.in.query.classes.IntentionQuery;
+import ch.unisg.backend.core.port.in.query.IntentionQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

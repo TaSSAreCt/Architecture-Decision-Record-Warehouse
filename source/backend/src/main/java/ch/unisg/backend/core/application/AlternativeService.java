@@ -6,7 +6,7 @@ import ch.unisg.backend.core.domain.entities.relationships.SolvedBy;
 import ch.unisg.backend.core.port.in.AlternativeUseCase;
 import ch.unisg.backend.core.port.in.command.CreateAlternativeWithIssueCommand;
 import ch.unisg.backend.core.port.in.command.classes.AlternativeCommand;
-import ch.unisg.backend.core.port.in.query.classes.AlternativeQuery;
+import ch.unisg.backend.core.port.in.query.AlternativeQuery;
 import ch.unisg.backend.core.port.out.AlternativePort;
 import ch.unisg.backend.core.port.out.RelationshipManagerPort;
 import lombok.RequiredArgsConstructor;

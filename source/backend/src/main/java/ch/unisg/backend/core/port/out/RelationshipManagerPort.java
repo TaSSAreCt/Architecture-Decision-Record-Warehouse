@@ -11,7 +11,6 @@ public interface RelationshipManagerPort {
     UUID create(PartOf partOf);
     UUID create(ConstrainedBy constrainedBy);
     UUID create(Require require);
-    UUID create(ForcedBy forcedBy);
     UUID create(JustifiedBy justifiedBy);
     UUID create(Has has);
 }

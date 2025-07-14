@@ -1,7 +1,7 @@
 <script lang="ts">
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
-    import {ArchitecturalRequirements} from "$lib/domain/aggregate/ArchitecturalRequirements.svelte";
+    import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequirements.svelte.js";
     import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
     import type {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
 

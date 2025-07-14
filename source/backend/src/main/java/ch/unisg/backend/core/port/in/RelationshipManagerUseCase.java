@@ -13,6 +13,5 @@ public interface RelationshipManagerUseCase {
     UUID create(ConstrainedByCommand command);
     UUID create(RequireCommand command);
     UUID create(JustifiedByCommand command);
-    UUID create(ForcedByCommand command);
     UUID create(HasCommand command);
 }

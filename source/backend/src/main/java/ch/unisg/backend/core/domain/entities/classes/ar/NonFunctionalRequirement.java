@@ -1,10 +1,9 @@
 package ch.unisg.backend.core.domain.entities.classes.ar;
 
-import ch.unisg.backend.core.domain.aggregate.ArchitecturalRequirement;
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
 import java.util.UUID;
 
-public class NonFunctionalRequirement extends MetaClass implements ArchitecturalRequirement {
+public class NonFunctionalRequirement extends MetaClass {
 
     public NonFunctionalRequirement() {}
     public NonFunctionalRequirement(UUID id, String title) {
@@ -13,10 +12,6 @@ public class NonFunctionalRequirement extends MetaClass implements Architectural
 
     public static NonFunctionalRequirement create(UUID id, String title) {
         return new NonFunctionalRequirement(id, title);
-    }
-
-    public String getType() {
-        return "nonFunctionalRequirement";
     }
 
     public static NonFunctionalRequirement create(UUID id) {

@@ -1,12 +1,12 @@
 import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte.js";
 
 export class ConstraintResponseDto {
-    id : string = "";
-    title : string = "";
+    id : string | undefined;
+    title : string | undefined;
 }
 
-export function fromConstraintsResponseDto(constraintsResponseDto : ConstraintResponseDto[]) : Constraint[] {
-    return constraintsResponseDto.map(fromConstraintResponseDto);
+export function fromConstraintListResponseDto(constraintListResponseDto : ConstraintResponseDto[]) : Constraint[] {
+    return constraintListResponseDto.map(fromConstraintResponseDto);
 }
 
 export function fromConstraintResponseDto(constraintResponseDto : ConstraintResponseDto) : Constraint {

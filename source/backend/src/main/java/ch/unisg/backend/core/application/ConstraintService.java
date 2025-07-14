@@ -3,7 +3,7 @@ package ch.unisg.backend.core.application;
 import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
 import ch.unisg.backend.core.port.in.ConstraintUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ConstraintCommand;
-import ch.unisg.backend.core.port.in.query.classes.ConstraintQuery;
+import ch.unisg.backend.core.port.in.query.ConstraintQuery;
 import ch.unisg.backend.core.port.out.ConstraintPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

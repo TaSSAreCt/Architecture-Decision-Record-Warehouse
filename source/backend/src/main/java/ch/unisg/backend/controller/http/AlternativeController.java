@@ -1,12 +1,12 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.AlternativeRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.AlternativeRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ad.AlternativeResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
 import ch.unisg.backend.core.port.in.AlternativeUseCase;
 import ch.unisg.backend.core.port.in.command.CreateAlternativeWithIssueCommand;
 import ch.unisg.backend.core.port.in.command.classes.AlternativeCommand;
-import ch.unisg.backend.core.port.in.query.classes.AlternativeQuery;
+import ch.unisg.backend.core.port.in.query.AlternativeQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

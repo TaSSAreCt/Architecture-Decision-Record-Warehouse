@@ -21,19 +21,19 @@ public class AlternativeNode {
     @Property("isSelected")
     private Boolean isSelected;
 
-    @Relationship(type = "FORCED_BY", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
     private List<ConstraintNode> constraintNodes;
 
-    @Relationship(type = "FORCED_BY", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
     private List<IntentionNode> intentionNodes;
 
-    @Relationship(type = "FORCED_BY", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
     private List<ArchitecturePrincipleNode> architecturePrincipleNodes;
 
-    @Relationship(type = "FORCED_BY", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
     private List<NonFunctionalRequirementNode> nonFunctionalRequirementNodes;
 
-    @Relationship(type = "SOLVED_BY", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
     public List<IssueNode> issues;
 
     public AlternativeNode(UUID id, String title) {

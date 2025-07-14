@@ -1,11 +1,12 @@
 package ch.unisg.backend.core.domain.entities.classes.ar;
 
-import ch.unisg.backend.core.domain.aggregate.ArchitecturalRequirement;
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
+import lombok.Getter;
 
 import java.util.UUID;
 
-public class Constraint extends MetaClass implements ArchitecturalRequirement {
+@Getter
+public class Constraint extends MetaClass {
 
     public Constraint() {}
     public Constraint(UUID id) {

@@ -1,7 +1,5 @@
 package ch.unisg.backend.controller.http.dto.response;
 
-import ch.unisg.backend.core.domain.aggregate.SystemOfSystems;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

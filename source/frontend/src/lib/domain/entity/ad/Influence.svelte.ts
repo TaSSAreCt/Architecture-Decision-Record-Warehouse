@@ -3,16 +3,16 @@ import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
 import {Intention} from "$lib/domain/entity/ar/Intention.svelte";
 import {ArchitecturePrinciple} from "$lib/domain/entity/ar/ArchitecturePrinciple.svelte";
 
-export type ArchitectureRequirementType =
-    | { type: 'nonFunctionalRequirement', value : NonFunctionalRequirement }
-    | { type: 'constraint', value : Constraint }
-    | { type: 'intention', value : Intention }
-    | { type: 'architecturePrinciple', value : ArchitecturePrinciple };
+export type ArchitectureRequirement =
+    | { type: 'nonFunctionalRequirement', value : NonFunctionalRequirement, weight : number }
+    | { type: 'constraint', value : Constraint, weight : number }
+    | { type: 'intention', value : Intention, weight : number }
+    | { type: 'architecturePrinciple', value : ArchitecturePrinciple, weight : number };
 
 export class Influence {
 
     id : string = $state<string>("");
-    architectureRequirement : ArchitectureRequirementType | undefined = $state<ArchitectureRequirementType>();
+    architectureRequirement : ArchitectureRequirement | undefined = $state<ArchitectureRequirement>();
     value: number = $state<number>(0.0);
 
     constructor() {

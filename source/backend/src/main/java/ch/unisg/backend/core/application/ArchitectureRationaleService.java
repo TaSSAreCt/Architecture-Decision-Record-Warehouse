@@ -1,9 +1,9 @@
 package ch.unisg.backend.core.application;
 
-import ch.unisg.backend.core.domain.entities.classes.ad.ArchitectureRationale;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.port.in.ArchitectureRationaleUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ArchitectureRationaleCommand;
-import ch.unisg.backend.core.port.in.query.classes.ArchitectureRationaleQuery;
+import ch.unisg.backend.core.port.in.query.ArchitectureRationaleQuery;
 import ch.unisg.backend.core.port.out.ArchitectureRationalePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class ArchitectureRationaleService implements ArchitectureRationaleUseCas
     @Override
     public void create(ArchitectureRationaleCommand command) {
 
-        ArchitectureRationale architectureRationale = ArchitectureRationale.create(
+        Rationale architectureRationale = Rationale.create(
                 command.id(),
                 command.title(),
                 command.context(),
@@ -30,9 +30,9 @@ public class ArchitectureRationaleService implements ArchitectureRationaleUseCas
     }
 
     @Override
-    public ArchitectureRationale findById(ArchitectureRationaleQuery query) {
+    public Rationale findById(ArchitectureRationaleQuery query) {
 
-        ArchitectureRationale architectureRationale = ArchitectureRationale.create(query.id());
+        Rationale architectureRationale = Rationale.create(query.id());
 
         return architectureRationalePort.readById(architectureRationale);
     }

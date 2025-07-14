@@ -1,11 +1,11 @@
 package ch.unisg.backend.controller.http;
 
-import ch.unisg.backend.controller.http.dto.request.entity.concept.ConstraintRequestDto;
+import ch.unisg.backend.controller.http.dto.request.node.ConstraintRequestDto;
 import ch.unisg.backend.controller.http.dto.response.ar.ConstraintResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
 import ch.unisg.backend.core.port.in.ConstraintUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ConstraintCommand;
-import ch.unisg.backend.core.port.in.query.classes.ConstraintQuery;
+import ch.unisg.backend.core.port.in.query.ConstraintQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

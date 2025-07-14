@@ -2,7 +2,7 @@ package ch.unisg.backend.core.port.in;
 
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 import ch.unisg.backend.core.port.in.command.classes.NonFunctionalRequirementCommand;
-import ch.unisg.backend.core.port.in.query.classes.NonFunctionalRequirementQuery;
+import ch.unisg.backend.core.port.in.query.NonFunctionalRequirementQuery;
 
 public interface NonFunctionalRequirementUseCase {
     void create(NonFunctionalRequirementCommand command);

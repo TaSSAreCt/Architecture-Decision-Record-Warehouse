@@ -3,7 +3,7 @@ package ch.unisg.backend.core.application;
 import ch.unisg.backend.core.domain.entities.classes.ar.ArchitecturePrinciple;
 import ch.unisg.backend.core.port.in.ArchitecturePrincipleUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ArchitecturePrincipleCommand;
-import ch.unisg.backend.core.port.in.query.classes.ArchitecturePrincipleQuery;
+import ch.unisg.backend.core.port.in.query.ArchitecturePrincipleQuery;
 import ch.unisg.backend.core.port.out.ArchitecturePrinciplePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

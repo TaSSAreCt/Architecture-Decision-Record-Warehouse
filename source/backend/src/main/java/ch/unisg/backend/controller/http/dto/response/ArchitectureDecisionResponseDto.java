@@ -3,8 +3,6 @@ package ch.unisg.backend.controller.http.dto.response;
 import ch.unisg.backend.controller.http.dto.response.ad.AlternativeAggregateResponseDto;
 import ch.unisg.backend.controller.http.dto.response.ad.AlternativeResponseDto;
 import ch.unisg.backend.controller.http.dto.response.ad.IssueResponseDto;
-import ch.unisg.backend.core.domain.aggregate.AlternativeAggregate;
-import ch.unisg.backend.core.domain.aggregate.ArchitectureDecision;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +23,7 @@ public class ArchitectureDecisionResponseDto extends ResponseDto {
             alternativeDtoList.add(AlternativeResponseDto.create(alternativeAggregate.getAlternative()));
         }
 
-        architectureDecisionDto.put("alternatives", alternativeDtoList);
+        architectureDecisionDto.put("alternativeList", alternativeDtoList);
 
         return architectureDecisionDto;
     }
@@ -34,7 +32,7 @@ public class ArchitectureDecisionResponseDto extends ResponseDto {
         HashMap<String, Object> architectureDecisionDto = new HashMap<>();
 
         architectureDecisionDto.put("issue", IssueResponseDto.toJson(architectureDecision.getIssue()));
-        architectureDecisionDto.put("alternativeAggregates", AlternativeAggregateResponseDto.toJsonVerbose(architectureDecision.getAlternativeAggregates()));
+        architectureDecisionDto.put("alternativeList", AlternativeAggregateResponseDto.toJsonVerbose(architectureDecision.getAlternativeAggregates()));
 
         return architectureDecisionDto;
     }

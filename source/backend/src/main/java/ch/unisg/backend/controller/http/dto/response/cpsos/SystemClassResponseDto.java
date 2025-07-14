@@ -1,5 +1,6 @@
 package ch.unisg.backend.controller.http.dto.response.cpsos;
 
+import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -15,10 +16,10 @@ public class SystemClassResponseDto {
         this.title = title;
     }
 
-    public static HashMap<String, Object> toJson(UUID id, String title) {
+    public static HashMap<String, Object> toJson(SystemClass systemClass) {
         HashMap <String, Object> result = new HashMap<>();
-        result.put("id", id);
-        result.put("title", title);
+        result.put("id", systemClass.getId());
+        result.put("title", systemClass.getTitle());
         return result;
     }
 }

@@ -2,7 +2,6 @@ package ch.unisg.backend.controller.http.dto.response;
 
 import ch.unisg.backend.controller.http.dto.response.ar.NonFunctionalRequirementListResponseDto;
 import ch.unisg.backend.controller.http.dto.response.cpsos.SystemClassResponseDto;
-import ch.unisg.backend.core.domain.aggregate.SystemOfSystems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,18 +21,18 @@ public class SystemOfSystemsResponseDto extends ResponseDto {
         }
 
         systemMap.put("system", SystemClassResponseDto.toJson(systemOfSystems.getSystemClass().getId(), systemOfSystems.getSystemClass().getTitle()));
-        systemMap.put("architecturalDecisions", ArchitecturalDecisionsResponseDto.toJsonVerbose(systemOfSystems.getArchitecturalDecisions()));
-        systemMap.put("nonFunctionalRequirements", NonFunctionalRequirementListResponseDto.toJsonVerbose(systemOfSystems.getNonFunctionalRequirements()));
-        systemMap.put("systemElements", SystemElementAggregateListResponseDto.toJson(systemOfSystems.getSystemElementAggregateList()));
+        systemMap.put("issueList", ArchitecturalDecisionsResponseDto.toJsonVerbose(systemOfSystems.getArchitecturalDecisions()));
+        systemMap.put("nonFunctionalRequirementList", NonFunctionalRequirementListResponseDto.toJsonVerbose(systemOfSystems.getNonFunctionalRequirements()));
+        systemMap.put("systemElementList", SystemElementListResponseDto.toJson(systemOfSystems.getSystemElementAggregateList()));
 
         List<HashMap<String, Object>> childSystems = new ArrayList<>();
         for (SystemOfSystems child : systemOfSystems.getSystemOfSystemsList()) {
             childSystems.add(buildSystemMap(child));
         }
         if (!childSystems.isEmpty()) {
-            systemMap.put("childSystems", childSystems);
+            systemMap.put("systemList", childSystems);
         } else {
-            systemMap.put("childSystems", new ArrayList<>());
+            systemMap.put("systemList", new ArrayList<>());
         }
 
         return systemMap;

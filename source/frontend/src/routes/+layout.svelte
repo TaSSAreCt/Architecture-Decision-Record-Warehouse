@@ -2,16 +2,16 @@
 
     import {setContext} from "svelte";
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
-    import QuickActionBar from "$lib/components/QuickActionBar.svelte";
+    import QuickActionBar from "$lib/components/quick-action-bar/QuickActionBar.svelte";
     import {AdrWarehouse } from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
     import { fromAdrWarehouseResponseDto } from "$lib/dto/response/aggregate/adrWarehouseResponseDto";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte.js";
     import {ArchitecturalKnowledge } from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
     import {fromArchitecturalKnowledgeResponseDto} from "$lib/dto/response/aggregate/ArchitecturalKnowledgeResponseDto";
-    import {ArchitecturalRequirements} from "$lib/domain/aggregate/ArchitecturalRequirements.svelte";
+    import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequirements.svelte.js";
     import {
         fromArchitecturalRequirementsResponseDto
-    } from "$lib/dto/response/aggregate/ArchitecturalRequirementsResponseDto";
+    } from "$lib/dto/response/entity/ArchitecturalRequirementsResponseDto";
 
     let { data, children } = $props();
 

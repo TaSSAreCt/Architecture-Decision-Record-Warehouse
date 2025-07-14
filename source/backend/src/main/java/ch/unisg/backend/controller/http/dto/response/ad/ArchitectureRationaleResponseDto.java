@@ -1,6 +1,6 @@
 package ch.unisg.backend.controller.http.dto.response.ad;
 
-import ch.unisg.backend.core.domain.entities.classes.ad.ArchitectureRationale;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class ArchitectureRationaleResponseDto {
         return LOCATION + id.toString();
     }
 
-    public static List<HashMap<String, Object>> toJson(List<ArchitectureRationale> architectureRationales) {
+    public static List<HashMap<String, Object>> toJson(List<Rationale> architectureRationales) {
 
         List<HashMap<String, Object>> architectureRationalesResponseDto = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class ArchitectureRationaleResponseDto {
 
     }
 
-    public static HashMap<String, Object> create(ArchitectureRationale architectureRationale) {
+    public static HashMap<String, Object> create(Rationale architectureRationale) {
 
         HashMap<String, Object> result = new HashMap<>();
 

@@ -1,9 +1,9 @@
 package ch.unisg.backend.core.port.out;
 
-import ch.unisg.backend.core.domain.entities.classes.ad.ArchitectureRationale;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 
 public interface ArchitectureRationalePort {
 
-    void create(ArchitectureRationale architectureRationale);
-    ArchitectureRationale readById(ArchitectureRationale architectureRationale);
+    void create(Rationale architectureRationale);
+    Rationale readById(Rationale architectureRationale);
 }

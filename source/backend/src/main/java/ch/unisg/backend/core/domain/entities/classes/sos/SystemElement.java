@@ -1,11 +1,18 @@
 package ch.unisg.backend.core.domain.entities.classes.sos;
 
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
+import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+@Getter @Setter
 public class SystemElement extends MetaClass {
+
+    private final List<Constraint> constraintList = new ArrayList<>();
 
     public SystemElement() {}
     public SystemElement(UUID id) { super(id); }
@@ -18,13 +25,4 @@ public class SystemElement extends MetaClass {
         return new SystemElement(id);
     }
     public static SystemElement create(UUID id, String title) { return new SystemElement(id, title);}
-
-    public HashMap<String, Object> toJson() {
-
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("id", this.getId().toString());
-        result.put("title", this.getTitle());
-        return result;
-    }
-
 }
