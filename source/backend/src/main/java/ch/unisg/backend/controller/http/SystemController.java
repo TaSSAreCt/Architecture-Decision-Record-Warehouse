@@ -1,7 +1,6 @@
 package ch.unisg.backend.controller.http;
 
 import ch.unisg.backend.controller.http.dto.request.CreateSystemRequestDto;
-import ch.unisg.backend.controller.http.dto.response.cpsos.SystemClassListResponseDto;
 import ch.unisg.backend.controller.http.dto.response.cpsos.SystemClassResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.port.in.SystemUseCase;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +30,7 @@ public class SystemController {
 
         systemUseCase.addSystem(command);
 
-        return new ResponseEntity<>(command.id().toString(), HttpStatus.CREATED);
+        return ResponseEntity.created(SystemClassResponseDto.uri(command.id())).build();
     }
 
     @GetMapping(path = "/systems/{systemId}")
@@ -47,11 +45,11 @@ public class SystemController {
     }
 
     @GetMapping(path = "/systems")
-    public ResponseEntity<ArrayList<Object>> getSystems() {
+    public ResponseEntity<List<HashMap<String, Object>>> getSystems() {
 
         List<SystemClass> systemClassList = systemUseCase.getSystemList();
 
-        return ResponseEntity.ok(SystemClassListResponseDto.toJson(systemClassList));
+        return ResponseEntity.ok(SystemClassResponseDto.toJson(systemClassList));
     }
 
 }

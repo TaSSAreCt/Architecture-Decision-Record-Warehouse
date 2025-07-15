@@ -31,7 +31,7 @@ public class IssueController {
 
         issueUseCase.createIssue(command);
 
-        return ResponseEntity.created(new URI("http://localhost:4000/api/v1/issues/" + command.id())).build();
+        return ResponseEntity.created(IssueResponseDto.uri(command.id())).build();
     }
 
     @GetMapping(path = "/issues/{issueId}")

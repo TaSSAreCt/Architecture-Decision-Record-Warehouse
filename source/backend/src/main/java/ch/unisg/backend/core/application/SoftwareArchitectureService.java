@@ -34,7 +34,7 @@ public class SoftwareArchitectureService implements SoftwareArchitectureUseCase 
             case "architecturePrinciple" -> architecturePrinciplePort.create(ArchitecturePrinciple.create(command.id(), command.title()));
         }
 
-        ArchitectureRequirement architectureRequirement = ArchitectureRequirement.create(command.id());
+        ArchitectureRequirement architectureRequirement = ArchitectureRequirement.create();
         Alternative alternative = Alternative.create(command.alternativeId());
 
         // TODO: Implement Influence

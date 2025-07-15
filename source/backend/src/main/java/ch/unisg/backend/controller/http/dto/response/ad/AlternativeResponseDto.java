@@ -14,6 +14,14 @@ public class AlternativeResponseDto extends ResponseDto {
         result.put("id", alternative.getId().toString());
         result.put("title", alternative.getTitle());
 
+        // TODO: Implement influence
+
+        return result;
+    }
+
+    public static HashMap<String, Object> toJsonWithRationale(Alternative alternative) {
+        HashMap<String, Object> result = toJson(alternative);
+        result.put("rationaleList", RationaleResponseDto.toJson(alternative.getRationaleList()));
         return result;
     }
 

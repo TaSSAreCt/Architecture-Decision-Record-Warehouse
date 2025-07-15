@@ -19,7 +19,6 @@ public class AlternativeRepository implements AlternativePort {
 
     @Override
     public void createAlternative(Alternative alternative) {
-
         AlternativeNode entity = AlternativeNode.create(alternative.getId(), alternative.getTitle());
         repository.save(entity);
     }
@@ -28,7 +27,6 @@ public class AlternativeRepository implements AlternativePort {
     public Alternative readAlternativeById(Alternative alternative) {
 
         Optional<AlternativeNode> entity = repository.findById(alternative.getId());
-
         entity.ifPresent(alternativeNode -> alternative.setTitle(alternativeNode.getTitle()));
 
         return alternative;

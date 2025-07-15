@@ -11,7 +11,6 @@ public class IssueMapper {
     public static Issue toIssue(IssueNode issueNode) {
 
         Issue issue = Issue.create(issueNode.getId(), issueNode.getTitle());
-
         issue.getAlternativeList().addAll(AlternativeMapper.toAlternativeList(issueNode.alternativeNodes));
 
         return issue;

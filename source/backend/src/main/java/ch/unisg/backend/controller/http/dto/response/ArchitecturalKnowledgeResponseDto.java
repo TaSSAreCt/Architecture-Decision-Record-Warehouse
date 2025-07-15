@@ -1,13 +1,21 @@
 package ch.unisg.backend.controller.http.dto.response;
 
+import ch.unisg.backend.controller.http.dto.response.ad.IssueResponseDto;
+import ch.unisg.backend.controller.http.dto.response.ar.ArchitectureRequirementResponseDto;
 import ch.unisg.backend.core.domain.aggregate.ArchitecturalKnowledge;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class ArchitecturalKnowledgeResponseDto extends ResponseDto {
 
-    public static List<HashMap<String, Object>> toJson(ArchitecturalKnowledge architecturalKnowledge) {
-        return ArchitecturalDecisionsResponseDto.toJsonVerbose(architecturalKnowledge.getArchitectureDecisions());
+    public static HashMap<String, Object> toJson(ArchitecturalKnowledge architecturalKnowledge) {
+
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("issueList", IssueResponseDto.toJson(architecturalKnowledge.getIssueList()));
+        result.put("architectureRequirementList", ArchitectureRequirementResponseDto.toJson(architecturalKnowledge.getArchitectureRequirement()));
+
+        return result;
+
     }
 }

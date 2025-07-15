@@ -22,19 +22,6 @@ public class AlternativeController {
 
     private final AlternativeUseCase alternativeUseCase;
 
-    @PostMapping(path = "/alternatives", consumes = AlternativeRequestDto.MEDIA_TYPE)
-    public ResponseEntity<String> createAlternative(
-            @RequestBody AlternativeRequestDto payload
-    ) {
-
-        AlternativeCommand command = AlternativeCommand.create(payload.getId(), payload.getTitle());
-
-        alternativeUseCase.createAlternative(command);
-
-        return ResponseEntity.created(URI.create("http://localhost:4000/api/v1/alternatives/" + command.id())).build();
-    }
-
-
     @PostMapping(path = "/issues/{issueId}/alternatives", consumes = AlternativeRequestDto.MEDIA_TYPE)
     public ResponseEntity<String> createAlternative(
             @RequestBody AlternativeRequestDto payload,
@@ -45,18 +32,19 @@ public class AlternativeController {
 
         alternativeUseCase.create(command);
 
-        return ResponseEntity.created(URI.create("http://localhost:4000/api/v1/alternatives/" + command.id())).build();
+        return ResponseEntity.created(AlternativeResponseDto.uri(command.id())).build();
     }
 
-    @GetMapping(path = "/alternatives/{alternativeId}")
+    @GetMapping(path = "/issues/{issueId}/alternatives/{alternativeId}")
     public ResponseEntity<HashMap<String, Object>> getAlternativeById(
-            @PathVariable UUID alternativeId
+            @PathVariable UUID alternativeId,
+            @PathVariable UUID issueId
     ) {
         AlternativeQuery query = new AlternativeQuery(alternativeId);
 
         Alternative alternative = alternativeUseCase.findAlternativeById(query);
 
-        return ResponseEntity.ok(AlternativeResponseDto.create(alternative));
+        return ResponseEntity.ok(AlternativeResponseDto.toJson(alternative));
 
     }
 }

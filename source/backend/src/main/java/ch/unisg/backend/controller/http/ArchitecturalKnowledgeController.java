@@ -2,7 +2,10 @@ package ch.unisg.backend.controller.http;
 
 import ch.unisg.backend.controller.http.dto.request.node.ArchitectureRequirementRequestDto;
 import ch.unisg.backend.controller.http.dto.response.*;
+import ch.unisg.backend.controller.http.dto.response.ar.ArchitectureRequirementResponseDto;
+import ch.unisg.backend.controller.http.dto.response.cpsos.SystemClassResponseDto;
 import ch.unisg.backend.core.domain.aggregate.*;
+import ch.unisg.backend.core.domain.entities.classes.ar.ArchitectureRequirement;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.port.in.SoftwareArchitectureUseCase;
 import ch.unisg.backend.core.port.in.command.CreateArchitectureRequirement;
@@ -22,18 +25,18 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ArchitecturalKnowledgeController {
 
-    private final SoftwareArchitectureUseCase softwareArchitectureUseCase;
+    private final SoftwareArchitectureUseCase adrwUseCase;
 
     /**
      *
      *
      */
     @GetMapping(path = "/architectural-requirements")
-    public ResponseEntity<HashMap<String, List<HashMap<String, Object>>>> getArchitecturalRequirements() {
+    public ResponseEntity<HashMap<String, Object>> getArchitecturalRequirements() {
 
-        ArchitecturalRequirements architecturalRequirements = softwareArchitectureUseCase.getArchitecturalRequirements();
+        ArchitectureRequirement architecturalRequirements = adrwUseCase.getArchitecturalRequirements();
 
-        return ResponseEntity.ok(ArchitecturalRequirementsResponseDto.toJson(architecturalRequirements));
+        return ResponseEntity.ok(ArchitectureRequirementResponseDto.toJson(architecturalRequirements));
     }
 
     /**
@@ -52,9 +55,9 @@ public class ArchitecturalKnowledgeController {
                 payload.getAlternativeId()
         );
 
-        softwareArchitectureUseCase.create(command);
+        adrwUseCase.create(command);
 
-        return ResponseEntity.created(ArchitecturalRequirementsResponseDto.uri(command.id())).build();
+        return ResponseEntity.created(ArchitectureRequirementResponseDto.uri(command.id())).build();
     }
 
     /**
@@ -62,17 +65,9 @@ public class ArchitecturalKnowledgeController {
      *
      */
     @GetMapping(path = "/architectural-knowledge")
-    public ResponseEntity<List<HashMap<String, Object>>> getArchitecturalKnowledge() {
+    public ResponseEntity<HashMap<String, Object>> getArchitecturalKnowledge() {
 
-        ArchitecturalKnowledge architecturalKnowledge = softwareArchitectureUseCase.getArchitecturalKnowledge();
-
-        architecturalKnowledge.getArchitectureDecisions().forEach(architectureDecision -> {
-            architectureDecision.getAlternativeAggregates().forEach(alternativeAggregate -> {
-                alternativeAggregate.getForcedBy().forEach(forcedBy -> {
-                    System.out.println(forcedBy.getArchitecturalRequirement().getTitle());
-                });
-            });
-        });
+        ArchitecturalKnowledge architecturalKnowledge = adrwUseCase.getArchitecturalKnowledge();
 
         return ResponseEntity.ok(ArchitecturalKnowledgeResponseDto.toJson(architecturalKnowledge));
     }
@@ -81,22 +76,12 @@ public class ArchitecturalKnowledgeController {
      *
      *
      */
-    @GetMapping(path = "/systems-of-systems")
-    public ResponseEntity<List<HashMap<String, Object>>> getSystemsOfSystems() {
-        List<SystemClass> systemsOfSystems = softwareArchitectureUseCase.getSystemsOfSystems();
-        return ResponseEntity.ok(SystemsOfSystemsResponseDto.toJson(systemsOfSystems));
-    }
-
-    /**
-     *
-     *
-     */
-    @GetMapping(path = "/architectural-knowledge-cpsos")
+    @GetMapping(path = "/cpsos")
     public ResponseEntity<List<HashMap<String, Object>>> getSoftwareArchitectureRepresentation() {
 
-        ArchitectureDecisionRecordWarehouse softwareArchitecture = softwareArchitectureUseCase.getSystemsOfSystems();
+        List<SystemClass> cpsos = adrwUseCase.getSystemsOfSystems();
 
-        return ResponseEntity.ok(ArchitecturalKnowledgeWithCPSoSDto.toJson(softwareArchitecture));
+        return ResponseEntity.ok(SystemClassResponseDto.toJson(cpsos));
     }
 
 

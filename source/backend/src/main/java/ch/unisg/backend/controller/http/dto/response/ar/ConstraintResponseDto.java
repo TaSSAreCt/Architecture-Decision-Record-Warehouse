@@ -2,7 +2,9 @@ package ch.unisg.backend.controller.http.dto.response.ar;
 
 import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class ConstraintResponseDto {
@@ -13,7 +15,7 @@ public class ConstraintResponseDto {
         return LOCATION + id.toString();
     }
 
-    public static HashMap<String, Object> create(Constraint constraint) {
+    public static HashMap<String, Object> toJson(Constraint constraint) {
 
         HashMap<String, Object> result = new HashMap<>();
 
@@ -21,5 +23,9 @@ public class ConstraintResponseDto {
         result.put("title", constraint.getTitle());
 
         return result;
+    }
+
+    public static List<HashMap<String, Object>> toJson(List<Constraint> constraintList) {
+        return constraintList.stream().map(ConstraintResponseDto::toJson).toList();
     }
 }

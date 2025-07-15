@@ -3,8 +3,11 @@ package ch.unisg.backend.controller.http.dto.response.ar;
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class NonFunctionalRequirementResponseDto {
 
@@ -22,5 +25,9 @@ public class NonFunctionalRequirementResponseDto {
         result.put("title", nonFunctionalRequirement.getTitle());
 
         return result;
+    }
+
+    public static List<HashMap<String, Object>> toNonFunctionalRequirementResponseDtoList(List<NonFunctionalRequirement> nonFunctionalRequirementList) {
+        return nonFunctionalRequirementList.stream().map(NonFunctionalRequirementResponseDto::create).toList();
     }
 }

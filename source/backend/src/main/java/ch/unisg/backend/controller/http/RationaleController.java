@@ -1,7 +1,7 @@
 package ch.unisg.backend.controller.http;
 
 import ch.unisg.backend.controller.http.dto.request.node.ArchitectureRationaleRequestDto;
-import ch.unisg.backend.controller.http.dto.response.ad.ArchitectureRationaleResponseDto;
+import ch.unisg.backend.controller.http.dto.response.ad.RationaleResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.port.in.ArchitectureRationaleUseCase;
 import ch.unisg.backend.core.port.in.command.classes.ArchitectureRationaleCommand;
@@ -17,11 +17,11 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
-public class ArchitectureRationaleController {
+public class RationaleController {
 
     private final ArchitectureRationaleUseCase architectureRationaleUseCase;
 
-    @PostMapping(path = "/architectural-rationales", consumes = ArchitectureRationaleRequestDto.MEDIA_TYPE)
+    @PostMapping(path = "/rationales", consumes = ArchitectureRationaleRequestDto.MEDIA_TYPE)
     public ResponseEntity<String> createArchitectureRational(
             @RequestBody ArchitectureRationaleRequestDto payload
     ) {
@@ -37,19 +37,19 @@ public class ArchitectureRationaleController {
 
         architectureRationaleUseCase.create(command);
 
-        return ResponseEntity.created(URI.create(ArchitectureRationaleResponseDto.uri(command.id()))).build();
+        return ResponseEntity.created(RationaleResponseDto.uri(command.id())).build();
     }
 
-    @GetMapping(path = "/architectural-rationals/{architectureRationaleId}")
+    @GetMapping(path = "/rationals/{architectureRationaleId}")
     public ResponseEntity<HashMap<String, Object>> findArchitectureRationaleById(
             @PathVariable UUID architectureRationaleId
     ) {
 
         ArchitectureRationaleQuery query = new ArchitectureRationaleQuery(architectureRationaleId);
 
-        Rationale architectureRationale = architectureRationaleUseCase.findById(query);
+        Rationale rationale = architectureRationaleUseCase.findById(query);
 
-        return ResponseEntity.ok(ArchitectureRationaleResponseDto.create(architectureRationale));
+        return ResponseEntity.ok(RationaleResponseDto.toJson(rationale));
     }
 
 }

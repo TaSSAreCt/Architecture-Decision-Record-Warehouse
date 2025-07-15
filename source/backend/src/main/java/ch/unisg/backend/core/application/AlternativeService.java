@@ -21,7 +21,6 @@ public class AlternativeService implements AlternativeUseCase {
 
     @Override
     public void create(CreateAlternativeWithIssueCommand command) {
-
         Alternative alternative = Alternative.create(command.id(), command.title());
         alternativePort.createAlternative(alternative);
         relationshipManagerPort.create(SolvedBy.create(alternative, Issue.create(command.issueId())));
@@ -29,9 +28,7 @@ public class AlternativeService implements AlternativeUseCase {
 
     @Override
     public void createAlternative(AlternativeCommand command) {
-
         Alternative alternative = new Alternative(command.id(), command.title());
-
         alternativePort.createAlternative(alternative);
     }
 

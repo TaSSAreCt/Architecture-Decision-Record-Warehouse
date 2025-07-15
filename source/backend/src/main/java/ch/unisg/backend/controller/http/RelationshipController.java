@@ -1,7 +1,6 @@
 package ch.unisg.backend.controller.http;
 
 import ch.unisg.backend.controller.http.dto.request.relationship.*;
-import ch.unisg.backend.controller.http.dto.response.ar.ForcedByResponseDto;
 import ch.unisg.backend.controller.http.dto.response.relationship.*;
 import ch.unisg.backend.core.port.in.RelationshipManagerUseCase;
 import ch.unisg.backend.core.port.in.command.classes.*;
@@ -109,22 +108,6 @@ public class RelationshipController {
 
         return ResponseEntity.created(RequireResponseDto.uri(id)).build();
     }
-
-    @PostMapping(path = "/relationships/forced-by", consumes = ForcedByRequestDto.MEDIA_TYPE)
-    public ResponseEntity<String> createForcedByRelationship(
-            @RequestBody ForcedByRequestDto payload
-    ) {
-        ForcedByCommand command = ForcedByCommand.create(
-                payload.getValue(),
-                AlternativeCommand.create(payload.getAlternative().getId()),
-                ArchitectureRequirementCommand.create(payload.getArchitectureRequirement().getId())
-        );
-
-        UUID id = relationshipManagerUseCase.create(command);
-
-        return ResponseEntity.created(ForcedByResponseDto.uri(id)).build();
-    }
-
 
     @PostMapping(path = "/relationships/justified-by", consumes = JustifiedByRequestDto.MEDIA_TYPE)
     public ResponseEntity<String> createJustifiedByRelationship(

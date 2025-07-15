@@ -40,6 +40,6 @@ public class ConstraintController {
 
         Constraint constraint = constraintUseCase.findById(query);
 
-        return ResponseEntity.ok(ConstraintResponseDto.create(constraint));
+        return ResponseEntity.ok(ConstraintResponseDto.toJson(constraint));
     }
 }

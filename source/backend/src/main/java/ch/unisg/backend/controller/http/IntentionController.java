@@ -26,9 +26,9 @@ public class IntentionController {
 
         IntentionCommand command = IntentionCommand.create(payload.getId(), payload.getTitle());
 
-        Intention intention = intentionUseCase.create(command);
+        intentionUseCase.create(command);
 
-        return ResponseEntity.created(URI.create("http://localhost:4000/intentions?id=" + intention.getId().toString())).build();
+        return ResponseEntity.created(IntentionResponseDto.uri(command.id())).build();
     }
 
     @GetMapping(path = "/intentions/{intentionId}")

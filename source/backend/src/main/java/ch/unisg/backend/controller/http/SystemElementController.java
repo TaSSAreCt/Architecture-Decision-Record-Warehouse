@@ -1,6 +1,7 @@
 package ch.unisg.backend.controller.http;
 
 import ch.unisg.backend.controller.http.dto.request.CreateSystemElementRequestDto;
+import ch.unisg.backend.controller.http.dto.response.cpsos.SystemElementResponseDto;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemElement;
 import ch.unisg.backend.core.port.in.SystemElementUseCase;
 import ch.unisg.backend.core.port.in.command.CreateSystemElementCommand;
@@ -35,7 +36,7 @@ public class SystemElementController {
 
         systemElementUseCase.addSystemElement(command);
 
-        return ResponseEntity.created(new URI("http://localhost:4000/api/v1/system-elements/")).build();
+        return ResponseEntity.created(SystemElementResponseDto.uri(command.id())).build();
     }
 
     @GetMapping(path = "/system-elements/{systemElementId}")
@@ -47,7 +48,7 @@ public class SystemElementController {
 
         SystemElement systemElement = systemElementUseCase.getSystemElementById(query);
 
-        return ResponseEntity.ok(systemElement.toJson());
+        return ResponseEntity.ok(SystemElementResponseDto.toJson(systemElement));
 
     }
 }
