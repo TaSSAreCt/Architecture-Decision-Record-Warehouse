@@ -16,12 +16,6 @@ export class SystemResponseDto {
     systemList : SystemResponseDto[] = [];
     issueList : IssueResponseDto[] = [];
     nonFunctionalRequirementList : NonFunctionalRequirementResponseDto[] = [];
-
-    constructor() {}
-
-    static create() {
-        return new SystemResponseDto();
-    }
 }
 
 export function fromSystemListResponseDto(systemListResponseDto : SystemResponseDto[]) : System[] {

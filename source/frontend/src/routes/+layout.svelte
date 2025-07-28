@@ -4,7 +4,6 @@
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
     import QuickActionBar from "$lib/components/quick-action-bar/QuickActionBar.svelte";
     import {AdrWarehouse } from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
-    import { fromAdrWarehouseResponseDto } from "$lib/dto/response/aggregate/adrWarehouseResponseDto";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte.js";
     import {ArchitecturalKnowledge } from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
     import {fromArchitecturalKnowledgeResponseDto} from "$lib/dto/response/aggregate/ArchitecturalKnowledgeResponseDto";
@@ -12,12 +11,14 @@
     import {
         fromArchitecturalRequirementsResponseDto
     } from "$lib/dto/response/entity/ArchitecturalRequirementsResponseDto";
+    import {fromSystemListResponseDto} from "$lib/dto/response/entity/SystemResponseDto";
+    import type {System} from "$lib/domain/entity/sos/System.svelte";
 
     let { data, children } = $props();
 
     // Initialise Architectural Knowledge for CPSoS
-    const adrWarehouse : AdrWarehouse = fromAdrWarehouseResponseDto(data.adrWarehouse);
-    setContext('adrWarehouse', adrWarehouse);
+    const cpsos : System[] = fromSystemListResponseDto(data.adrWarehouse);
+    setContext('adrWarehouse', cpsos);
 
     // Initialise Architectural Knowledge
     const architecturalKnowledge : ArchitecturalKnowledge = fromArchitecturalKnowledgeResponseDto(data.architecturalKnowledge);

@@ -1,11 +1,13 @@
 package ch.unisg.backend.core.port.in;
 
+import ch.unisg.backend.core.port.in.command.CreateInfluenceCommand;
 import ch.unisg.backend.core.port.in.command.relationships.*;
 
 import java.util.UUID;
 
 public interface RelationshipManagerUseCase {
 
+    void create(CreateInfluenceCommand command);
     UUID create(SolvedByCommand command);
     UUID create(RaiseCommand command);
     UUID create(BelongsToCommand command);

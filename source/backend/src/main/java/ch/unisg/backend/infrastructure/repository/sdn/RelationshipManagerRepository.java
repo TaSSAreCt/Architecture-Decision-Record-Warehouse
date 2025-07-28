@@ -1,5 +1,6 @@
 package ch.unisg.backend.infrastructure.repository.sdn;
 
+import ch.unisg.backend.core.domain.entities.classes.ad.Influence;
 import ch.unisg.backend.core.domain.entities.relationships.*;
 import ch.unisg.backend.core.port.out.RelationshipManagerPort;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,28 @@ import java.util.UUID;
 public class RelationshipManagerRepository implements RelationshipManagerPort {
 
     private final Neo4jClient client;
+
+    @Override
+    public void create(UUID id, UUID alternativeId, UUID architecturalRequirementId) {
+        client.query("""
+                    MATCH (a:Alternatives {id: $alternativeId})
+                    MATCH (i:Influence {id: $influenceId})
+                    MERGE (a)-[:INFLUENCED_BY]->(i)
+                """)
+                .bind(alternativeId.toString()).to("alternativeId")
+                .bind(id.toString()).to("influenceId")
+                .run();
+
+        client.query("""
+                MATCH (a)
+                MATCH (i:Influence {id: $influenceId})
+                WHERE a.id = $architecturalRequirementId
+                MERGE (a)-[:INFLUENCES]->(i)
+                """)
+                .bind(architecturalRequirementId.toString()).to("architecturalRequirementId")
+                .bind(id.toString()).to("id")
+                .run();
+    }
 
     @Override
     public UUID create(SolvedBy solvedBy) {

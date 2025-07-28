@@ -13,10 +13,6 @@ export class IssueResponseDto {
         this.id = id;
         this.title = title;
     }
-
-    static create() {
-        return new IssueResponseDto("", "");
-    }
 }
 
 export function fromIssueListResponseDto(issueListResponseDto : IssueResponseDto[]) : Issue[] {
@@ -28,6 +24,10 @@ export function fromIssueResponseDto(issueResponseDto : IssueResponseDto) : Issu
 
     issue.id = issueResponseDto.id;
     issue.title = issueResponseDto.title;
+
+    console.log(issue);
+    console.log(issueResponseDto);
+    console.log(issueResponseDto.alternativeList);
 
     issue.alternativeList = fromAlternativeListResponseDto(issueResponseDto.alternativeList);
 

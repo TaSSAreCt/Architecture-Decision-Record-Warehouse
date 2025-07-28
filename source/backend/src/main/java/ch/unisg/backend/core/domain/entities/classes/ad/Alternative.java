@@ -1,7 +1,6 @@
 package ch.unisg.backend.core.domain.entities.classes.ad;
 
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
-import ch.unisg.backend.core.domain.entities.relationships.Influence;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,7 @@
 package ch.unisg.backend.core.application;
 
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
+import ch.unisg.backend.core.domain.entities.classes.ad.Influence;
 import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
 import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
@@ -9,6 +10,7 @@ import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemElement;
 import ch.unisg.backend.core.domain.entities.relationships.*;
 import ch.unisg.backend.core.port.in.RelationshipManagerUseCase;
+import ch.unisg.backend.core.port.in.command.CreateInfluenceCommand;
 import ch.unisg.backend.core.port.in.command.relationships.*;
 import ch.unisg.backend.core.port.out.RelationshipManagerPort;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,15 @@ import java.util.UUID;
 public class RelationshipManagerService implements RelationshipManagerUseCase {
 
     private final RelationshipManagerPort relationshipManagerPort;
+
+    @Override
+    public void create(CreateInfluenceCommand command) {
+        relationshipManagerPort.create(
+                command.id(),
+                command.alternativeId(),
+                command.architectureRequirementId()
+        );
+    }
 
     @Override
     public UUID create(SolvedByCommand command) {

@@ -1,10 +1,12 @@
 package ch.unisg.backend.core.port.out;
 
+import ch.unisg.backend.core.domain.entities.classes.ad.Influence;
 import ch.unisg.backend.core.domain.entities.relationships.*;
 
 import java.util.UUID;
 
 public interface RelationshipManagerPort {
+    void create(UUID id, UUID alternativeId, UUID architecturalRequirementId);
     UUID create(SolvedBy solvedBy);
     UUID create(Raise raise);
     UUID create(BelongsTo belongsTo);

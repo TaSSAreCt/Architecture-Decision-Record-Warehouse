@@ -14,6 +14,7 @@ public class IssueResponseDto extends ResponseDto {
 
         result.put("id", issue.getId().toString());
         result.put("title", issue.getTitle());
+        result.put("alternativeList", AlternativeResponseDto.toJson(issue.getAlternativeList()));
 
         return result;
     }

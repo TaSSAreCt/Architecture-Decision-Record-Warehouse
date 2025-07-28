@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({fetch}) => {
     }
 
     const adrWarehouse = async () => {
-        const response = await fetch(`${BACKEND}/api/v1/architectural-knowledge-cpsos`, {
+        const response = await fetch(`${BACKEND}/api/v1/cpsos`, {
             method: 'GET',
         });
         return await response.json();

@@ -1,8 +1,11 @@
 package ch.unisg.backend.controller.http;
 
+import ch.unisg.backend.controller.http.dto.request.CreateInfluenceRequestDto;
 import ch.unisg.backend.controller.http.dto.request.relationship.*;
+import ch.unisg.backend.controller.http.dto.response.CreateInfluenceResponseDto;
 import ch.unisg.backend.controller.http.dto.response.relationship.*;
 import ch.unisg.backend.core.port.in.RelationshipManagerUseCase;
+import ch.unisg.backend.core.port.in.command.CreateInfluenceCommand;
 import ch.unisg.backend.core.port.in.command.classes.*;
 import ch.unisg.backend.core.port.in.command.relationships.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,22 @@ import java.util.UUID;
 public class RelationshipController {
 
     private final RelationshipManagerUseCase relationshipManagerUseCase;
+
+    @PostMapping(path = "/relationships/influence", consumes = CreateInfluenceRequestDto.MEDIA_TYPE)
+    public ResponseEntity<String> createInfluenceRelationship(
+            @RequestBody CreateInfluenceRequestDto payload
+    ) {
+
+        CreateInfluenceCommand command = new CreateInfluenceCommand(
+                payload.getId(),
+                payload.getAlternativeId(),
+                payload.getArchitectureRequirementId()
+        );
+
+        relationshipManagerUseCase.create(command);
+
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping(path = "/relationships/solved-by", consumes = SolvedByRequestDto.MEDIA_TYPE)
     public ResponseEntity<String> createSolvedByRelationship(
