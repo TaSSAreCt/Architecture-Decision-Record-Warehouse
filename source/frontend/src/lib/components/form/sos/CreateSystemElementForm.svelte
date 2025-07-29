@@ -2,12 +2,12 @@
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
     import {FormManager} from "$lib/domain/manager/FormManager.svelte";
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte";
     import {SystemElement} from "$lib/domain/entity/sos/SystemElement.svelte";
     import {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystemOfSystems} from "$lib/utils/getSystemOfSystems";
 
     const formManager : FormManager = getContext('formManager');
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
 
 </script>
@@ -24,9 +24,9 @@
 
         formData.set('id', systemElement.id);
 
-        let system : System = adrWarehouse.getSystemOfSystems(String(formData.get('systemId'))) ?? System.create();
+        let system : System = getSystemOfSystems(cpsos, String(formData.get('systemId'))) ?? System.create();
 
-        formData.set('systemId', system.id);
+        formData.set('systemId', system.id ?? "");
 
         return async ({ result }) => {
             system?.systemElementList.push(systemElement);
@@ -42,8 +42,8 @@
 
             <div class="w3-rest">
                 <select class="w3-input" name="systemId" id ="systemId">
-                    {#each adrWarehouse.getSystems() as element}
-                        <option value={element.id}>{element.title}</option>
+                    {#each cpsos as system}
+                        <option value={system.id}>{system.title}</option>
                     {/each}
                 </select>
             </div>

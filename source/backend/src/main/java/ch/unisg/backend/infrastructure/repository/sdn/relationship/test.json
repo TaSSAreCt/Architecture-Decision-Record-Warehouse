@@ -1,0 +1,19 @@
+{
+  "alternativeList": [
+    {
+      "id": "",
+      "title": "",
+      "influencedBy": [
+        {
+          "id":"",
+          "value":"",
+          "architectureRequirement": {
+            "id": "",
+            "title": "",
+            "type": ""
+          }
+        }
+      ]
+    }
+  ]
+}

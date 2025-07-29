@@ -18,16 +18,8 @@ export const load: PageServerLoad = async ({fetch}) => {
         return await response.json();
     }
 
-    const architecturalRequirements = async () => {
-        const response = await fetch(`${BACKEND}/api/v1/architectural-requirements`, {
-            method: 'GET',
-        });
-        return await response.json();
-    }
-
     return {
         adrWarehouse: await adrWarehouse(),
-        architecturalRequirements: await architecturalRequirements(),
         architecturalKnowledge : await architecturalKnowledge()
     }
 

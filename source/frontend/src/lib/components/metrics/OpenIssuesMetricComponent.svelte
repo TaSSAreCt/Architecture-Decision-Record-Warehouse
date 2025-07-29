@@ -1,8 +1,9 @@
 <script lang="ts">
     import {getContext, onMount} from 'svelte';
     import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
+    import type {System} from "$lib/domain/entity/sos/System.svelte";
 
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
     let data = $derived.by(() => {
 
@@ -10,6 +11,8 @@
             openIssues: 0,
             architectureDecisionRecords: 0
         }
+
+        /*
 
         adrWarehouse.getSystems().forEach(sos => {
             sos.architecturalDecisions.forEach(ad => {
@@ -20,6 +23,8 @@
                 }
             });
         });
+
+         */
 
         return result;
     });

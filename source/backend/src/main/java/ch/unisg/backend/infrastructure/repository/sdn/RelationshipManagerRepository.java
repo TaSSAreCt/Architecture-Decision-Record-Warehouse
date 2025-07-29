@@ -3,6 +3,8 @@ package ch.unisg.backend.infrastructure.repository.sdn;
 import ch.unisg.backend.core.domain.entities.classes.ad.Influence;
 import ch.unisg.backend.core.domain.entities.relationships.*;
 import ch.unisg.backend.core.port.out.RelationshipManagerPort;
+import ch.unisg.backend.infrastructure.repository.sdn.api.InfluenceCypherPort;
+import ch.unisg.backend.infrastructure.repository.sdn.node.InfluenceNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.stereotype.Component;
@@ -14,9 +16,13 @@ import java.util.UUID;
 public class RelationshipManagerRepository implements RelationshipManagerPort {
 
     private final Neo4jClient client;
+    private final InfluenceCypherPort influenceCypherPort;
 
     @Override
     public void create(UUID id, UUID alternativeId, UUID architecturalRequirementId) {
+
+        influenceCypherPort.save(InfluenceNode.create(id, 2F));
+
         client.query("""
                     MATCH (a:Alternatives {id: $alternativeId})
                     MATCH (i:Influence {id: $influenceId})
@@ -33,7 +39,7 @@ public class RelationshipManagerRepository implements RelationshipManagerPort {
                 MERGE (a)-[:INFLUENCES]->(i)
                 """)
                 .bind(architecturalRequirementId.toString()).to("architecturalRequirementId")
-                .bind(id.toString()).to("id")
+                .bind(id.toString()).to("influenceId")
                 .run();
     }
 

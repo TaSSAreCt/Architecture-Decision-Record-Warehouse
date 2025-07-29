@@ -40,11 +40,12 @@ public class InfluenceNode {
     @Relationship(type = "CONSIDERS", direction = Relationship.Direction.INCOMING)
     public List<RationaleNode> rationaleNodeList = new ArrayList<>();
 
-    public InfluenceNode(Float value) {
+    public InfluenceNode(UUID id, Float value) {
+        this.id = id;
         this.value = value;
     }
 
-    public static InfluenceNode create(Float value) {
-        return new InfluenceNode(value);
+    public static InfluenceNode create(UUID id, Float value) {
+        return new InfluenceNode(id, value);
     }
 }

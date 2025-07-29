@@ -9,7 +9,6 @@
     import CreateRationaleForm from "$lib/components/form/ad/CreateRationaleForm.svelte";
     import {Issue} from "$lib/domain/entity/ad/Issue.svelte";
 
-    const architecturalRequirements : ArchitecturalRequirements = getContext('architecturalRequirements');
     const architecturalKnowledge : ArchitecturalKnowledge = getContext('architecturalKnowledge');
     const selectionManager : SelectionManager = getContext("selectionManager");
 
@@ -112,7 +111,7 @@
 
                     return async ({result}) => {
                         if (result) {
-                            const nonFunctionalRequirement = architecturalRequirements.nonFunctionalRequirementList.find(nonFunctionalRequirement => nonFunctionalRequirement.id === String(formData.get('nonFunctionalRequirementId'))) ?? NonFunctionalRequirement.create();
+                            const nonFunctionalRequirement = architecturalKnowledge.architecturalRequirements.nonFunctionalRequirementList.find(nonFunctionalRequirement => nonFunctionalRequirement.id === String(formData.get('nonFunctionalRequirementId'))) ?? NonFunctionalRequirement.create();
                             selectionManager.selectedSystem.nonFunctionalRequirementList.push(nonFunctionalRequirement);
                             console.log("NFR is required.");
                         }
@@ -124,7 +123,7 @@
                         </div>
                         <div class="w3-twothird">
                             <select class="w3-input" name="nonFunctionalRequirementId" id ="nonFunctionalRequirementId">
-                                {#each architecturalRequirements.nonFunctionalRequirementList as nonFunctionalRequirement}
+                                {#each architecturalKnowledge.architecturalRequirements.nonFunctionalRequirementList as nonFunctionalRequirement}
                                     {#if !selectionManager.selectedSystem.nonFunctionalRequirementList.some(item => item.id === nonFunctionalRequirement.id)}
                                         <option value={nonFunctionalRequirement.id}>{nonFunctionalRequirement.title}</option>
                                     {/if}

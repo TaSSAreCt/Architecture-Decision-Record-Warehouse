@@ -1,9 +1,8 @@
 <script lang="ts">
     import {getContext, onMount, setContext} from 'svelte';
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
-    import type {ForcedBy} from "$lib/domain/aggregate/ForcedBy.svelte";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
 
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
     let data = $derived.by(() => {
 
@@ -15,6 +14,8 @@
             countRationales: 0,
             countArchitecturalRequirements: 0
         }
+
+        /*
 
         adrWarehouse.getSystems().forEach(sos => {
             result.countSystems += 1;
@@ -39,6 +40,8 @@
                 result.countRationales += 1;
             });
         });
+
+         */
 
         return result;
     });

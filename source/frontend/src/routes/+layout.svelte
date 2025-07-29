@@ -3,30 +3,26 @@
     import {setContext} from "svelte";
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
     import QuickActionBar from "$lib/components/quick-action-bar/QuickActionBar.svelte";
-    import {AdrWarehouse } from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte.js";
     import {ArchitecturalKnowledge } from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
-    import {fromArchitecturalKnowledgeResponseDto} from "$lib/dto/response/aggregate/ArchitecturalKnowledgeResponseDto";
-    import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequirements.svelte.js";
     import {
         fromArchitecturalRequirementsResponseDto
     } from "$lib/dto/response/entity/ArchitecturalRequirementsResponseDto";
     import {fromSystemListResponseDto} from "$lib/dto/response/entity/SystemResponseDto";
     import type {System} from "$lib/domain/entity/sos/System.svelte";
+    import {fromIssueListResponseDto} from "$lib/dto/response/entity/IssueResponseDto";
 
     let { data, children } = $props();
 
     // Initialise Architectural Knowledge for CPSoS
     const cpsos : System[] = fromSystemListResponseDto(data.adrWarehouse);
-    setContext('adrWarehouse', cpsos);
+    setContext('cpsos', cpsos);
 
     // Initialise Architectural Knowledge
-    const architecturalKnowledge : ArchitecturalKnowledge = fromArchitecturalKnowledgeResponseDto(data.architecturalKnowledge);
+    const architecturalKnowledge : ArchitecturalKnowledge = ArchitecturalKnowledge.create();
+    architecturalKnowledge.issueList = fromIssueListResponseDto(data.architecturalKnowledge.issueList);
+    architecturalKnowledge.architecturalRequirements = fromArchitecturalRequirementsResponseDto(data.architecturalKnowledge.architectureRequirementList);
     setContext('architecturalKnowledge', architecturalKnowledge);
-
-    // Initialise Architectural Requirements
-    const architecturalRequirements : ArchitecturalRequirements = fromArchitecturalRequirementsResponseDto(data.architecturalRequirements);
-    setContext('architecturalRequirements', architecturalRequirements);
 
     // Initialise form
     const formManager = FormManager.create();

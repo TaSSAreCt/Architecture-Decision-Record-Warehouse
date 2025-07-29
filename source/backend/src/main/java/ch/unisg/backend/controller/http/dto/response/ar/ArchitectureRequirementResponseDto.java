@@ -34,7 +34,7 @@ public class ArchitectureRequirementResponseDto extends ResponseDto {
         );
 
         result.put(
-                "architecturePrinciple",
+                "architecturePrincipleList",
                 architectureRequirement
                         .getArchitecturePrincipleList()
                         .stream().map(ArchitecturePrincipleResponseDto::create)

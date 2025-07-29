@@ -15,20 +15,20 @@ import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequ
 
 export class ArchitecturalRequirementsResponseDto {
 
-    constraints : ConstraintResponseDto[] = [];
-    nonFunctionalRequirements : NonFunctionalRequirementResponseDto[] = [];
-    architecturalPrinciples : ArchitecturePrincipleResponseDto[] = [];
-    intentions : IntentionResponseDto[] = [];
+    constraintList : ConstraintResponseDto[] = [];
+    nonFunctionalRequirementList : NonFunctionalRequirementResponseDto[] = [];
+    architecturePrincipleList : ArchitecturePrincipleResponseDto[] = [];
+    intentionList : IntentionResponseDto[] = [];
 }
 
 export function fromArchitecturalRequirementsResponseDto(architecturalRequirementsResponseDto : ArchitecturalRequirementsResponseDto) : ArchitecturalRequirements {
 
     const architecturalRequirements : ArchitecturalRequirements = ArchitecturalRequirements.create();
 
-    architecturalRequirements.constraintList = fromConstraintListResponseDto(architecturalRequirementsResponseDto.constraints);
-    architecturalRequirements.nonFunctionalRequirementList = fromNonFunctionalRequirementsResponseDto(architecturalRequirementsResponseDto.nonFunctionalRequirements);
-    architecturalRequirements.intentionList = fromIntentionsResponseDto(architecturalRequirementsResponseDto.intentions);
-    architecturalRequirements.architecturePrincipleList = fromArchitecturalPrinciplesResponseDto(architecturalRequirementsResponseDto.architecturalPrinciples);
+    architecturalRequirements.constraintList = fromConstraintListResponseDto(architecturalRequirementsResponseDto.constraintList);
+    architecturalRequirements.nonFunctionalRequirementList = fromNonFunctionalRequirementsResponseDto(architecturalRequirementsResponseDto.nonFunctionalRequirementList);
+    architecturalRequirements.intentionList = fromIntentionsResponseDto(architecturalRequirementsResponseDto.intentionList);
+    architecturalRequirements.architecturePrincipleList = fromArchitecturalPrinciplesResponseDto(architecturalRequirementsResponseDto.architecturePrincipleList);
 
     return architecturalRequirements;
 
