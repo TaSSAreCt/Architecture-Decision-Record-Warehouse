@@ -4,7 +4,7 @@ import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequ
 export class ArchitecturalKnowledge {
 
     issueList : Issue[] = $state<Issue[]>([]);
-    architecturalRequirements : ArchitecturalRequirements | undefined = $state<ArchitecturalRequirements>();
+    architecturalRequirements : ArchitecturalRequirements = $state<ArchitecturalRequirements>(new ArchitecturalRequirements());
 
     constructor() {}
 

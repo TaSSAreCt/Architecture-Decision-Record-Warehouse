@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @Getter
-public class ArchitecturePrinciple extends MetaClass {
+public class ArchitecturePrinciple extends MetaClass implements ArchitectureRequirementType {
 
     public ArchitecturePrinciple() {}
     public ArchitecturePrinciple(UUID id) {

@@ -50,9 +50,7 @@ public class ArchitecturalKnowledgeController {
         CreateArchitectureRequirement command = CreateArchitectureRequirement.create(
                 payload.getId(),
                 payload.getTitle(),
-                payload.getValue(),
-                payload.getType(),
-                payload.getAlternativeId()
+                payload.getType()
         );
 
         adrwUseCase.create(command);

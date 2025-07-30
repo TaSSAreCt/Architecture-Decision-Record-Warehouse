@@ -19,7 +19,7 @@ export const actions = {
         architectureRationaleRequestDto.status = formData.get("status") as string;
         architectureRationaleRequestDto.consequences = formData.get("consequences") as string;
 
-        await fetch(`${BACKEND}/api/v1/architectural-rationales`, {
+        await fetch(`${BACKEND}/api/v1/rationales`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/architecture-rationale+json"
@@ -32,10 +32,10 @@ export const actions = {
         justifiedByRelationshipRequestDto.alternative.id = formData.get("alternativeId") as string;
         justifiedByRelationshipRequestDto.architectureRationale.id = architectureRationaleRequestDto.id as string;
 
-        await fetch(`${BACKEND}/api/v1/relationships/justified-by`, {
+        await fetch(`${BACKEND}/api/v1/relationships/justifies`, {
             method: 'POST',
             headers: {
-                "Content-Type": "application/justified-by+json"
+                "Content-Type": "application/justifies+json"
             },
             body: justifiedByRelationshipRequestDto ? JSON.stringify(justifiedByRelationshipRequestDto) : undefined
         });

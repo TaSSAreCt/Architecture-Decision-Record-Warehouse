@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class Constraint extends MetaClass {
+public class Constraint extends MetaClass implements ArchitectureRequirementType {
 
     public Constraint() {}
     public Constraint(UUID id) {

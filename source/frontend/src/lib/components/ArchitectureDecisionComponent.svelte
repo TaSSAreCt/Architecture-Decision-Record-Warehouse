@@ -16,7 +16,11 @@
 <div>
 
     {#each issue.alternativeList as alternative}
-        {#if alternative.rationaleList.length !== 0}
+        {#if alternative.rationaleList.length !== 0 && alternative.rationaleList.some(rationale =>
+            selectionManager.selectedSystem.rationaleList.some(
+                sysRationale => sysRationale.id === rationale.id
+            )
+        )}
            <p>Architecture Decision: <button class="w3-button w3-border-bottom" onclick={() => {
                selectionManager.selectedIssue = issue;
                formManager.toggle("updateArchitectureDecision");
@@ -24,9 +28,9 @@
                 selectionManager.selectedIssue = issue;
                 formManager.toggle("updateAlternative");
            }}>{alternative.title}</button> justified by <button class="w3-button w3-border-bottom" onclick={() => {
-                selectionManager.selectedIssue = issue;
+                selectionManager.selectedRationale = alternative.rationaleList.at(0);
                 formManager.toggle("updateArchitecturalRationale");
-           }}>{alternative.rationaleList[0]}</button></p>
+           }}>{alternative.rationaleList.at(0)?.title}</button></p>
         {/if}
     {/each}
 </div>

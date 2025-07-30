@@ -15,7 +15,7 @@
     let { data, children } = $props();
 
     // Initialise Architectural Knowledge for CPSoS
-    const cpsos : System[] = fromSystemListResponseDto(data.adrWarehouse);
+    const cpsos = $state<System[]>(fromSystemListResponseDto(data.adrWarehouse));
     setContext('cpsos', cpsos);
 
     // Initialise Architectural Knowledge

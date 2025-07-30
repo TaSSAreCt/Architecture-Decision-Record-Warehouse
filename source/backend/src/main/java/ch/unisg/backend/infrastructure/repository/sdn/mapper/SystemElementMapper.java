@@ -21,7 +21,7 @@ public class SystemElementMapper {
         return systemElement;
     }
 
-    public static List<SystemElement> toSystemElementList(Set<SystemElementNode> systemElementNodes) {
+    public static List<SystemElement> toSystemElementList(List<SystemElementNode> systemElementNodes) {
         return systemElementNodes
                 .stream()
                 .map(SystemElementMapper::toSystemElement)

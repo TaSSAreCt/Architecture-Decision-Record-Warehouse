@@ -2,6 +2,7 @@ package ch.unisg.backend.core.domain.entities.classes.sos;
 
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class SystemClass extends MetaClass {
     private final List<SystemElement> systemElementList = new ArrayList<>();
     private final List<NonFunctionalRequirement> nonFunctionalRequirementList = new ArrayList<>();
     private final List<Issue> issueList = new ArrayList<>();
+    private final List<Rationale> rationaleList = new ArrayList<>();
 
     public SystemClass(UUID id, String title) {
         super(id, title);

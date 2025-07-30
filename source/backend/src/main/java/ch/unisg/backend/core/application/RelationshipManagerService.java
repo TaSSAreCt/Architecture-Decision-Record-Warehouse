@@ -28,6 +28,7 @@ public class RelationshipManagerService implements RelationshipManagerUseCase {
     public void create(CreateInfluenceCommand command) {
         relationshipManagerPort.create(
                 command.id(),
+                command.value(),
                 command.alternativeId(),
                 command.architectureRequirementId()
         );

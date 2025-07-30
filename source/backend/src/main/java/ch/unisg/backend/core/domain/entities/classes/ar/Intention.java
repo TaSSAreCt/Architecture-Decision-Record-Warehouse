@@ -3,11 +3,11 @@ package ch.unisg.backend.core.domain.entities.classes.ar;
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.HashMap;
+
 import java.util.UUID;
 
 @Getter @Setter
-public class Intention extends MetaClass {
+public class Intention extends MetaClass implements ArchitectureRequirementType {
 
     public Intention() {}
     public Intention(String title) {

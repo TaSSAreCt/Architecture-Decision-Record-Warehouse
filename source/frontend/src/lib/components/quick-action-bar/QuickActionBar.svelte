@@ -13,12 +13,12 @@
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
     import UpdateAlternativeForm from "$lib/components/form/ad/UpdateAlternativeForm.svelte";
     import UpdateSystemElementForm from "$lib/components/form/sos/UpdateSystemElementForm.svelte";
-    import CreateArchitecturalKnowledgeForm from "$lib/components/form/akm/CreateArchitecturalKnowledgeForm.svelte";
-    import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte.js";
     import UpdateRationaleForm from "$lib/components/form/ad/UpdateRationaleForm.svelte";
+    import CreateArchitecturalKnowledgeForm from "$lib/components/form/akm/CreateArchitecturalKnowledgeForm.svelte";
+    import CreateArchitecturalRequirementsForm
+        from "$lib/components/form/akm/CreateArchitecturalRequirementsForm.svelte";
 
     const formManager : FormManager = getContext('formManager');
-    const selectionManager : SelectionManager = getContext('selectionManager');
 </script>
 
 <!-- list of all quick action bar items-->
@@ -28,6 +28,7 @@
     <QuickActionItemBar form="createSystem" icon="S+"/>
     <QuickActionItemBar form="createSystemElement" icon="SE+" />
     <QuickActionItemBar form="createArchitecturalKnowledge" icon="AK+" />
+    <QuickActionItemBar form="createArchitecturalRequirements" icon="AR+" />
 
     <!-- Switch views -->
     <a target="_blank" href="http://localhost:7474" class="w3-button" style="position:fixed; bottom:40px">AKM</a>
@@ -39,7 +40,6 @@
 
     <button class="w3-button w3-xlarge" on:click={() => {
         formManager.reset();
-        selectionManager.reset();
     }}>&times;</button>
 
     <div class="w3-container" style="margin-right: 40px; width: 500px">
@@ -69,6 +69,8 @@
             <UpdateRationaleForm />
         {:else if formManager.createArchitecturalKnowledge}
             <CreateArchitecturalKnowledgeForm />
+        {:else if formManager.createArchitecturalRequirements}
+            <CreateArchitecturalRequirementsForm />
         {/if}
     </div>
 

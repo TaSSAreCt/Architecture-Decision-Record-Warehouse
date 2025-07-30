@@ -12,6 +12,4 @@ public class ArchitectureRequirementRequestDto {
     private UUID id;
     private String title;
     private String type;
-    private double value;
-    private UUID alternativeId;
 }

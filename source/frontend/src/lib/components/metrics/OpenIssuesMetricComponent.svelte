@@ -1,7 +1,7 @@
 <script lang="ts">
     import {getContext, onMount} from 'svelte';
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
     import type {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystems} from "$lib/utils/getSystemOfSystems";
 
     const cpsos : System[] = getContext('cpsos');
 
@@ -12,19 +12,13 @@
             architectureDecisionRecords: 0
         }
 
-        /*
 
-        adrWarehouse.getSystems().forEach(sos => {
-            sos.architecturalDecisions.forEach(ad => {
-                if (ad.isJustified()) {
-                    result.architectureDecisionRecords += 1;
-                } else {
-                    result.openIssues += 1;
-                }
-            });
+        getSystems(cpsos).forEach(childCpsos => {
+
+            result.openIssues += childCpsos.getOpenIssues().length
+            result.architectureDecisionRecords += childCpsos.rationaleList.length;
+
         });
-
-         */
 
         return result;
     });

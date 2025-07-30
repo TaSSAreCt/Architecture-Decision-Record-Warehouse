@@ -2,7 +2,6 @@ package ch.unisg.backend.controller.http;
 
 import ch.unisg.backend.controller.http.dto.request.CreateInfluenceRequestDto;
 import ch.unisg.backend.controller.http.dto.request.relationship.*;
-import ch.unisg.backend.controller.http.dto.response.CreateInfluenceResponseDto;
 import ch.unisg.backend.controller.http.dto.response.relationship.*;
 import ch.unisg.backend.core.port.in.RelationshipManagerUseCase;
 import ch.unisg.backend.core.port.in.command.CreateInfluenceCommand;
@@ -31,6 +30,7 @@ public class RelationshipController {
 
         CreateInfluenceCommand command = new CreateInfluenceCommand(
                 payload.getId(),
+                payload.getValue(),
                 payload.getAlternativeId(),
                 payload.getArchitectureRequirementId()
         );
@@ -128,9 +128,9 @@ public class RelationshipController {
         return ResponseEntity.created(RequireResponseDto.uri(id)).build();
     }
 
-    @PostMapping(path = "/relationships/justified-by", consumes = JustifiedByRequestDto.MEDIA_TYPE)
+    @PostMapping(path = "/relationships/justifies", consumes = JustifiesRequestDto.MEDIA_TYPE)
     public ResponseEntity<String> createJustifiedByRelationship(
-            @RequestBody JustifiedByRequestDto payload
+            @RequestBody JustifiesRequestDto payload
     ) {
         JustifiedByCommand command = JustifiedByCommand.create(
                 AlternativeCommand.create(payload.getAlternative().getId()),

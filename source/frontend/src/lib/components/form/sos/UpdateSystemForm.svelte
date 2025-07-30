@@ -12,6 +12,8 @@
     const architecturalKnowledge : ArchitecturalKnowledge = getContext('architecturalKnowledge');
     const selectionManager : SelectionManager = getContext("selectionManager");
 
+    console.log(architecturalKnowledge.architecturalRequirements);
+
     function toggle(elementId : string) {
         var x = document.getElementById(elementId);
         if (x.style.display === "none") {
@@ -37,27 +39,24 @@
         <hr>
 
         <h4>Architecture Decision Records:</h4>
-        <!--
-        {#each selectionManager.selectedSystemOfSystems.architecturalDecisions as architecturalDecision}
-            {#if architecturalDecision.alternatives.some(alternative => alternative.architectureRationales.length !== 0)}
-                <p>{architecturalDecision.issue.title}</p>
-            {/if}
+
+        {#each selectionManager.selectedSystem.rationaleList as rationale}
+            <p>{rationale.title}</p>
         {/each}
-        -->
+
         <hr>
 
         <h4>Issues:</h4>
-        {#each selectionManager.selectedSystem.issueList as issue}
-            {#if issue.alternativeList.every(alternative => alternative.rationaleList.length === 0)}
-                <p><button class="w3-button w3-border" onclick={() => {
-                    toggle(issue.id);
-                    selectionManager.selectedIssue = issue;
-                }}>
-                justify</button> {issue.title}</p>
-                <div id={issue.id} style="display: none">
-                    <CreateRationaleForm />
-                </div>
-            {/if}
+        {#each selectionManager.selectedSystem.getOpenIssues() as issue}
+            <p><button class="w3-button w3-border" onclick={() => {
+                toggle(issue.id);
+                selectionManager.selectedIssue = issue;
+
+            }}>
+            justify</button> {issue.title}</p>
+            <div id={issue.id} style="display: none">
+                <CreateRationaleForm issue={issue} />
+            </div>
         {/each}
         <hr>
 
@@ -66,6 +65,10 @@
             <div id="raiseIssue" class="" style="">
 
                 <form method="POST" action="actions/sos/systems?/raiseIssue" use:enhance={({formData}) => {
+
+                    const issue : Issue = Issue.create();
+                    issue.id = "";
+                    issue.title = "";
 
                     if (selectionManager.selectedSystem?.id !== undefined) {
                         formData.set("systemId", selectionManager.selectedSystem.id);

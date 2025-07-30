@@ -14,9 +14,7 @@ public class AlternativeMapper {
     public static Alternative toAlternative(AlternativeNode alternativeNode) {
 
         Alternative alternative = Alternative.create(alternativeNode.getId(), alternativeNode.getTitle());
-        alternative.getRationaleList().addAll(RationaleMapper.toRationaleList(alternativeNode.getRationaleNodeList()));
-
-        // TODO: Implement Influence
+        alternative.getInfluenceList().addAll(InfluenceMapper.toInfluenceList(alternativeNode.getInfluenceNodeList()));
 
         return alternative;
     }

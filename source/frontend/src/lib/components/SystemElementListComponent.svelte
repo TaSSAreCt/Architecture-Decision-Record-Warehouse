@@ -11,6 +11,12 @@
     const formManager : FormManager = getContext("formManager");
     const selectionManager : SelectionManager = getContext("selectionManager");
 
+    console.log(systemElementList);
+
+    systemElementList.forEach(se => {
+        console.log(se.constraintList);
+    })
+
 </script>
 
 <div>
@@ -26,7 +32,7 @@
     </p>
 
     {#each systemElementList as systemElement}
-        {#if systemElement.constraints.length !== 0}
+        {#if systemElement.constraintList.length !== 0}
             <SystemElementComponent systemElement={systemElement} />
         {/if}
     {/each}

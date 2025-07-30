@@ -19,8 +19,7 @@ public class AlternativeResponseDto extends ResponseDto {
 
         result.put("id", alternative.getId().toString());
         result.put("title", alternative.getTitle());
-
-        // TODO: Implement influence
+        result.put("influencedBy", InfluenceResponseDto.toJson(alternative.getInfluenceList()));
 
         return result;
     }

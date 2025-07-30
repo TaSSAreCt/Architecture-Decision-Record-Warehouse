@@ -1,13 +1,10 @@
 import {Alternative} from "$lib/domain/entity/ad/Alternative.svelte.js";
-import {
-    fromMadrRationalesResponseDto,
-    MadrRationaleResponseDto
-} from "$lib/dto/response/entity/ArchitectureRationaleResponseDto";
+import {fromInfluenceListResponseDto, InfluenceResponseDto} from "$lib/dto/response/entity/InfluenceResponseDto";
 
 export class AlternativeResponseDto {
     id : string | undefined;
     title : string | undefined;
-    rationaleList : MadrRationaleResponseDto[] | undefined;
+    influencedBy : InfluenceResponseDto[] | undefined;
 
     static create() {
         return new Alternative();
@@ -26,11 +23,9 @@ export function fromAlternativeResponseDto(alternativeResponseDto : AlternativeR
     alternative.id = alternativeResponseDto.id;
     alternative.title = alternativeResponseDto.title;
 
-    if (alternativeResponseDto.rationaleList) {
-        alternative.rationaleList = fromMadrRationalesResponseDto(alternativeResponseDto.rationaleList);
+    if (alternativeResponseDto.influencedBy) {
+        alternative.influenceList = fromInfluenceListResponseDto(alternativeResponseDto.influencedBy);
     }
-
-    // TODO: Implement influence list
 
     return alternative;
 }

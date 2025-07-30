@@ -31,7 +31,7 @@
     {/if}
 
     {#if system.issueList.length !== 0}
-        <ArchitecturalDecisionsComponent issueList={system.issueList} />
+        <ArchitecturalDecisionsComponent system={system} />
     {/if}
 
     {#if system.systemList.length !== 0}

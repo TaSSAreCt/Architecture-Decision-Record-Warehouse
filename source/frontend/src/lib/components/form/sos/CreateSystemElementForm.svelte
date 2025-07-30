@@ -4,7 +4,7 @@
     import {FormManager} from "$lib/domain/manager/FormManager.svelte";
     import {SystemElement} from "$lib/domain/entity/sos/SystemElement.svelte";
     import {System} from "$lib/domain/entity/sos/System.svelte";
-    import {getSystemOfSystems} from "$lib/utils/getSystemOfSystems";
+    import {getSystemOfSystems, getSystems} from "$lib/utils/getSystemOfSystems";
 
     const formManager : FormManager = getContext('formManager');
     const cpsos : System[] = getContext('cpsos');
@@ -42,7 +42,7 @@
 
             <div class="w3-rest">
                 <select class="w3-input" name="systemId" id ="systemId">
-                    {#each cpsos as system}
+                    {#each getSystems(cpsos) as system}
                         <option value={system.id}>{system.title}</option>
                     {/each}
                 </select>

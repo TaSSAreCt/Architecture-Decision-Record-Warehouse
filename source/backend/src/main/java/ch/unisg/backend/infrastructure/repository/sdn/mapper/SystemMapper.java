@@ -11,6 +11,7 @@ public class SystemMapper {
         systemClass.getSystemElementList().addAll(SystemElementMapper.toSystemElementList(systemNode.systemElementNodes));
         systemClass.getIssueList().addAll(IssueMapper.toIssueList(systemNode.issueNodes));
         systemClass.getNonFunctionalRequirementList().addAll(NonFunctionalRequirementMapper.toNonFunctionalRequirementList(systemNode.nonFunctionalRequirementNodes));
+        systemClass.getRationaleList().addAll(RationaleMapper.toRationaleList(systemNode.architectureRationaleNodes));
 
         return systemClass;
     }

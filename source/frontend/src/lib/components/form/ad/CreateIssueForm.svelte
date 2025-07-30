@@ -5,6 +5,7 @@
     import {ArchitecturalKnowledge} from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
 
+
     const architecturalKnowledge : ArchitecturalKnowledge = getContext('architecturalKnowledge');
     const selectionManager : SelectionManager = getContext('selectionManager');
 
@@ -21,6 +22,7 @@
         return async ({result}) => {
             if (result) {
                 console.log("Issue is created.");
+
 
                 selectionManager.selectedIssue = issue;
                 architecturalKnowledge.issueList.push(issue);

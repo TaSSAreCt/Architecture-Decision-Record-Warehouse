@@ -8,6 +8,10 @@ import {
     NonFunctionalRequirementResponseDto
 } from "$lib/dto/response/entity/NonFunctionalRequirementResponseDto";
 import {fromIssueListResponseDto, type IssueResponseDto} from "$lib/dto/response/entity/IssueResponseDto";
+import {
+    fromRationalesResponseDto,
+    RationaleResponseDto
+} from "$lib/dto/response/entity/ArchitectureRationaleResponseDto";
 
 export class SystemResponseDto {
     id : string | undefined;
@@ -16,6 +20,7 @@ export class SystemResponseDto {
     systemList : SystemResponseDto[] = [];
     issueList : IssueResponseDto[] = [];
     nonFunctionalRequirementList : NonFunctionalRequirementResponseDto[] = [];
+    rationaleList : RationaleResponseDto[] = [];
 }
 
 export function fromSystemListResponseDto(systemListResponseDto : SystemResponseDto[]) : System[] {
@@ -36,6 +41,8 @@ export function fromSystemResponseDto(systemResponseDto : SystemResponseDto) : S
     system.nonFunctionalRequirementList = fromNonFunctionalRequirementsResponseDto(systemResponseDto.nonFunctionalRequirementList);
 
     system.issueList = fromIssueListResponseDto(systemResponseDto.issueList);
+
+    system.rationaleList = fromRationalesResponseDto(systemResponseDto.rationaleList);
 
     return system;
 }

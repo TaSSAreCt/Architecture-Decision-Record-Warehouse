@@ -16,9 +16,7 @@ export const actions = {
                 {
                     id: form.get("id") as string,
                     title: form.get("title") as string,
-                    value: form.get("impact") as number,
-                    type: form.get("architectureRequirementType") as string,
-                    alternativeId: form.get("alternativeId") as string
+                    type: form.get("architectureRequirementType") as string
                 }
             )
         });

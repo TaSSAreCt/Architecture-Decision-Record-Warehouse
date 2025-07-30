@@ -4,7 +4,7 @@ export class SystemElement {
 
     id : string | undefined = $state();
     title : string | undefined = $state();
-    constraints = $state<Constraint[]>([]);
+    constraintList = $state<Constraint[]>([]);
 
     constructor() {
     }

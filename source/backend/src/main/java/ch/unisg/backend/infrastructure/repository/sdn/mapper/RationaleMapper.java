@@ -18,7 +18,8 @@ public class RationaleMapper {
                 architectureRationaleNode.getContext(),
                 architectureRationaleNode.getDecision(),
                 architectureRationaleNode.getStatus(),
-                architectureRationaleNode.getConsequences()
+                architectureRationaleNode.getConsequences(),
+                AlternativeMapper.toAlternative(architectureRationaleNode.getAlternativeNode())
         );
     }
 }

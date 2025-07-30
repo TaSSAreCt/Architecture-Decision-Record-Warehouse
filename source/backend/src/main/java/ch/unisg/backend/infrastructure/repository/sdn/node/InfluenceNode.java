@@ -23,19 +23,19 @@ public class InfluenceNode {
     private Float value;
 
     @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    public List<ConstraintNode> constraintNodeList = new ArrayList<>();
+    public ConstraintNode constraintNode;
 
     @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    public List<IntentionNode> intentionNodeList = new ArrayList<>();
+    public IntentionNode intentionNode;
 
     @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    public List<ArchitecturePrincipleNode> architecturePrincipleNodeList = new ArrayList<>();
+    public ArchitecturePrincipleNode architecturePrincipleNode;
 
     @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    public List<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList = new ArrayList<>();
+    public NonFunctionalRequirementNode nonFunctionalRequirementNode;
 
     @Relationship(type = "INFLUENCED_BY", direction = Relationship.Direction.INCOMING)
-    public List<AlternativeNode> alternativeNodeList = new ArrayList<>();
+    public AlternativeNode alternativeNode;
 
     @Relationship(type = "CONSIDERS", direction = Relationship.Direction.INCOMING)
     public List<RationaleNode> rationaleNodeList = new ArrayList<>();

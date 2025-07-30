@@ -19,9 +19,9 @@ public class RelationshipManagerRepository implements RelationshipManagerPort {
     private final InfluenceCypherPort influenceCypherPort;
 
     @Override
-    public void create(UUID id, UUID alternativeId, UUID architecturalRequirementId) {
+    public void create(UUID id, Float value, UUID alternativeId, UUID architecturalRequirementId) {
 
-        influenceCypherPort.save(InfluenceNode.create(id, 2F));
+        influenceCypherPort.save(InfluenceNode.create(id, value));
 
         client.query("""
                     MATCH (a:Alternatives {id: $alternativeId})
@@ -136,7 +136,7 @@ public class RelationshipManagerRepository implements RelationshipManagerPort {
         client.query("""
                     MATCH (a:Alternatives {id: $alternativeId})
                     MATCH (ar:ArchitectureRationale {id: $architectureRationalId})
-                    MERGE (a)-[:JUSTIFIED_BY {id: $id}]->(ar)
+                    MERGE (ar)-[:JUSTIFIES {id: $id}]->(a)
                 """)
                 .bind(justifiedBy.getAlternative().getId().toString()).to("alternativeId")
                 .bind(justifiedBy.getArchitectureRationale().getId().toString()).to("architectureRationalId")

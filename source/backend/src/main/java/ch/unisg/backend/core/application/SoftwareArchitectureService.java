@@ -1,7 +1,6 @@
 package ch.unisg.backend.core.application;
 
 import ch.unisg.backend.core.domain.aggregate.*;
-import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
 import ch.unisg.backend.core.domain.entities.classes.ar.*;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.port.in.SoftwareArchitectureUseCase;
@@ -26,18 +25,12 @@ public class SoftwareArchitectureService implements SoftwareArchitectureUseCase 
 
     @Override
     public void create(CreateArchitectureRequirement command) {
-
         switch (command.type()) {
             case "constraint" -> constraintPort.create(Constraint.create(command.id(), command.title()));
             case "nonFunctionalRequirement" -> nonFunctionalRequirementPort.create(NonFunctionalRequirement.create(command.id(), command.title()));
             case "intention" -> intentionPort.create(Intention.create(command.id(), command.title()));
             case "architecturePrinciple" -> architecturePrinciplePort.create(ArchitecturePrinciple.create(command.id(), command.title()));
         }
-
-        ArchitectureRequirement architectureRequirement = ArchitectureRequirement.create();
-        Alternative alternative = Alternative.create(command.alternativeId());
-
-        // TODO: Implement Influence
     }
 
     @Override

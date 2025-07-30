@@ -12,7 +12,7 @@ public class NonFunctionalRequirementMapper {
         return NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(), nonFunctionalRequirementNode.getTitle());
     }
 
-    public static List<NonFunctionalRequirement> toNonFunctionalRequirementList(Set<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList) {
+    public static List<NonFunctionalRequirement> toNonFunctionalRequirementList(List<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList) {
         return nonFunctionalRequirementNodeList.stream().map(NonFunctionalRequirementMapper::toNonFunctionalRequirement).toList();
     }
 }

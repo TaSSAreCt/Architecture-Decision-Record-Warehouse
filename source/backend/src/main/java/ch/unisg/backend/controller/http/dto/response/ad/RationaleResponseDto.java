@@ -20,6 +20,7 @@ public class RationaleResponseDto extends ResponseDto {
         result.put("decision", rationale.getDecision());
         result.put("status", rationale.getStatus());
         result.put("consequences", rationale.getConsequences());
+        result.put("justifies", rationale.getAlternative().getId());
 
         return result;
     }

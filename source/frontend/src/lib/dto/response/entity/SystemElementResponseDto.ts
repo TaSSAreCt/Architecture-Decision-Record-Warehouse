@@ -22,7 +22,7 @@ export function fromSystemElementResponseDto(systemElementResponseDto : SystemEl
     systemElement.id = systemElementResponseDto.id;
     systemElement.title = systemElementResponseDto.title;
 
-    systemElement.constraints = fromConstraintListResponseDto(systemElementResponseDto.constraintList);
+    systemElement.constraintList = fromConstraintListResponseDto(systemElementResponseDto.constraintList);
 
     return systemElement;
 }

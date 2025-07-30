@@ -26,3 +26,27 @@ function traverse(systemOfSystems: System, id: string): System | undefined {
 
     return undefined;
 }
+
+
+export function getSystems(cpsos: System[]) : System[] {
+
+    function traverse(sos : System[], child : System) {
+        sos.push(child);
+
+        child.systemList.forEach((system) => {
+            traverse(sos, system);
+        })
+    }
+
+    const sos : System[] = [];
+
+    cpsos.forEach(system => {
+        sos.push(system);
+
+        system.systemList.forEach(child => {
+            traverse(sos, child);
+        })
+    })
+
+    return sos;
+}

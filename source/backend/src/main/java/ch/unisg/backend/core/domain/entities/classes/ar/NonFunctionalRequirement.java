@@ -3,7 +3,7 @@ package ch.unisg.backend.core.domain.entities.classes.ar;
 import ch.unisg.backend.core.domain.entities.classes.MetaClass;
 import java.util.UUID;
 
-public class NonFunctionalRequirement extends MetaClass {
+public class NonFunctionalRequirement extends MetaClass implements ArchitectureRequirementType {
 
     public NonFunctionalRequirement() {}
     public NonFunctionalRequirement(UUID id, String title) {

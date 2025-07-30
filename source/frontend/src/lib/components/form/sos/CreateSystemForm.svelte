@@ -2,11 +2,11 @@
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
     import {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystemOfSystems, getSystems} from "$lib/utils/getSystemOfSystems";
 
     const formManager : FormManager = getContext('formManager');
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
     let isChecked = $state(false);
 </script>
@@ -31,12 +31,12 @@
         if (result) {
 
             if (isChecked) {
-                const systemOfSystems = adrWarehouse.getSystemOfSystems(String(formData.get('parentSystemId')));
+                const systemOfSystems = getSystemOfSystems(cpsos, String(formData.get('parentSystemId')));
                 systemOfSystems?.systemList.push(system);
             } else {
-                adrWarehouse.systemsOfSystems.push(system);
+                cpsos.push(system);
             }
-            console.log("SystemComponent is created.");
+            console.log("System is created.");
 
             formManager.reset();
         }
@@ -53,7 +53,7 @@
 
         {#if isChecked}
             <select class="w3-input" name="parentSystemId" id ="parentSystemId">
-                {#each adrWarehouse.getSystems() as system}
+                {#each getSystems(cpsos) as system}
                     <option value={system.id}>{system.title}</option>
                 {/each}
             </select><br>

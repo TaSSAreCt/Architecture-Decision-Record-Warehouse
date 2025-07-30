@@ -21,19 +21,10 @@ public class AlternativeNode {
     @Property("isSelected")
     private Boolean isSelected;
 
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    private List<ConstraintNode> constraintNodes;
+    @Relationship(type = "INFLUENCED_BY", direction = Relationship.Direction.OUTGOING)
+    private List<InfluenceNode> influenceNodeList;
 
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    private List<IntentionNode> intentionNodes;
-
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    private List<ArchitecturePrincipleNode> architecturePrincipleNodes;
-
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.INCOMING)
-    private List<NonFunctionalRequirementNode> nonFunctionalRequirementNodes;
-
-    @Relationship(type = "Justifies", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "JUSTIFIES", direction = Relationship.Direction.INCOMING)
     private List<RationaleNode> rationaleNodeList;
 
     public AlternativeNode(UUID id, String title) {

@@ -1,14 +1,34 @@
 <script lang="ts">
 
-    import ArchitectureDecisionComponent from "$lib/components/ArchitectureDecisionComponent.svelte";
-    import {Issue} from "$lib/domain/entity/ad/Issue.svelte";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
+    import {FormManager} from "$lib/domain/manager/FormManager.svelte";
+    import {getContext} from "svelte";
+    import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
 
-    const { issueList } : { issueList : Issue[] } = $props();
+    const formManager : FormManager = getContext("formManager");
+    const selectionManager : SelectionManager = getContext("selectionManager");
+
+    const { system } : { system : System } = $props();
 
 </script>
 
 <div>
-    {#each issueList as issue}
-        <ArchitectureDecisionComponent issue={issue} />
+
+
+    {#each system.rationaleList as rationale}
+        {@const issue = system.issueList.find(issue => issue.alternativeList.some(alt => alt.id === rationale.justifies)) }
+        {@const alternative = issue?.alternativeList.find(alt => alt.id === rationale.justifies)}
+
+        <p>Architecture Decision: <button class="w3-button w3-border-bottom" onclick={() => {
+           selectionManager.selectedIssue = issue;
+           formManager.toggle("updateArchitectureDecision");
+       }}>{issue?.title}</button> is solved by <button class="w3-button w3-border-bottom" onclick={() => {
+            selectionManager.selectedIssue = issue;
+            formManager.toggle("updateAlternative");
+       }}>{alternative?.title}</button> justified by <button class="w3-button w3-border-bottom" onclick={() => {
+            selectionManager.selectedRationale = rationale;
+            formManager.toggle("updateArchitecturalRationale");
+       }}>{rationale.title}</button></p>
+
     {/each}
 </div>

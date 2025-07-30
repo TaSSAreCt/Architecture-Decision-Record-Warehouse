@@ -5,9 +5,9 @@ import ch.unisg.backend.controller.http.dto.request.node.ArchitectureRationaleRe
 import lombok.Getter;
 
 @Getter
-public class JustifiedByRequestDto {
+public class JustifiesRequestDto {
 
-    public static final String MEDIA_TYPE = "application/justified-by+json";
+    public static final String MEDIA_TYPE = "application/justifies+json";
 
     private ArchitectureRationaleRequestDto architectureRationale;
     private AlternativeRequestDto alternative;

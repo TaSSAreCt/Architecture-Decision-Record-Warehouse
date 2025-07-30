@@ -16,7 +16,7 @@ public class IssueMapper {
         return issue;
     }
 
-    public static List<Issue> toIssueList(Set<IssueNode> issueNodeList) {
+    public static List<Issue> toIssueList(List<IssueNode> issueNodeList) {
         return issueNodeList.stream().map(IssueMapper::toIssue).toList();
     }
 
