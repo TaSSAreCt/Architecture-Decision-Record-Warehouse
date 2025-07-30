@@ -18,6 +18,7 @@ export class FormManager {
     updateConstrainedByRelationship = $state(false);
     createArchitecturalKnowledge = $state(false);
     createArchitecturalRequirements = $state(false);
+    updateArchitecturalKnowledge = $state(false);
 
     constructor() {
     }
@@ -46,6 +47,7 @@ export class FormManager {
             'updateRequireRelationship' |
             'updateConstrainedByRelationship' |
             'createArchitecturalKnowledge' |
+            'updateArchitecturalKnowledge'|
             'createArchitecturalDecisions' |
             'createArchitecturalRequirements'
     ) : void=> {
@@ -122,6 +124,10 @@ export class FormManager {
                 this.createArchitecturalKnowledge = !this.createArchitecturalKnowledge;
                 break;
             }
+            case "updateArchitecturalKnowledge" : {
+                this.updateArchitecturalKnowledge = !this.updateArchitecturalKnowledge;
+                break;
+            }
             case "createArchitecturalRequirements" : {
                 this.createArchitecturalRequirements = !this.createArchitecturalRequirements;
                 break;
@@ -152,6 +158,7 @@ export class FormManager {
         this.updateConstrainedByRelationship = false;
         this.updateArchitectureDecision = false;
         this.createArchitecturalKnowledge = false;
+        this.updateArchitecturalKnowledge = false;
         this.createArchitecturalRequirements = false;
     }
 

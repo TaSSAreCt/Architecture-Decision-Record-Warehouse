@@ -24,5 +24,27 @@ export const actions = {
         return {
             success: true,
         };
+    },
+
+    createInfluence : async ({fetch, request}) => {
+        const form = await request.formData();
+
+        await fetch(`${BACKEND}/api/v1/relationships/influence`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/influence+json"
+            },
+            body: JSON.stringify({
+                id: form.get("id") as string,
+                alternativeId: form.get("alternativeId") as string,
+                architectureRequirementId: form.get("architectureRequirementId") as string,
+                value: Number(form.get("value"))
+            })
+        });
+
+        return {
+            success: true,
+        };
     }
+
 } satisfies Actions;

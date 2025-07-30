@@ -17,6 +17,7 @@
     import CreateArchitecturalKnowledgeForm from "$lib/components/form/akm/CreateArchitecturalKnowledgeForm.svelte";
     import CreateArchitecturalRequirementsForm
         from "$lib/components/form/akm/CreateArchitecturalRequirementsForm.svelte";
+    import UpdateArchitecturalKnowledgeForm from "$lib/components/form/akm/UpdateArchitecturalKnowledgeForm.svelte";
 
     const formManager : FormManager = getContext('formManager');
 </script>
@@ -28,6 +29,7 @@
     <QuickActionItemBar form="createSystem" icon="S+"/>
     <QuickActionItemBar form="createSystemElement" icon="SE+" />
     <QuickActionItemBar form="createArchitecturalKnowledge" icon="AK+" />
+    <QuickActionItemBar form="updateArchitecturalKnowledge" icon="AK~" />
     <QuickActionItemBar form="createArchitecturalRequirements" icon="AR+" />
 
     <!-- Switch views -->
@@ -69,6 +71,8 @@
             <UpdateRationaleForm />
         {:else if formManager.createArchitecturalKnowledge}
             <CreateArchitecturalKnowledgeForm />
+        {:else if formManager.updateArchitecturalKnowledge}
+            <UpdateArchitecturalKnowledgeForm />
         {:else if formManager.createArchitecturalRequirements}
             <CreateArchitecturalRequirementsForm />
         {/if}

@@ -19,7 +19,7 @@ export class Alternative {
     }
 
     getRanking(nonFunctionalRequirementList : NonFunctionalRequirement[], constraintList : Constraint[]) : Ranking {
-
+        
         let value : number = 0;
         let color : "green" | "orange" | "red" | "gray";
 
