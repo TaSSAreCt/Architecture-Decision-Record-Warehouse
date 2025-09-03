@@ -1,0 +1,2 @@
+class NonFunctionalRequirementNotFound(Exception):
+    pass

@@ -18,6 +18,7 @@
     import CreateArchitecturalRequirementsForm
         from "$lib/components/form/akm/CreateArchitecturalRequirementsForm.svelte";
     import UpdateArchitecturalKnowledgeForm from "$lib/components/form/akm/UpdateArchitecturalKnowledgeForm.svelte";
+    import AskAgentForm from "$lib/components/form/AskAgentForm.svelte";
 
     const formManager : FormManager = getContext('formManager');
 </script>
@@ -31,6 +32,7 @@
     <QuickActionItemBar form="createArchitecturalKnowledge" icon="AK+" />
     <QuickActionItemBar form="updateArchitecturalKnowledge" icon="AK~" />
     <QuickActionItemBar form="createArchitecturalRequirements" icon="AR+" />
+    <QuickActionItemBar form="askAgent" icon="AI" />
 
     <!-- Switch views -->
     <a target="_blank" href="http://localhost:7474" class="w3-button" style="position:fixed; bottom:40px">AKM</a>
@@ -75,6 +77,8 @@
             <UpdateArchitecturalKnowledgeForm />
         {:else if formManager.createArchitecturalRequirements}
             <CreateArchitecturalRequirementsForm />
+        {:else if formManager.askAgent}
+            <AskAgentForm />
         {/if}
     </div>
 

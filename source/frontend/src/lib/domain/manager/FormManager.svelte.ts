@@ -19,6 +19,7 @@ export class FormManager {
     createArchitecturalKnowledge = $state(false);
     createArchitecturalRequirements = $state(false);
     updateArchitecturalKnowledge = $state(false);
+    askAgent = $state(false);
 
     constructor() {
     }
@@ -49,7 +50,8 @@ export class FormManager {
             'createArchitecturalKnowledge' |
             'updateArchitecturalKnowledge'|
             'createArchitecturalDecisions' |
-            'createArchitecturalRequirements'
+            'createArchitecturalRequirements' |
+            'askAgent'
     ) : void=> {
         this.reset();
 
@@ -132,6 +134,10 @@ export class FormManager {
                 this.createArchitecturalRequirements = !this.createArchitecturalRequirements;
                 break;
             }
+            case "askAgent": {
+                this.askAgent = !this.askAgent;
+                break;
+            }
             default : {
                 console.log("Unknown");
                 break;
@@ -160,6 +166,7 @@ export class FormManager {
         this.createArchitecturalKnowledge = false;
         this.updateArchitecturalKnowledge = false;
         this.createArchitecturalRequirements = false;
+        this.askAgent = false;
     }
 
 }
