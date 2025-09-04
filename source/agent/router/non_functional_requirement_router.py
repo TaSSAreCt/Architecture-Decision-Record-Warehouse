@@ -4,7 +4,7 @@ from typing import Annotated
 from source.application.domain.non_functional_requirement.enitity import NonFunctionalRequirement
 from source.application.domain.non_functional_requirement.exception import NonFunctionalRequirementNotFound
 from source.application.non_functional_requirement_service import NonFunctionalRequirementService
-from source.application.port.non_functional_requirement_port import NonFunctionalRequirementPort
+from source.application.port.out.non_functional_requirement_port import NonFunctionalRequirementPort
 
 router = APIRouter(prefix="/non-functional-requirements")
 

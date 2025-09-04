@@ -1,5 +1,5 @@
 from source.application.domain.non_functional_requirement.enitity import NonFunctionalRequirement
-from source.application.port.non_functional_requirement_port import NonFunctionalRequirementPort
+from source.application.port.out.non_functional_requirement_port import NonFunctionalRequirementPort
 from source.application.domain.non_functional_requirement.exception import NonFunctionalRequirementNotFound
 
 class NonFunctionalRequirementService:
