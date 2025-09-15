@@ -40,13 +40,13 @@
 </div>
 
 <!-- List of all forms -->
-<div class="w3-sidebar form-style w3-right w3-bar-block w3-animate-right padding-16 w3-round-xlarge w3-margin" style="display: {formManager.overlay ? 'block' : 'none'};width: 600px;">
+<div id="div-forms" class="w3-sidebar form-style w3-right w3-bar-block w3-animate-right padding-16 w3-round-xlarge w3-margin" style="display: {formManager.overlay ? 'block' : 'none'};width: 600px;">
 
     <button class="w3-button w3-xlarge" on:click={() => {
         formManager.reset();
     }}>&times;</button>
 
-    <div class="w3-container" style="margin-right: 40px; width: 500px">
+    <div id="subdiv-forms" class="w3-container" style="margin-right: 40px; width: 500px">
         {#if formManager.createSystem}
             <CreateSystemForm />
         {:else if formManager.updateSystem}

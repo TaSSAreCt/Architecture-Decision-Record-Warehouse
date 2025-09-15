@@ -19,7 +19,7 @@ export function fromIssueListResponseDto(issueListResponseDto : IssueResponseDto
     return issueListResponseDto.map(fromIssueResponseDto);
 }
 
-export function fromIssueResponseDto(issueResponseDto : IssueResponseDto, rationale : boolean) : Issue {
+export function fromIssueResponseDto(issueResponseDto : IssueResponseDto) : Issue {
     const issue : Issue = Issue.create();
 
     issue.id = issueResponseDto.id;

@@ -2,8 +2,7 @@
 
     import { enhance } from "$app/forms";
     import {getContext} from "svelte";
-    import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequirements.svelte.js";
-    import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte.js";
+    import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte";
     import {ArchitecturalKnowledge} from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
     import CreateRationaleForm from "$lib/components/form/ad/CreateRationaleForm.svelte";

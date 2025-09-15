@@ -26,6 +26,14 @@ export class ArchitectureRequirement implements ArchitectureRequirementInterface
         this.title = title;
     }
 
+    toJson = () : any => {
+        return {
+            id: this.id,
+            title: this.title,
+            type: this.type
+        }
+    }
+
     static create(id : string, title : string) {
         return new ArchitectureRequirement(id, title);
     }
