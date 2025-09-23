@@ -71,7 +71,7 @@
                     <div class="w3-row w3-section">
 
                         <div class="w3-third">
-                            Influence
+                            Issue
                             <SearchBar index={i} id={issue.title + i} value={issue.title} list={architecturalKnowledge.issueList} bind:callback={importArchitecturalKnowledge.issueList} />
                             is solved by
                         </div>
@@ -93,9 +93,9 @@
                                                 Architecture Requirement
                                                 <SearchBar index={i} id={influence.architectureRequirement.title + i} value={influence.architectureRequirement.title} list={architecturalKnowledge.issueList} callback={issue}/>
                                                 <select>
-                                                    <option>Positive</option>
-                                                    <option>Neutral</option>
-                                                    <option>Negative</option>
+                                                    <option selected={influence.value > 0}>Positive</option>
+                                                    <option selected={influence.value === 0}>Neutral</option>
+                                                    <option selected={influence.value < 0}>Negative</option>
                                                 </select>
                                             </div>
                                         {/each}
