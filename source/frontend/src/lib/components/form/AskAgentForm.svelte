@@ -6,16 +6,21 @@
   import { fromIssueListResponseDto } from "$lib/dto/response/entity/IssueResponseDto";
   import type { FormManager } from "$lib/domain/manager/FormManager.svelte";
 
+  // Initialise architecturalKnowledge
   const architecturalKnowledge: ArchitecturalKnowledge = getContext(
     "architecturalKnowledge",
   );
+
+  // Initialise FormManager
   const formManager: FormManager = getContext("formManager");
 
+  // initialise architectural knowledge object to map import data to internal structure
   let importArchitecturalKnowledge: ArchitecturalKnowledge =
     $state<ArchitecturalKnowledge>(ArchitecturalKnowledge.create());
 
   onMount(() => {
     
+    // increase default width  
     const div = document.getElementById("div-forms");
     const subDiv = document.getElementById("subdiv-forms");
 
@@ -26,6 +31,7 @@
 
   onDestroy(() => {
 
+    // decrease default width
     const subDiv = document.getElementById("subdiv-forms");
     if (subDiv !== null) {
       subDiv.style.width = "500px";
