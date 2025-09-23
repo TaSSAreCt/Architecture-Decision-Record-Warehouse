@@ -3,7 +3,7 @@ export type AiResponseType = {
       title: string;
       alternativeList: {
           title: string;
-          influence: {
+          influencedBy: {
               constraintList: {
                   title: string;
                   value: number

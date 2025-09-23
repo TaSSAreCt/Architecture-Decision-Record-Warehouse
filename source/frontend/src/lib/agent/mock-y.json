@@ -1,0 +1,71 @@
+[
+  {
+    "title": "Keep user session data consistent and current across shop instances",
+    "alternativeList": [
+      {
+        "title": "Database Session State",
+        "influencedBy": [
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Data consistency",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Cloud elasticity",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": -1,
+            "architectureRequirement": {
+              "title": "A session database needs to be designed and implemented",
+              "type": "constraint"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Client Session State",
+        "influencedBy": [
+          {
+            "value": -1,
+            "architectureRequirement": {
+              "title": "Data consistency",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": -1,
+            "architectureRequirement": {
+              "title": "Cloud elasticity",
+              "type": "nonFunctionalRequirement"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Server Session State",
+        "influencedBy": [
+          {
+            "value": -1,
+            "architectureRequirement": {
+              "title": "Data consistency",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": -1,
+            "architectureRequirement": {
+              "title": "Cloud elasticity",
+              "type": "nonFunctionalRequirement"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
