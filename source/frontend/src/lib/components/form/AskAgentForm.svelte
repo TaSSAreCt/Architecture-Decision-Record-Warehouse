@@ -87,9 +87,7 @@
           <h5>Import architectural decision record: {filename}</h5>
         </div>
 
-<<<<<<< HEAD
         <!-- New issue -->
-=======
         <form method="POST" action="actions/import?/architecturalKnowledge" use:enhance={({ formData }) => {
 
             formData.set("architecturalKnowledge", JSON.stringify(importArchitecturalKnowledge.toJson()));
@@ -155,7 +153,6 @@
                 {/each}
 
                 <button class="w3-button  w3-border-bottom" onclick={() => console.log("Import function")}>import</button>
->>>>>>> a94e8c1a403a9065ca783ec9e32815e4d351c5d2
 
         {#each importArchitecturalKnowledge.issueList as issue, i}
           <div class="w3-row w3-section">

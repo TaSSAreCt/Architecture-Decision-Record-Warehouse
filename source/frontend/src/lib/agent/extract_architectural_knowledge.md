@@ -1,6 +1,7 @@
 # Prompt
 
 ## Instructions
+
 You are a helpful assistant for software architects.
 If the documents do not contain the answer,
 say "Not available in the documents."
@@ -9,7 +10,7 @@ Be concise and no explanations.
 
 ## Context
 
-- UML model: {model}. PlantUml specifications: {specification}.
+- UML model: {}. PlantUml specifications: {}.
 - Root has "issueList": array of issue objects.
 - Architectural knowledge ...
 - Each issue has an array of alternatives.
@@ -25,17 +26,19 @@ Be concise and no explanations.
 - Each concept must have exactly one "title" string.
 - Always include all objects, even if empty.
 
-## Architecture Decision Record:
-{adr}
+## Architecture Decision Record
+
+{}
 
 ## Question
-Please extract the architectural knowledge from the architecture decision record.
 
-## Example JSON-object:
+{}
+
+## Example JSON-object
 
 {
 "$schema": "https://json-schema.org/draft/2020-12/schema",
-"$id": "https://example.com/your-schema.json",
+"$id": "<https://example.com/your-schema.json>",
 "title": "RootList",
 "type": "array",
 "items": {
@@ -108,3 +111,4 @@ Please extract the architectural knowledge from the architecture decision record
 }
 }
 }
+
