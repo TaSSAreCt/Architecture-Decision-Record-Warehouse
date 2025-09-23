@@ -19,8 +19,7 @@
     $state<ArchitecturalKnowledge>(ArchitecturalKnowledge.create());
 
   onMount(() => {
-    
-    // increase default width  
+    // increase default width
     const div = document.getElementById("div-forms");
     const subDiv = document.getElementById("subdiv-forms");
 
@@ -28,15 +27,14 @@
       div.style.width = "1500px";
       subDiv.style.width = "1400px";
     }
+  });
 
   onDestroy(() => {
-
     // decrease default width
     const subDiv = document.getElementById("subdiv-forms");
     if (subDiv !== null) {
       subDiv.style.width = "500px";
     }
-
   });
 
   let uploaded: boolean = $state<boolean>(false);
@@ -161,4 +159,3 @@
     </form>
   {/if}
 </div>
-
