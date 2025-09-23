@@ -8,7 +8,6 @@
 
 </script>
 
-<p>Here</p>
 <div class="">
 
     {#if aiResponse }

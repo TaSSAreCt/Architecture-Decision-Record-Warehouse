@@ -1,56 +1,64 @@
-# Prompt 
+# Prompt
 
-## Instructions You are a helpful assistant for software architects. 
-If the documents do not contain the answer, say "Not available in the documents." 
-Only return the JSON object at the end of the file. 
-Be concise and no explanations. 
+## Instructions You are a helpful assistant for software architects
 
-## Context 
-- UML model: {model}. PlantUml specifications: {specification}. 
-- Root has "issueList": array of issue objects. 
-- Each issue has an array of alternatives. 
+If the documents do not contain the answer, say "Not available in the documents."
+Only return the JSON object at the end of the file.
+Be concise and no explanations.
+
+## Context
+
+- UML model: {model}. PlantUml specifications: {specification}.
+- Root has "issueList": array of issue objects.
+- Each issue has an array of alternatives.
 - Each alternative has an array of influences.
-- Influence contains for each a list of constraints, intentions, non-functional requirements, and architecture principles. 
-- Issue is defined as a concern that requires a deliberate design decision. 
-- Alternative is defined as a design choice that solves issues. 
-- Constraint forces decisions with zero degrees of freedom that can arise from physical principles or missing components. 
-- Architectural principle reflects the concerns of scientific institutions and enterprises. 
-- Intention reflects the concerns of individuals or small teams. 
-- Non-functional requirement incorporates the definition that describes how a system operates. 
-- Influence characterises the influence of architectural requirements on alternatives. 
-- Each concept must have exactly one "title" string. 
-- Always include all objects, even if empty. 
+- Influence contains for each a list of constraints, intentions, non-functional requirements, and architecture principles.
+- Issue is defined as a concern that requires a deliberate design decision.
+- Alternative is defined as a design choice that solves issues.
+- Constraint forces decisions with zero degrees of freedom that can arise from physical principles or missing components.
+- Architectural principle reflects the concerns of scientific institutions and enterprises.
+- Intention reflects the concerns of individuals or small teams.
+- Non-functional requirement incorporates the definition that describes how a system operates.
+- Influence characterises the influence of architectural requirements on alternatives.
+- Each concept must have exactly one "title" string.
+- Always include all objects, even if empty.
 
+## Architecture Decision Record
 
-## Architecture Decision Record: 
+Use of autowiring Date: 2019-10-15
 
-Use of autowiring Date: 2019-10-15 
+## Status Rejected
 
-## Status Rejected 
+## Context
 
-## Context 
 Symfony provides a very useful tool called Autowiring.
-It allows to magically bind classes and their dependencies as long as both are declared as services, 
-and the dependencies are declared using their FQCN as service identifier. 
+It allows to magically bind classes and their dependencies as long as both are declared as services,
+and the dependencies are declared using their FQCN as service identifier.
 
-Advantages: 
-- Less boilerplate configuration code for every service as you don't have to manually bind dependencies manually. 
+Advantages:
 
-Disadvantages: 
-- Dependencies must be declared using the FQCN instead of a service identifier like "prestashop.core.foo.bar". 
-- Currently existing services would have to be aliased in order to have service names follow the required naming convention for autowiring. 
-This would lead to confusion as to which service name use in code, and in case a module wanted to replace them, they would have to replace both. 
-- Dependencies type-hinted as interfaces can have one and **only one** implementation for autowiring to work. 
+- Less boilerplate configuration code for every service as you don't have to manually bind dependencies manually.
 
-## Decision 
-Activiting autoriwing is rejected for the 1.7 version. 
+Disadvantages:
 
-## Consequences 
-Services will have to continue being wired manually. 
+- Dependencies must be declared using the FQCN instead of a service identifier like "prestashop.core.foo.bar".
+- Currently existing services would have to be aliased in order to have service names follow the required naming convention for autowiring.
+This would lead to confusion as to which service name use in code, and in case a module wanted to replace them, they would have to replace both.
+- Dependencies type-hinted as interfaces can have one and **only one** implementation for autowiring to work.
 
-## Question 
-Please extract the information into the JSON object 
-## Example 
+## Decision
+
+Activiting autoriwing is rejected for the 1.7 version.
+
+## Consequences
+
+Services will have to continue being wired manually.
+
+## Question
+
+Please extract the information into the JSON object
+
+## Example
 
 {
     "issueList": [

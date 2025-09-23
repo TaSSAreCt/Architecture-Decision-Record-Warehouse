@@ -4,7 +4,7 @@
   import { ArchitecturalKnowledge } from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
   import { enhance } from "$app/forms";
   import { fromIssueListResponseDto } from "$lib/dto/response/entity/IssueResponseDto";
-  import type { FormManager } from "$lib/domain/manager/FormManager.svelte";
+  import { FormManager } from "$lib/domain/manager/FormManager.svelte";
 
   // Initialise architecturalKnowledge
   const architecturalKnowledge: ArchitecturalKnowledge = getContext(
