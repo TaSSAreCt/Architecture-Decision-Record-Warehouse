@@ -8,7 +8,5 @@ class AgentService:
         self.agent_adapter = agent_adapter
 
     def ask(self, command : ExtractArchitecturalKnowledgeCommand) -> str :
-        
-        print(command.prompt)
-        self.agent_adapter.ask("gemma3:4b", command.prompt)
-        return ""
+        return self.agent_adapter.ask("gemma3:4b", command.prompt)
+

@@ -20,9 +20,5 @@ class AgentAdapter(AgentAdapterPort):
         response = requests.post(url, json=payload)
 
         data = response.json()
-        print(data)
 
-        print(prompt)
-        ctx = data["response"]
-
-        pass
+        return data["response"]

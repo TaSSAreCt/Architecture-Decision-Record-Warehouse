@@ -1,5 +1,8 @@
 from fastapi import APIRouter, HTTPException, File, UploadFile
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from starlette.responses import PlainTextResponse
+import json
 
 from source.application.agent_service import AgentService
 from source.application.port.use_case.command.extract_architectural_knowledge_command import ExtractArchitecturalKnowledgeCommand
@@ -35,23 +38,25 @@ The body contains the prompt and the
 }
 
 """
-@agent_router.post("/{agent_id}", response_class=PlainTextResponse)
+@agent_router.post("/{agent_id}")
 async def add_entry(agent_id : str, prompt : UploadFile, adr : UploadFile):
     try:
-        print(prompt.filename)
-        
+
         prompt_content = (await prompt.read()).decode("utf-8")
         adr_content = (await adr.read()).decode("utf-8")
 
-        for v in ["model", "uml", adr_content, "Please extract the architectural knowledge into the JSON object."]:
+        for v in [agent_id, "uml", adr_content, "Please extract the architectural knowledge into the JSON object.", ""]:
             prompt_content = prompt_content.replace("{}", str(v), 1)
-        
-        
+
         command = ExtractArchitecturalKnowledgeCommand(prompt_content)
 
-        agent_controller.import_architectural_knowledge(command)
+        architectural_knowledge = agent_controller.import_architectural_knowledge(command)
+
+        cleaned = architectural_knowledge.strip("`").lstrip("json\n").rstrip("`")
+
+        architectural_knowledge = json.loads(cleaned)
     
-        return "Hello World"
+        return JSONResponse(jsonable_encoder(architectural_knowledge))
 
     except Exception as exception:
         raise HTTPException(status_code=404, detail=str(exception))

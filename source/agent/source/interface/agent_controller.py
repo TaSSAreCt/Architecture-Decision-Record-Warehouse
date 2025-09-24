@@ -6,8 +6,7 @@ class AgentController:
         self.agent_use_case = agent_use_case
     
     def import_architectural_knowledge(self, command : ExtractArchitecturalKnowledgeCommand):
-        self.agent_use_case.ask(command)
-        pass
+        return self.agent_use_case.ask(command)
 
     def get_agent_name(self):
         pass
