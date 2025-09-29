@@ -1,0 +1,51 @@
+package ch.unisg.backend.infrastructure.repository.sdn.node;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Node("Influence")
+@Getter
+@Setter
+public class InfluenceNode {
+
+    @Id
+    private UUID id;
+
+    @Property("value")
+    private Float value;
+
+    @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
+    public ConstraintNode constraintNode;
+
+    @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
+    public IntentionNode intentionNode;
+
+    @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
+    public ArchitecturePrincipleNode architecturePrincipleNode;
+
+    @Relationship(type= "INFLUENCES", direction = Relationship.Direction.INCOMING)
+    public NonFunctionalRequirementNode nonFunctionalRequirementNode;
+
+    @Relationship(type = "INFLUENCED_BY", direction = Relationship.Direction.INCOMING)
+    public AlternativeNode alternativeNode;
+
+    @Relationship(type = "CONSIDERS", direction = Relationship.Direction.INCOMING)
+    public List<RationaleNode> rationaleNodeList = new ArrayList<>();
+
+    public InfluenceNode(UUID id, Float value) {
+        this.id = id;
+        this.value = value;
+    }
+
+    public static InfluenceNode create(UUID id, Float value) {
+        return new InfluenceNode(id, value);
+    }
+}

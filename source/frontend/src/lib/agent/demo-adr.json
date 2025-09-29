@@ -1,0 +1,134 @@
+\[
+{
+"title": "Define interface contracts between the use case layer and outer layers to support dependency inversion and layer independence",
+"alternativeList": \[
+{
+"title": "Use case layer defines abstract interfaces implemented by external layers",
+"influencedBy": \[
+{
+"value": 1,
+"architectureRequirement": {
+"title": "Dependency Inversion Principle",
+"type": "architecturePrinciple"
+}
+},
+{
+"value": 1,
+"architectureRequirement": {
+"title": "Clean Architecture layering",
+"type": "architecturePrinciple"
+}
+},
+{
+"value": 1,
+"architectureRequirement": {
+"title": "Clarity of architectural boundaries and ownership",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": 1,
+"architectureRequirement": {
+"title": "Ease of mocking and substitution in tests",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": 1,
+"architectureRequirement": {
+"title": "Maintainability and discoverability of contracts",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": 1,
+"architectureRequirement": {
+"title": "Keep contracts close to use cases",
+"type": "intention"
+}
+}
+]
+},
+{
+"title": "Define interfaces in a shared contract layer decoupled from both use case and infrastructure",
+"influencedBy": \[
+{
+"value": 0.5,
+"architectureRequirement": {
+"title": "Dependency Inversion Principle",
+"type": "architecturePrinciple"
+}
+},
+{
+"value": 0.5,
+"architectureRequirement": {
+"title": "Cross-module discoverability of contracts",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": -0.25,
+"architectureRequirement": {
+"title": "Ownership ambiguity of contracts",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": 0.5,
+"architectureRequirement": {
+"title": "Centralize contracts for reuse",
+"type": "intention"
+}
+}
+]
+},
+{
+"title": "Outer layers define concrete APIs and use cases depend directly on them",
+"influencedBy": \[
+{
+"value": -1,
+"architectureRequirement": {
+"title": "Dependency Inversion Principle",
+"type": "architecturePrinciple"
+}
+},
+{
+"value": -1,
+"architectureRequirement": {
+"title": "Layer independence",
+"type": "architecturePrinciple"
+}
+},
+{
+"value": -1,
+"architectureRequirement": {
+"title": "Clarity of architectural boundaries and ownership",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": -1,
+"architectureRequirement": {
+"title": "Ease of mocking and substitution in tests",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": -0.75,
+"architectureRequirement": {
+"title": "Maintainability and discoverability of contracts",
+"type": "nonFunctionalRequirement"
+}
+},
+{
+"value": 0.25,
+"architectureRequirement": {
+"title": "Minimize upfront abstractions",
+"type": "intention"
+}
+}
+]
+}
+]
+}
+]

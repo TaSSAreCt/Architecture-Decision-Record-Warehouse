@@ -1,11 +1,11 @@
 <script lang="ts">
 
-    import Systems from "$lib/components/Systems.svelte";
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
     import {getContext} from "svelte";
     import MetricsComponent from "$lib/components/metrics/MetricsComponent.svelte";
+    import SystemListComponent from "$lib/components/SystemListComponent.svelte";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
 
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
 </script>
 
@@ -26,9 +26,9 @@
     <hr style="height:1px;border:none;color:#333;background-color:#333;">
 
     <!-- Systems of Systems -->
-    {#each adrWarehouse.systemsOfSystems as systemOfSystems}
+    {#each cpsos as system}
         <div class="w3-container w3-margin w3-border" style="">
-            <Systems systemOfSystems={systemOfSystems} root={true}/>
+            <SystemListComponent system={system} root={true}/>
         </div>
     {/each}
 </div>

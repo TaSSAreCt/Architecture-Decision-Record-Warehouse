@@ -17,6 +17,9 @@ export class FormManager {
     updateRequireRelationship = $state(false);
     updateConstrainedByRelationship = $state(false);
     createArchitecturalKnowledge = $state(false);
+    createArchitecturalRequirements = $state(false);
+    updateArchitecturalKnowledge = $state(false);
+    askAgent = $state(false);
 
     constructor() {
     }
@@ -44,7 +47,11 @@ export class FormManager {
             'updateArchitectureDecision' |
             'updateRequireRelationship' |
             'updateConstrainedByRelationship' |
-            'createArchitecturalKnowledge'
+            'createArchitecturalKnowledge' |
+            'updateArchitecturalKnowledge'|
+            'createArchitecturalDecisions' |
+            'createArchitecturalRequirements' |
+            'askAgent'
     ) : void=> {
         this.reset();
 
@@ -119,6 +126,18 @@ export class FormManager {
                 this.createArchitecturalKnowledge = !this.createArchitecturalKnowledge;
                 break;
             }
+            case "updateArchitecturalKnowledge" : {
+                this.updateArchitecturalKnowledge = !this.updateArchitecturalKnowledge;
+                break;
+            }
+            case "createArchitecturalRequirements" : {
+                this.createArchitecturalRequirements = !this.createArchitecturalRequirements;
+                break;
+            }
+            case "askAgent": {
+                this.askAgent = !this.askAgent;
+                break;
+            }
             default : {
                 console.log("Unknown");
                 break;
@@ -145,6 +164,9 @@ export class FormManager {
         this.updateConstrainedByRelationship = false;
         this.updateArchitectureDecision = false;
         this.createArchitecturalKnowledge = false;
+        this.updateArchitecturalKnowledge = false;
+        this.createArchitecturalRequirements = false;
+        this.askAgent = false;
     }
 
 }

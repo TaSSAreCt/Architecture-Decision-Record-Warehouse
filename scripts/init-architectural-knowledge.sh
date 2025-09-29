@@ -3,9 +3,8 @@
 URL_NON_FUNCTIONAL_REQUIREMENT="http://localhost:4000/api/v1/non-functional-requirements"
 URL_CONSTRAINT="http://localhost:4000/api/v1/constraints"
 URL_ISSUE="http://localhost:4000/api/v1/issues"
-URL_ALTERNATIVE="http://localhost:4000/api/v1/alternatives"
 URL_SOLVED_BY="http://localhost:4000/api/v1/relationships/solved-by"
-URL_FORCED_BY="http://localhost:4000/api/v1/relationships/forced-by"
+URL_INFLUENCE="http://localhost:4000/api/v1/relationships/influence"
 
 
 typeset -A uuid_map
@@ -139,14 +138,14 @@ for ALTERNATIVE in "${ALTERNATIVES[@]}"; do
   ALTERNATIVE_UUID=$(uuidgen | tr A-F a-f)
 
   # Create Alternative
-  curl -X POST "$URL_ALTERNATIVE" \
+  curl -X POST "http://localhost:4000/api/v1/issues/$ISSUE_UUID/alternatives"  \
        -H "Content-Type: application/alternative+json" \
        -d "{\"id\": \"$ALTERNATIVE_UUID\", \"title\": \"$ALTERNATIVE\"}"
 
   # Create Solved By Relationship
-  curl -X POST "$URL_SOLVED_BY" \
-       -H "Content-Type: application/solved-by+json" \
-       -d "{\"issue\": {\"id\": \"$ISSUE_UUID\"}, \"alternative\": {\"id\": \"$ALTERNATIVE_UUID\"}}"
+  #curl -X POST "$URL_SOLVED_BY" \
+  #     -H "Content-Type: application/solved-by+json" \
+  #     -d "{\"issue\": {\"id\": \"$ISSUE_UUID\"}, \"alternative\": {\"id\": \"$ALTERNATIVE_UUID\"}}"
 
   for key in "${(@k)architecture_style_map}"; do
 
@@ -163,10 +162,12 @@ for ALTERNATIVE in "${ALTERNATIVES[@]}"; do
     nfr_uuid="${uuid_map[$non_functional_requirement]}"
     rating="${architecture_style_map[$key]}"
 
+    INFLUENCE_UUID=$(uuidgen | tr A-F a-f)
+    
     # Create Force By Relationships
-    curl -X POST "$URL_FORCED_BY" \
-         -H "Content-Type: application/forced-by+json" \
-         -d "{\"value\": $rating, \"alternative\": { \"id\": \"$ALTERNATIVE_UUID\" }, \"architectureRequirement\": { \"id\": \"$nfr_uuid\"}}"
+    curl -X POST "$URL_INFLUENCE" \
+         -H "Content-Type: application/influence+json" \
+         -d "{\"id\": \"$INFLUENCE_UUID\", \"value\": $rating, \"alternativeId\": \"$ALTERNATIVE_UUID\", \"architectureRequirementId\": \"$nfr_uuid\"}"
   done
 done
 

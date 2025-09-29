@@ -1,23 +1,23 @@
-import {type ArchitectureRequirementType, ForcedBy} from "$lib/domain/aggregate/ForcedBy.svelte";
-import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
-import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte.js";
-import {Intention} from "$lib/domain/entity/ar/Intention.svelte.js";
-import {ArchitecturePrinciple} from "$lib/domain/entity/ar/ArchitecturePrinciple.svelte.js";
+import {ArchitectureRequirement} from "$lib/domain/entity/ar/ArchitectureRequirement.svelte";
 
 export class ArchitectureRequirementResponseDto {
     id : string = "";
     title : string = "";
-    type : "constraint" | 'nonFunctionalRequirement' |"intention" | "architecturePrinciple" = "constraint";
+    type : "constraint" | 'nonFunctionalRequirement' | "intention" | "architecturePrinciple" = "constraint";
 
     static create() {
         return new ArchitectureRequirementResponseDto();
     }
 }
 
-export function fromArchitectureRequirementResponseDto(architectureRequirementResponseDto : ArchitectureRequirementResponseDto): ArchitectureRequirementType {
+export function fromArchitectureRequirementResponseDto(architectureRequirementResponseDto : ArchitectureRequirementResponseDto): ArchitectureRequirement {
 
-    let architectureRequirement : ArchitectureRequirementType;
+    const architectureRequirement : ArchitectureRequirement = ArchitectureRequirement.create(architectureRequirementResponseDto.id, architectureRequirementResponseDto.title);
 
+    architectureRequirement.type = architectureRequirementResponseDto.type;
+
+    return  architectureRequirement;
+    /*
     switch (architectureRequirementResponseDto.type) {
 
         case "constraint": {
@@ -26,21 +26,18 @@ export function fromArchitectureRequirementResponseDto(architectureRequirementRe
 
             constraint.id = architectureRequirementResponseDto.id;
             constraint.title = architectureRequirementResponseDto.title;
+            constraint.type = architectureRequirementResponseDto.type;
 
-            return architectureRequirement = {
-                type: architectureRequirementResponseDto.type,
-                value: constraint
-            }
+            return constraint;
+
         }
         case "nonFunctionalRequirement": {
             const nonFunctionalRequirement = NonFunctionalRequirement.create();
             nonFunctionalRequirement.id = architectureRequirementResponseDto.id;
             nonFunctionalRequirement.title = architectureRequirementResponseDto.title;
+            nonFunctionalRequirement.type = architectureRequirementResponseDto.type;
 
-            return architectureRequirement = {
-                type: architectureRequirementResponseDto.type,
-                value: nonFunctionalRequirement
-            }
+            return nonFunctionalRequirement;
         }
         case "intention": {
 
@@ -73,4 +70,6 @@ export function fromArchitectureRequirementResponseDto(architectureRequirementRe
             };
         }
     }
+
+     */
 }

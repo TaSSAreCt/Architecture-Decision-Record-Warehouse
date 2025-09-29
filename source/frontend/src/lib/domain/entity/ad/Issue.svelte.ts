@@ -1,23 +1,14 @@
-import type {IssueResponseDto} from "$lib/dto/response/entity/IssueResponseDto";
+import type {Alternative} from "$lib/domain/entity/ad/Alternative.svelte";
 
 export class Issue {
 
     id : string = $state("");
     title : string = $state("");
+    alternativeList : Alternative[] = $state([]);
 
     constructor() {};
 
     static create(): Issue {
         return new Issue();
-    }
-
-
-    static fromJson = (issueResponseDto : IssueResponseDto) : Issue => {
-        const issue = new Issue();
-
-        issue.id = issueResponseDto.id;
-        issue.title = issueResponseDto.title;
-
-        return issue;
     }
 }

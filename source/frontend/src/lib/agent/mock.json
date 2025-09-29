@@ -1,0 +1,38 @@
+[
+  {
+    "alternativeList": [
+      {
+        "title": "Layered",
+        "influencedBy": [
+          {
+            "architectureRequirement": {
+              "title": "Elasticity",
+              "type": "nonFunctionalRequirement"
+            },
+            "value": 1
+          },
+          {
+            "architectureRequirement": {
+              "title": "Test",
+              "type": "constraint"
+            },
+            "value": -1
+          }
+        ]
+      },
+      {
+        "title": "Pipeline",
+        "influencedBy": [
+          {
+            "architectureRequirement": {
+              "title": "Deployability",
+              "type": "nonFunctionalRequirement"
+            },
+            "value": -1
+          }
+        ]
+      }
+    ],
+    "title": "Architecture Style"
+  }
+]

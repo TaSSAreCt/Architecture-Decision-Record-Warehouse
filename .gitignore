@@ -1,3 +1,5 @@
+internal/
+**/__pycache__
 **/.DS_Store
 **/*:Zone*
 **/.idea

@@ -1,7 +1,12 @@
-export class Constraint {
+import type {
+    ArchitectureRequirementInterface
+} from "$lib/domain/entity/ar/ArchitectureRequirement.svelte";
 
-    id: string = $state("");
-    title: string = $state("");
+export class Constraint implements ArchitectureRequirementInterface {
+
+    id :  string = $state("");
+    title : string = $state("");
+    type : "nonFunctionalRequirement" | "constraint" | "intention" | "architecturePrinciple" | undefined = $state();
 
     constructor() {
     }

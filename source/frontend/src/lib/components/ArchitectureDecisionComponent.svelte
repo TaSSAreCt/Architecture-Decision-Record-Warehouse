@@ -1,11 +1,11 @@
 <script lang="ts">
 
-    import {ArchitectureDecision} from "$lib/domain/aggregate/ArchitectureDecision.svelte";
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
     import {getContext} from "svelte";
     import {SelectionManager, } from "$lib/domain/manager/SelectionManager.svelte.js";
+    import {Issue} from "$lib/domain/entity/ad/Issue.svelte";
 
-    const { architectureDecision } : { architectureDecision : ArchitectureDecision } = $props();
+    const { issue } : { issue : Issue } = $props();
 
     const formManager : FormManager = getContext("formManager");
     const selectionManager : SelectionManager = getContext("selectionManager");
@@ -15,18 +15,22 @@
 
 <div>
 
-    {#each architectureDecision.alternatives as alternative}
-        {#if alternative.architectureRationales.length !== 0}
+    {#each issue.alternativeList as alternative}
+        {#if alternative.rationaleList.length !== 0 && alternative.rationaleList.some(rationale =>
+            selectionManager.selectedSystem.rationaleList.some(
+                sysRationale => sysRationale.id === rationale.id
+            )
+        )}
            <p>Architecture Decision: <button class="w3-button w3-border-bottom" onclick={() => {
-               selectionManager.selectedArchitecturalDecision = architectureDecision;
+               selectionManager.selectedIssue = issue;
                formManager.toggle("updateArchitectureDecision");
-           }}>{architectureDecision.issue.title}</button> is solved by <button class="w3-button w3-border-bottom" onclick={() => {
-                selectionManager.selectedArchitecturalDecision = architectureDecision;
+           }}>{issue.title}</button> is solved by <button class="w3-button w3-border-bottom" onclick={() => {
+                selectionManager.selectedIssue = issue;
                 formManager.toggle("updateAlternative");
-           }}>{alternative.alternative.title}</button> justified by <button class="w3-button w3-border-bottom" onclick={() => {
-                selectionManager.selectedArchitecturalDecision = architectureDecision;
+           }}>{alternative.title}</button> justified by <button class="w3-button w3-border-bottom" onclick={() => {
+                selectionManager.selectedRationale = alternative.rationaleList.at(0);
                 formManager.toggle("updateArchitecturalRationale");
-           }}>{alternative.architectureRationales[0].title}</button></p>
+           }}>{alternative.rationaleList.at(0)?.title}</button></p>
         {/if}
     {/each}
 </div>

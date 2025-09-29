@@ -1,19 +1,17 @@
-import {SystemOfSystems} from "$lib/domain/aggregate/SystemOfSystems.svelte.js";
-import {SystemElementAggregate} from "$lib/domain/aggregate/SystemElementAggregate.svelte.js";
-import {ArchitectureDecision} from "$lib/domain/aggregate/ArchitectureDecision.svelte.js";
-import type {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte";
+
+import {System} from "$lib/domain/entity/sos/System.svelte";
+import {SystemElement} from "$lib/domain/entity/sos/SystemElement.svelte";
+import type {Issue} from "$lib/domain/entity/ad/Issue.svelte";
+import type {Rationale} from "$lib/domain/entity/ad/Rationale.svelte";
 
 export class SelectionManager {
 
-    selectedSystemOfSystems  : SystemOfSystems = $state(SystemOfSystems.create());
-    selectedSystemElementAggregate : SystemElementAggregate = $state(SystemElementAggregate.create());
-    selectedArchitecturalDecision : ArchitectureDecision | null = $state(null);
+    selectedSystem  : System | undefined = $state<System>();
+    selectedSystemElement : SystemElement | undefined = $state<SystemElement>();
+    selectedIssue : Issue | undefined = $state<Issue>();
+    selectedRationale : Rationale | undefined = $state<Rationale>();
 
     constructor() {}
-
-    reset = () => {
-        this.selectedArchitecturalDecision = null;
-    }
 
     static create() {
         return new SelectionManager();

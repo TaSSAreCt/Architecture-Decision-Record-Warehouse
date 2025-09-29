@@ -1,13 +1,13 @@
 <script lang="ts">
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
-    import {SystemOfSystems} from "$lib/domain/aggregate/SystemOfSystems.svelte";
-    import {SystemElementAggregate} from "$lib/domain/aggregate/SystemElementAggregate.svelte";
-    import type {FormManager} from "$lib/domain/manager/FormManager.svelte";
-    import type {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte";
+    import {FormManager} from "$lib/domain/manager/FormManager.svelte";
+    import {SystemElement} from "$lib/domain/entity/sos/SystemElement.svelte";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystemOfSystems, getSystems} from "$lib/utils/getSystemOfSystems";
 
     const formManager : FormManager = getContext('formManager');
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
 
 </script>
@@ -17,19 +17,19 @@
 
     <form method="post" action="actions/sos/system-elements?/createSystemElement" use:enhance={({ formData }) => {
 
-        let systemElementAggregate = SystemElementAggregate.create();
+        let systemElement = SystemElement.create();
 
-        systemElementAggregate.id = crypto.randomUUID();
-        systemElementAggregate.title = String(formData.get('title'));
+        systemElement.id = crypto.randomUUID();
+        systemElement.title = String(formData.get('title'));
 
-        formData.set('id', systemElementAggregate.id);
+        formData.set('id', systemElement.id);
 
-        let systemOfSystems : SystemOfSystems = adrWarehouse.getSystemOfSystems(String(formData.get('systemId'))) ?? SystemOfSystems.create();
+        let system : System = getSystemOfSystems(cpsos, String(formData.get('systemId'))) ?? System.create();
 
-        formData.set('systemId', systemOfSystems.system.id);
+        formData.set('systemId', system.id ?? "");
 
         return async ({ result }) => {
-            systemOfSystems?.systemElementAggregates.push(systemElementAggregate);
+            system?.systemElementList.push(systemElement);
             formManager.reset();
         }
     }}>
@@ -42,8 +42,8 @@
 
             <div class="w3-rest">
                 <select class="w3-input" name="systemId" id ="systemId">
-                    {#each adrWarehouse.getSystems() as systemOfSystems}
-                        <option value={systemOfSystems.system.id}>{systemOfSystems.system.title}</option>
+                    {#each getSystems(cpsos) as system}
+                        <option value={system.id}>{system.title}</option>
                     {/each}
                 </select>
             </div>

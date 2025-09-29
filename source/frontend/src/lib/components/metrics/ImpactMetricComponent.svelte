@@ -1,9 +1,11 @@
 <script lang="ts">
     import {getContext, onMount} from 'svelte';
     import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
+    import type {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystems} from "$lib/utils/getSystemOfSystems";
+    import type {Ranking} from "$lib/domain/entity/ad/Alternative.svelte";
 
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
-
+    const cpsos : System[] = getContext('cpsos');
 
     let data = $derived.by(() => {
 
@@ -12,6 +14,29 @@
             neutral : 0,
             negative : 0,
         }
+
+
+        getSystems(cpsos).forEach(childCpsos => {
+
+            const justifiedAlternatives = childCpsos.issueList
+                .flatMap(issue => issue.alternativeList)
+                .filter(alt => childCpsos.rationaleList.some(r => r.justifies === alt.id));
+
+            justifiedAlternatives.forEach(alternative => {
+                let ranking : Ranking = alternative.getRanking(childCpsos.nonFunctionalRequirementList, childCpsos.systemElementList.flatMap(systemElement => systemElement.constraintList));
+
+                if (ranking.value > 0) {
+                    result.positive += 1;
+                } else if (ranking.value === 0) {
+                    result.neutral += 1;
+                } else if (ranking.value < 0 ) {
+                    result.negative += 1;
+                }
+            })
+
+        });
+
+        /*
 
         adrWarehouse.getSystems().forEach(sos => {
             sos.architecturalDecisions.forEach(ad => {
@@ -33,6 +58,8 @@
 
 
         });
+
+         */
 
         return result;
     });

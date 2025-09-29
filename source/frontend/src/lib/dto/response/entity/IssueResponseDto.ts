@@ -1,17 +1,22 @@
 import {Issue} from "$lib/domain/entity/ad/Issue.svelte.js";
+import {
+    type AlternativeResponseDto,
+    fromAlternativeListResponseDto
+} from "$lib/dto/response/entity/AlternativeResponseDto";
 
 export class IssueResponseDto {
     id: string;
     title: string;
+    alternativeList : AlternativeResponseDto[] = [];
 
     constructor(id: string, title : string) {
         this.id = id;
         this.title = title;
     }
+}
 
-    static create() {
-        return new IssueResponseDto("", "");
-    }
+export function fromIssueListResponseDto(issueListResponseDto : IssueResponseDto[]) : Issue[] {
+    return issueListResponseDto.map(fromIssueResponseDto);
 }
 
 export function fromIssueResponseDto(issueResponseDto : IssueResponseDto) : Issue {
@@ -19,6 +24,8 @@ export function fromIssueResponseDto(issueResponseDto : IssueResponseDto) : Issu
 
     issue.id = issueResponseDto.id;
     issue.title = issueResponseDto.title;
+
+    issue.alternativeList = fromAlternativeListResponseDto(issueResponseDto.alternativeList);
 
     return issue;
 }

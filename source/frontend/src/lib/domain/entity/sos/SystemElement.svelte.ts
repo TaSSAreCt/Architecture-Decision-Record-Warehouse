@@ -1,7 +1,10 @@
+import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
+
 export class SystemElement {
 
-    id : string = $state("");
-    title : string = $state("");
+    id : string | undefined = $state();
+    title : string | undefined = $state();
+    constraintList = $state<Constraint[]>([]);
 
     constructor() {
     }

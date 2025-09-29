@@ -1,23 +1,24 @@
 <script lang="ts">
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
-    import {ArchitecturalRequirements} from "$lib/domain/aggregate/ArchitecturalRequirements.svelte";
+    import {ArchitecturalRequirements} from "$lib/domain/entity/ar/ArchitecturalRequirements.svelte.js";
     import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
     import type {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
+    import type {ArchitecturalKnowledge} from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
 
     const selectionManager : SelectionManager = getContext('selectionManager');
-    const architecturalRequirements : ArchitecturalRequirements = getContext('architecturalRequirements');
+    const architecturalKnowledge : ArchitecturalKnowledge = getContext('architecturalKnowledge');
 
 </script>
 
 <div>
 
-    <h2><u>{selectionManager.selectedSystemElementAggregate.title}</u></h2>
+    <h2><u>{selectionManager.selectedSystemElement.title}</u></h2>
     <hr>
 
     <h4>Constraints:</h4>
 
-    {#each selectionManager.selectedSystemElementAggregate.constraints as constraint}
+    {#each selectionManager.selectedSystemElement.constraintList as constraint}
         <p>{constraint.title}</p>
     {/each}
     <hr>
@@ -29,13 +30,13 @@
 
             <form method="POST" action="actions/ar/constraint?/constrainedByConstraint" use:enhance={({ formData }) => {
 
-                formData.set("systemElementId", selectionManager.selectedSystemElementAggregate.id);
+                formData.set("systemElementId", selectionManager.selectedSystemElement.id);
 
                 return async ({ result }) => {
                     if (result) {
 
-                        const constraint = architecturalRequirements.constraints.find(constraint => constraint.id === String(formData.get('constrainedId'))) ?? Constraint.create();
-                        selectionManager.selectedSystemElementAggregate.constraints.push(constraint);
+                        const constraint = architecturalKnowledge.architecturalRequirements.constraintList.find(constraint => constraint.id === String(formData.get('constrainedId'))) ?? Constraint.create();
+                        selectionManager.selectedSystemElement.constraintList.push(constraint);
                     }
                 };
             }}>
@@ -50,8 +51,8 @@
 
                         <select class="w3-input" name="constrainedId" id="constrainedId">
 
-                            {#each architecturalRequirements.constraints as constraint}
-                                {#if !selectionManager.selectedSystemElementAggregate.constraints.some(item => item.id === constraint.id)}
+                            {#each architecturalKnowledge.architecturalRequirements.constraintList as constraint}
+                                {#if !selectionManager.selectedSystemElement.constraintList.some(item => item.id === constraint.id)}
                                     <option value={constraint.id}>{constraint.title}</option>
                                 {/if}
                             {/each}

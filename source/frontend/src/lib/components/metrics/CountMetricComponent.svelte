@@ -1,11 +1,15 @@
 <script lang="ts">
     import {getContext, onMount, setContext} from 'svelte';
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
-    import type {ForcedBy} from "$lib/domain/aggregate/ForcedBy.svelte";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystems} from "$lib/utils/getSystemOfSystems";
 
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
     let data = $derived.by(() => {
+
+        const architectureRequirementIds = new Set<string>();
+        const alternativeIds = new Set<string>();
+        const rationaleIds = new Set<string>();
 
         let result = {
             countSystems: 0,
@@ -16,29 +20,32 @@
             countArchitecturalRequirements: 0
         }
 
-        adrWarehouse.getSystems().forEach(sos => {
+        getSystems(cpsos).forEach(childCpsos => {
             result.countSystems += 1;
-            result.countSystemElements += sos.systemElementAggregates.length;
+            result.countSystemElements += childCpsos.systemElementList.length;
 
-            sos.architecturalDecisions.forEach(ad => {
-                const seenForcedBy : ForcedBy[] = [];
+            childCpsos.rationaleList.forEach(rationale => {
+                rationaleIds.add(rationale.id);
+            })
 
-                ad.alternatives.forEach(alternative => {
-
-                    alternative.forcedBy.forEach(fb => {
-
-                        if (seenForcedBy.every(item => item.architectureRequirement.value.id !== fb.architectureRequirement.value.id)) {
-                            seenForcedBy.push(fb);
-                            result.countArchitecturalRequirements += 1;
-                        }
-                    });
-                });
-
+            childCpsos.issueList.forEach(issue => {
                 result.countIssues += 1;
-                result.countAlternatives += ad.alternatives.length;
-                result.countRationales += 1;
-            });
+
+                issue.alternativeList.forEach(alternative => {
+                    alternativeIds.add(alternative.id);
+
+                   alternative.influenceList.forEach(influence => {
+                       architectureRequirementIds.add(influence.architectureRequirement.id);
+                   });
+
+                });
+            })
+
         });
+
+        result.countRationales = rationaleIds.size;
+        result.countAlternatives = alternativeIds.size;
+        result.countArchitecturalRequirements = architectureRequirementIds.size;
 
         return result;
     });

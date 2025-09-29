@@ -2,9 +2,9 @@
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
     import {getContext} from "svelte";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte.js";
-    import {SystemOfSystems} from "$lib/domain/aggregate/SystemOfSystems.svelte";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
 
-    let {systemOfSystems} : { systemOfSystems:SystemOfSystems } = $props();
+    let { system } : { system : System } = $props();
 
     const formManager : FormManager = getContext("formManager");
     const selectionManager : SelectionManager = getContext("selectionManager");
@@ -13,10 +13,10 @@
 <p>
     System
     <button class="w3-button w3-border-bottom" onclick={() => {
-        selectionManager.selectedSystemOfSystems = systemOfSystems;
+        selectionManager.selectedSystem = system;
         formManager.toggle("updateSystem");
     }}>
-        {systemOfSystems.system.title}
+        {system.title}
     </button>
 
 </p>

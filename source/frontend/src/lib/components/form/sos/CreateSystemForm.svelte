@@ -2,11 +2,11 @@
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
     import {FormManager} from "$lib/domain/manager/FormManager.svelte.js";
-    import {SystemOfSystems} from "$lib/domain/aggregate/SystemOfSystems.svelte";
-    import {AdrWarehouse} from "$lib/domain/aggregate/AdrWarehouse.svelte.js";
+    import {System} from "$lib/domain/entity/sos/System.svelte";
+    import {getSystemOfSystems, getSystems} from "$lib/utils/getSystemOfSystems";
 
     const formManager : FormManager = getContext('formManager');
-    const adrWarehouse : AdrWarehouse = getContext('adrWarehouse');
+    const cpsos : System[] = getContext('cpsos');
 
     let isChecked = $state(false);
 </script>
@@ -16,11 +16,11 @@
     <h5>Create a new system:</h5>
     <form method="POST" action="actions/sos/systems?/createSystem" use:enhance={({formData}) => {
 
-    let sos : SystemOfSystems = SystemOfSystems.create();
+    let system : System = System.create();
 
-    sos.system.id = crypto.randomUUID();
-    formData.set('id', sos.system.id);
-    sos.system.title = String(formData.get('title'));
+    system.id = crypto.randomUUID();
+    formData.set('id', system.id);
+    system.title = String(formData.get('title'));
 
     if (isChecked) {
         formData.set('parentSystemClassId', String(formData.get('parentSystemId')));
@@ -31,12 +31,12 @@
         if (result) {
 
             if (isChecked) {
-                const systemOfSystems = adrWarehouse.getSystemOfSystems(String(formData.get('parentSystemId')));
-                systemOfSystems?.childSystems.push(sos);
+                const systemOfSystems = getSystemOfSystems(cpsos, String(formData.get('parentSystemId')));
+                systemOfSystems?.systemList.push(system);
             } else {
-                adrWarehouse.systemsOfSystems.push(sos);
+                cpsos.push(system);
             }
-            console.log("SystemComponent is created.");
+            console.log("System is created.");
 
             formManager.reset();
         }
@@ -53,8 +53,8 @@
 
         {#if isChecked}
             <select class="w3-input" name="parentSystemId" id ="parentSystemId">
-                {#each adrWarehouse.getSystems() as systemOfSystems}
-                    <option value={systemOfSystems.system.id}>{systemOfSystems.system.title}</option>
+                {#each getSystems(cpsos) as system}
+                    <option value={system.id}>{system.title}</option>
                 {/each}
             </select><br>
         {/if}

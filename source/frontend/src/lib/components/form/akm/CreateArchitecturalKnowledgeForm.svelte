@@ -1,82 +1,138 @@
 <script lang="ts">
-    import { enhance } from "$app/forms";
+
+    import {Issue} from "$lib/domain/entity/ad/Issue.svelte";
+    import {enhance} from "$app/forms";
     import {getContext} from "svelte";
-    import {ArchitectureDecision} from "$lib/domain/aggregate/ArchitectureDecision.svelte";
-    import {AlternativeAggregate} from "$lib/domain/aggregate/AlternativeAggregate.svelte";
-    import { ForcedBy} from "$lib/domain/aggregate/ForcedBy.svelte";
-    import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
-    import {Intention} from "$lib/domain/entity/ar/Intention.svelte.js";
-    import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte.js";
-    import {ArchitecturePrinciple} from "$lib/domain/entity/ar/ArchitecturePrinciple.svelte.js";
     import {ArchitecturalKnowledge} from "$lib/domain/aggregate/ArchitecturalKnowledge.svelte";
-    import {toAlternativeAggregateRequestDto} from "$lib/dto/request/aggregate/AlternativeAggregateRequestDto";
-    import {FormManager} from "$lib/domain/manager/FormManager.svelte";
-    import type {ArchitecturalRequirements} from "$lib/domain/aggregate/ArchitecturalRequirements.svelte";
-    import CreateIssueForm from "$lib/components/form/ad/CreateIssueForm.svelte";
-    import type {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
-    import CreateAlternativeForm from "$lib/components/form/ad/CreateAlternativeForm.svelte";
-    import CreateArchitectureRequirementForm from "$lib/components/form/akm/CreateArchitectureRequirementForm.svelte";
+    import {Alternative} from "$lib/domain/entity/ad/Alternative.svelte";
+    import {ArchitectureRequirement} from "$lib/domain/entity/ar/ArchitectureRequirement.svelte";
+    import {Influence} from "$lib/domain/entity/ad/Influence.svelte";
 
-    // get runes
-    const formManager : FormManager = getContext('formManager');
-    const selectionManager : SelectionManager = getContext('selectionManager');
+    let issue : Issue | undefined = $state(undefined);
 
-    // create architectural knowledge
-    let architectureDecision : ArchitectureDecision = ArchitectureDecision.create();
+    const architecturalKnowledge: ArchitecturalKnowledge = getContext("architecturalKnowledge");
 
-    // helper function to toggle the correct alternative component
-    function toggle(elementId : string) {
+    let selectedArchitecturalRequirements : string[] = $state<string[]>([]);
+    let values : number[] = $state<number[]>([]);
 
-        // Close alternatives
-        architectureDecision.alternatives.forEach(alternativeAggregate => {
-            var x = document.getElementById(alternativeAggregate.alternative.id);
-            if (x !== null) {
-                x.style.display = "none";
-            }
-        });
-
-        // Open the right alternatives
-        var x = document.getElementById(elementId);
-        if (x !== null) {
-            x.style.display = "block";
-        }
-    }
+    let architectureRequirementFlatMap : ArchitectureRequirement[] = [
+        ...architecturalKnowledge.architecturalRequirements.nonFunctionalRequirementList,
+        ...architecturalKnowledge.architecturalRequirements.intentionList,
+        ...architecturalKnowledge.architecturalRequirements.architecturePrincipleList,
+        ...architecturalKnowledge.architecturalRequirements.constraintList
+    ];
 
 </script>
 
 <div>
-    <h5>Create architectural knowledge:</h5>
 
-    {#if selectionManager.selectedArchitecturalDecision}
+    <h5>Create a architectural knowledge:</h5>
 
-        <hr>
+    {#if issue}
 
-        <p>Issue: {selectionManager.selectedArchitecturalDecision.issue.title}</p>
+        <p>{issue.title}</p>
 
-        <CreateAlternativeForm />
+        <form id="alternativeForm" method="POST" action="actions/ad/alternative?/createAlternativeWithIssueAndArchitecturalRequirements" use:enhance={({formData, formElement}) => {
 
-        <hr>
+            const alternative : Alternative = Alternative.create();
 
-        {#each selectionManager.selectedArchitecturalDecision.alternatives as alternativeAggregate}
+            alternative.id = crypto.randomUUID();
+            formData.set("id", alternative.id);
+            alternative.title = String(formData.get("title"));
+            formData.set("issueId", issue.id);
 
-            <div>
-                <!-- Alternatives -->
-                <button class="w3-button w3-border w3-left-align" type="button" style="width: 100%" onclick={() => {
-                        toggle(alternativeAggregate.alternative.id);
-                    }}>
-                    Alternative: {alternativeAggregate.alternative.title}
-                </button>
+            const influenceIds = Array.from({ length: selectedArchitecturalRequirements.length }, () => crypto.randomUUID());
 
-                <div id={alternativeAggregate.alternative.id} style="display: none" class="w3-padding-top-24 w3-margin-bottom">
-                    <CreateArchitectureRequirementForm {alternativeAggregate} />
-                </div>
+            formData.set("influenceIds", influenceIds.join(","));
+            formData.set("selectedArchitecturalRequirements", selectedArchitecturalRequirements.join(","));
+            formData.set("values", values.join(","));
+
+            return async ({result}) => {
+
+                selectedArchitecturalRequirements.forEach(((architectureRequirementId, index) => {
+                    let architectureRequirement : ArchitectureRequirement | undefined = architectureRequirementFlatMap.find(item => item.id === architectureRequirementId);
+
+                    let influence : Influence = Influence.create();
+
+                    influence.id = influenceIds[index];
+                    influence.value = values[index];
+                    influence.architectureRequirement = architectureRequirement
+
+                    alternative.influenceList.push(influence);
+
+                }));
+
+                issue.alternativeList.push(alternative);
+                formElement.reset();
+            }
+        }}>
+
+            <div class="w3-left" style="width: 400px">
+                <input class="w3-input" placeholder="Alternative title" id="title" type="text" name="title"><br>
             </div>
+
+            <div class="" style="width: 400px">
+                <label for="architecturalRequirements">Choose architectural requirements:</label>
+                <select name="architecturalRequirements" id="architecturalRequirements" bind:value={selectedArchitecturalRequirements} multiple>
+
+                    {#each architectureRequirementFlatMap as architectureRequirement}
+                        <option value={architectureRequirement.id}>{architectureRequirement.title}</option>
+                    {/each}
+                </select>
+            </div>
+
+            {#each { length : selectedArchitecturalRequirements.length }, i}
+                <input type="number" min="-1" max="1" step="0.1" bind:value={values[i]} /><br>
+            {/each}
+
+            <div class="">
+                <button class="w3-button w3-border" style="margin-left: 20px" type="submit">+</button>
+            </div>
+
+        </form>
+
+        {#each issue.alternativeList as alternative}
+
+            <div class="w3-container">
+                <p>{alternative.title}</p>
+            </div>
+
+
         {/each}
 
-    {:else}
-        <CreateIssueForm />
+    {:else if !issue}
+
+        <form id="issueForm" method="POST" action="actions/ad/issue?/createIssue" use:enhance={({formData, formElement}) => {
+
+        issue = Issue.create();
+
+        issue.id = crypto.randomUUID();
+        formData.set("id", issue.id);
+        issue.title = String(formData.get("title"));
+
+        return async ({result}) => {
+            if (result) {
+                console.log("Issue is created.");
+
+                if (issue) {
+                    architecturalKnowledge.issueList.push(issue);
+                }
+                formElement.reset();
+
+            }
+        }
+
+    }}>
+            <div class="w3-row">
+                <div class="w3-left" style="width: 400px">
+                    <input class="w3-input" placeholder="Issue title" id="title" type="text" name="title"><br>
+                </div>
+
+                <div class="w3-rest">
+                    <button class="w3-button w3-border" style="margin-left: 20px" type="submit">+</button>
+                </div>
+            </div>
+
+        </form>
     {/if}
-
-    <hr>
 </div>
-

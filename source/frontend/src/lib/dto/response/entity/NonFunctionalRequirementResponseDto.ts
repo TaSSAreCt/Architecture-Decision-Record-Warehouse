@@ -1,8 +1,8 @@
 import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte.js";
 
 export class NonFunctionalRequirementResponseDto {
-    id : string = "";
-    title : string = "";
+    id : string | undefined;
+    title : string | undefined;
 }
 
 export function fromNonFunctionalRequirementsResponseDto(nonFunctionalRequirementsResponseDto : NonFunctionalRequirementResponseDto[]) : NonFunctionalRequirement[] {

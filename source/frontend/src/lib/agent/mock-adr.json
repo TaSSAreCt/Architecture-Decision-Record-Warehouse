@@ -1,0 +1,162 @@
+[
+  {
+    "title": "Define interface contracts between use case layer and outer layers to support dependency inversion and layer independence",
+    "alternativeList": [
+      {
+        "title": "Let the use case layer define abstract interfaces that are implemented by external layers (e.g., UserRepository interface).",
+        "influencedBy": [
+          {
+            "value": 3,
+            "architectureRequirement": {
+              "title": "Dependency Inversion Principle (use cases own interfaces)",
+              "type": "architecturePrinciple"
+            }
+          },
+          {
+            "value": 3,
+            "architectureRequirement": {
+              "title": "Layer independence in Clean Architecture",
+              "type": "architecturePrinciple"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Use case layer must not depend on frameworks",
+              "type": "constraint"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Contracts owned by inner layers",
+              "type": "constraint"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Enable mocking of adapters in tests",
+              "type": "intention"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Clear ownership and boundaries of contracts",
+              "type": "intention"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Maintainability and modular substitution of adapters",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Discoverability of contracts across modules",
+              "type": "nonFunctionalRequirement"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Define interfaces in a shared contract layer decoupled from both use case and infrastructure.",
+        "influencedBy": [
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Dependency inversion via neutral contract package",
+              "type": "architecturePrinciple"
+            }
+          },
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Preserve layer independence through shared contracts",
+              "type": "architecturePrinciple"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Avoid cyclic dependencies between modules",
+              "type": "constraint"
+            }
+          },
+          {
+            "value": 2,
+            "architectureRequirement": {
+              "title": "Improve contract discoverability in large repos",
+              "type": "intention"
+            }
+          },
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Maintainability with an additional contract layer",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": 1,
+            "architectureRequirement": {
+              "title": "Modularity through shared abstractions",
+              "type": "nonFunctionalRequirement"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Allow outer layers to define concrete APIs and let use cases depend directly on them (inversion not enforced).",
+        "influencedBy": [
+          {
+            "value": -3,
+            "architectureRequirement": {
+              "title": "Violates Dependency Inversion Principle",
+              "type": "architecturePrinciple"
+            }
+          },
+          {
+            "value": -3,
+            "architectureRequirement": {
+              "title": "Erodes layer independence",
+              "type": "architecturePrinciple"
+            }
+          },
+          {
+            "value": -2,
+            "architectureRequirement": {
+              "title": "Use case layer must not depend on frameworks (violated)",
+              "type": "constraint"
+            }
+          },
+          {
+            "value": -3,
+            "architectureRequirement": {
+              "title": "Hard to mock or substitute infrastructure in tests",
+              "type": "intention"
+            }
+          },
+          {
+            "value": -2,
+            "architectureRequirement": {
+              "title": "Lower maintainability due to tight coupling",
+              "type": "nonFunctionalRequirement"
+            }
+          },
+          {
+            "value": -1,
+            "architectureRequirement": {
+              "title": "Poor discoverability of stable contracts",
+              "type": "nonFunctionalRequirement"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

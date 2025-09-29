@@ -1,6 +1,6 @@
 export class AlternativeRequestDto {
-    id : string = "";
-    title : string = "";
+    id : string | undefined;
+    title : string | undefined;
 
     constructor() {}
 

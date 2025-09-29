@@ -2,18 +2,18 @@
     import {getContext} from "svelte";
     import { enhance } from "$app/forms";
     import {SelectionManager} from "$lib/domain/manager/SelectionManager.svelte";
-    import {AlternativeAggregate} from "$lib/domain/aggregate/AlternativeAggregate.svelte";
+    import {Alternative} from "$lib/domain/entity/ad/Alternative.svelte";
 
     const selectionManager : SelectionManager = getContext('selectionManager');
 </script>
 
 <div class="">
     <form id="alternativeForm" method="POST" action="actions/ad/alternative?/createAlternativeWithIssue" use:enhance={({formData}) => {
-        const alternative : AlternativeAggregate = AlternativeAggregate.create();
+        const alternative : Alternative = Alternative.create();
 
-        alternative.alternative.id = crypto.randomUUID();
-        formData.set("id", alternative.alternative.id);
-        alternative.alternative.title = String(formData.get("title"));
+        alternative.id = crypto.randomUUID();
+        formData.set("id", alternative.id);
+        alternative.title = String(formData.get("title"));
         formData.set("issueId", selectionManager.selectedArchitecturalDecision.issue.id);
 
         return async ({result}) => {

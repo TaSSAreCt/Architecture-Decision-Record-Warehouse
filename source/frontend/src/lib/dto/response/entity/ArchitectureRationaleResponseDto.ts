@@ -1,27 +1,33 @@
-import {ArchitectureRationale} from "$lib/domain/entity/ad/ArchitectureRationale.svelte.js";
+import {Rationale} from "$lib/domain/entity/ad/Rationale.svelte";
 
-export class ArchitectureRationaleResponseDto {
+export class RationaleResponseDto {
     id : string = "";
     title : string = "";
     context : string = "";
     decision : string = "";
     status : string = "";
     consequences : string = "";
+    justifies : string = "";
 }
 
-export function fromArchitectureRationaleResponseDto(architectureRationaleResponseDto : ArchitectureRationaleResponseDto) : ArchitectureRationale {
-    const architectureRationale : ArchitectureRationale = ArchitectureRationale.create();
-
-    architectureRationale.id = architectureRationaleResponseDto.id;
-    architectureRationale.title = architectureRationaleResponseDto.title;
-    architectureRationale.context = architectureRationaleResponseDto.context;
-    architectureRationale.decision = architectureRationaleResponseDto.decision;
-    architectureRationale.status = architectureRationaleResponseDto.status;
-    architectureRationale.consequences = architectureRationaleResponseDto.consequences;
-
-    return architectureRationale;
+export function fromRationalesResponseDto(
+    architecturalRationalesResponseDto : RationaleResponseDto[]
+) : Rationale[] {
+    return architecturalRationalesResponseDto.map(fromRationaleResponseDto);
 }
 
-export function fromArchitectureRationalesResponseDto(architecturalRationalesResponseDto : ArchitectureRationaleResponseDto[]) : ArchitectureRationale[] {
-    return architecturalRationalesResponseDto.map(fromArchitectureRationaleResponseDto);
+export function fromRationaleResponseDto(
+    rationaleResponseDto : RationaleResponseDto
+) : Rationale {
+    const rationale : Rationale = Rationale.create();
+
+    rationale.id = rationaleResponseDto.id;
+    rationale.title = rationaleResponseDto.title;
+    rationale.context = rationaleResponseDto.context;
+    rationale.decision = rationaleResponseDto.decision;
+    rationale.status = rationaleResponseDto.status;
+    rationale.consequences = rationaleResponseDto.consequences;
+    rationale.justifies = rationaleResponseDto.justifies;
+
+    return rationale;
 }
