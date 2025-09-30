@@ -1,3 +1,3 @@
 class ExtractArchitecturalKnowledgeCommand:
-    def __init__(self, prompt : str):
+    def __init__(self, prompt: dict):
         self.prompt = prompt
