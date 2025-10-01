@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from source.application.agent.adapter import AgentAdapterPort
 from source.application.agent.command import ExtractArchitecturalKnowledgeCommand
 from source.application.agent.use_case import AgentUseCase
@@ -24,3 +24,6 @@ class AgentService(AgentUseCase):
         )
 
         return self.adapter.ask(cmd.model, prompt)
+
+    def get_list_of_available_models(self) -> Optional[List[str]]:
+        return self.adapter.get_available_models()

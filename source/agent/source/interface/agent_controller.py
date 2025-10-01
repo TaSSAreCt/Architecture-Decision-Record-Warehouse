@@ -6,12 +6,12 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 
 from source.application.agent.command import ExtractArchitecturalKnowledgeCommand
 from source.application.agent.service import AgentService
-from source.infrastructure.agent_adapter import AgentAdapter
 from source.infrastructure.agent_repository import AgentRepository
+from source.infrastructure.ollama_adapter import OllamaAdapter
 
 agent_router = APIRouter(prefix="/agents")
 
-adapter = AgentAdapter()
+adapter = OllamaAdapter()
 repository = AgentRepository()
 use_case = AgentService(adapter)
 
@@ -46,11 +46,15 @@ async def add_entry(
 @agent_router.get("/{agent_id}", response_class=PlainTextResponse)
 def get_agent_by_id(agent_id: str):
     try:
-        # command = ExtractArchitecturalKnowledgeCommand("", "")
+        return ""
 
-        # test = controller.get_agent_name()
+    except Exception as exception:
+        raise HTTPException(status_code=404, detail=str(exception))
 
-        return "Test"
 
+@agent_router.get("/")
+def get_available_models():
+    try:
+        return use_case.get_list_of_available_models()
     except Exception as exception:
         raise HTTPException(status_code=404, detail=str(exception))
