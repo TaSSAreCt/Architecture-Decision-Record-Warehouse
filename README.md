@@ -39,7 +39,7 @@
 
 ### Architecture Decision Record Model
 
-<img src="documentation/figures/adrm.svg" alt="Formal Model of Architecture Decision Record">
+<img src="documentation/figures/adrm.png" alt="Formal Model of Architecture Decision Record">
 
 ### Architecture Decision Record Warehouse
 
