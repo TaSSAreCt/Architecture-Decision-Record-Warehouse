@@ -1,10 +1,11 @@
-from source.application.domain.agent.entitiy import Agent
-from source.application.port.out.agent_port import AgentPort
 from typing import Optional
 
-class AgentRepository(AgentPort):
+from source.application.agent.repository import AgentRepositoryPort
+
+
+class AgentRepository(AgentRepositoryPort):
     def __init__(self):
         pass
 
-    def mock(self) -> Optional[Agent]:
+    def mock(self) -> Optional[None]:
         pass
