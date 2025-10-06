@@ -1,7 +1,7 @@
 from typing import List, Protocol, Optional
 
 
-class AgentAdapterPort(Protocol):
+class AiAdapterPort(Protocol):
     def ask(self, model: str, prompt: str) -> Optional[str]:
         pass
 

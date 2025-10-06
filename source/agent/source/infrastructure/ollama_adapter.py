@@ -1,12 +1,12 @@
 from typing import List, Optional
 import requests
 
-from source.application.agent.adapter import AgentAdapterPort
+from source.application import agent
 
 BASE_URL = "http://localhost:11434/api"
 
 
-class OllamaAdapter(AgentAdapterPort):
+class OllamaAdapter(agent.AiAdapterPort):
     def ask(self, model: str, prompt: str) -> Optional[str]:
         payload = {"model": model, "prompt": prompt, "stream": False}
 

@@ -1,9 +1,9 @@
 from typing import Optional
 
-from source.application.agent.repository import AgentRepositoryPort
+from source.application import agent
 
 
-class AgentRepository(AgentRepositoryPort):
+class PostgresRepository(agent.RepositoryPort):
     def __init__(self):
         pass
 
