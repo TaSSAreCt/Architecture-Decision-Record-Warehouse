@@ -2,13 +2,14 @@ from typing import List, Optional
 import requests
 
 from source.application import agent
+from source.application.agent.entity import Prompt
 
 BASE_URL = "http://localhost:11434/api"
 
 
 class OllamaAdapter(agent.AiAdapterPort):
-    def ask(self, model: str, prompt: str) -> Optional[str]:
-        payload = {"model": model, "prompt": prompt, "stream": False}
+    def ask(self, model: str, prompt: Prompt) -> Optional[str]:
+        payload = {"model": model, "prompt": prompt.get(), "stream": False}
 
         response = requests.post(BASE_URL + "/generate", json=payload)
 

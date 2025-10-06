@@ -1,6 +1,6 @@
 from typing import Protocol, Optional
 
 
-class AgentRepositoryPort(Protocol):
+class RepositoryPort(Protocol):
     def mock(self) -> Optional[None]:
         pass

@@ -1,10 +1,14 @@
 FROM maven AS build
 
-COPY . /app
+WORKDIR /app
 
-RUN mvn -f app/pom.xml clean package -DskipTests
+COPY . .
 
-FROM openjdk:21-jdk
+RUN mvn -f pom.xml clean package -DskipTests
+
+FROM openjdk:25-jdk
+
+WORKDIR /app
 
 COPY --from=build /app/target/backend-0.0.1.jar ./backend-0.0.1.jar
 
