@@ -58,7 +58,9 @@ def get_agent_by_id(agent_id: str):
 
 
 @agent_router.get("/")
-def get_available_models():
+def get_available_models(
+    use_case: Annotated[AgentUseCase, Depends(AgentService(adapter))],
+):
     try:
         return use_case.get_list_of_available_models()
     except Exception as exception:
