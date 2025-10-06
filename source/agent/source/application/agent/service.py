@@ -27,3 +27,6 @@ class AgentService(AgentUseCase):
 
     def get_list_of_available_models(self) -> Optional[List[str]]:
         return self.adapter.get_available_models()
+
+    def __call__(self):
+        return self

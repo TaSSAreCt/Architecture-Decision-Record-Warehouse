@@ -1,11 +1,13 @@
 import json
+from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, PlainTextResponse
 
 from source.application.agent.command import ExtractArchitecturalKnowledgeCommand
 from source.application.agent.service import AgentService
+from source.application.agent.use_case import AgentUseCase
 from source.infrastructure.agent_repository import AgentRepository
 from source.infrastructure.ollama_adapter import OllamaAdapter
 
@@ -13,12 +15,15 @@ agent_router = APIRouter(prefix="/agents")
 
 adapter = OllamaAdapter()
 repository = AgentRepository()
-use_case = AgentService(adapter)
 
 
 @agent_router.post("/{agent_id}/{parameters}")
 async def add_entry(
-    agent_id: str, parameters: str, prompt: UploadFile, adr: UploadFile
+    agent_id: str,
+    parameters: str,
+    prompt: UploadFile,
+    adr: UploadFile,
+    use_case: Annotated[AgentUseCase, Depends(AgentService(adapter))],
 ):
     try:
         prompt_content = (await prompt.read()).decode("utf-8")
