@@ -1,5 +1,5 @@
  # Use a Python image with uv pre-installed
-FROM python:3.12-slim-trixie
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 # Install the project into `/app`
 WORKDIR /app
