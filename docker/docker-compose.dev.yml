@@ -23,6 +23,19 @@ services:
     networks:
       - adrw-net
 
+  agent:
+    container_name: agent
+    hostname: agent
+    build:
+      context: ../source/agent
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    depends_on:
+      - db-mongodb
+    networks:
+      - adrw-net
+
   db-neo4j:
     container_name: db-neo4j
     hostname: db-neo4j

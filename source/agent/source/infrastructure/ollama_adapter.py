@@ -4,7 +4,7 @@ import requests
 from source.application import agent
 from source.application.agent.entity import Prompt
 
-BASE_URL = "http://localhost:11434/api"
+BASE_URL = "http://host.docker.internal:11434/api"
 
 
 class OllamaAdapter(agent.AiAdapterPort):

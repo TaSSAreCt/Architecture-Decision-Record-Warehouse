@@ -1,28 +1,27 @@
+from typing import List
 import uuid
 
 from pydantic import BaseModel
+from pydantic.types import UUID4
 
 
 class Prompt(BaseModel):
-    prompt: dict
-
-    def __init__(self, prompt: dict):
-        # TODO: validate prompt
-        self.prompt = prompt
+    id: UUID4
+    instructions: List[str]
+    context: List[str]
+    architecture_decision_record: str
+    question: str
 
     def get(self) -> str:
-        instructions = " ".join(self.prompt["instructions"])
-        context = " ".join(self.prompt["context"])
-
         return (
             "Instructions: "
-            + instructions
+            + " ".join(self.instructions)
             + "Context: "
-            + context
+            + " ".join(self.context)
             + "Architecture Decision Record: "
-            + self.prompt["architectureDecisionRecord"]
+            + self.architecture_decision_record
             + "Question: "
-            + self.prompt["question"]
+            + self.question
         )
 
 

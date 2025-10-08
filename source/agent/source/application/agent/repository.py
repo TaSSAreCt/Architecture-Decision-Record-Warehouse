@@ -2,5 +2,8 @@ from typing import Protocol, Optional
 
 
 class RepositoryPort(Protocol):
-    def mock(self) -> Optional[None]:
+    def create(self) -> Optional[None]:
+        pass
+
+    def read(self) -> Optional[None]:
         pass

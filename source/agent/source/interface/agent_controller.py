@@ -3,26 +3,31 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse, PlainTextResponse
+from fastapi.responses import JSONResponse
+from pymongo import MongoClient
 
 from source.application import agent
 from source.application.agent.command import ExtractArchitecturalKnowledgeCommand
 from source.infrastructure.agent_repository import PostgresRepository
+from source.infrastructure.mongodb_repository import MongodbRepository
 from source.infrastructure.ollama_adapter import OllamaAdapter
 
 agent_router = APIRouter(prefix="/agents")
 
 adapter = OllamaAdapter()
-repository = PostgresRepository()
+postgres_repository = PostgresRepository()
+client = MongoClient("mongodb://db-mongodb:27017")
+mongodb_repository = MongodbRepository(client)
+service = agent.Service(adapter=adapter, repository=mongodb_repository)
 
 
 @agent_router.post("/{agent_id}/{parameters}")
-async def add_entry(
+async def ask(
     agent_id: str,
     parameters: str,
     prompt: UploadFile,
     adr: UploadFile,
-    use_case: Annotated[agent.UseCase, Depends(agent.Service(adapter, repository))],
+    use_case: Annotated[agent.UseCase, Depends(service)],
 ):
     try:
         prompt_content = (await prompt.read()).decode("utf-8")
@@ -47,19 +52,13 @@ async def add_entry(
         raise HTTPException(status_code=404, detail=str(exception))
 
 
-@agent_router.get("/{agent_id}", response_class=PlainTextResponse)
-def get_agent_by_id(agent_id: str):
-    try:
-        return ""
-
-    except Exception as exception:
-        raise HTTPException(status_code=404, detail=str(exception))
-
-
 @agent_router.get("/")
 def get_available_models(
-    use_case: Annotated[agent.UseCase, Depends(agent.Service(adapter, repository))],
+    use_case: Annotated[agent.UseCase, Depends(service)],
 ):
+    """
+    Return a list of all available models
+    """
     try:
         return use_case.get_list_of_available_models()
     except Exception as exception:
