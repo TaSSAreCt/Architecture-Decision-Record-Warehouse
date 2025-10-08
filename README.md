@@ -8,7 +8,6 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -23,7 +22,6 @@
   </p>
 </div>
 
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -36,7 +34,6 @@
   </ol>
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -46,7 +43,6 @@
 
 ### Architecture Decision Record Warehouse
 
-
 <img src="documentation/figures/sa-adrw.png" alt="Formal Model of Architecture Decision Record">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -54,7 +50,7 @@
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* Model-Based Architecture Decision Recording 
+* Model-Based Architecture Decision Recording
 * Architectural Knowledge Graph
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -67,10 +63,13 @@ To get a local copy up and running follow these simple example steps.
 ### Installation
 
 1. Clone the repo
+
    ```sh
    git clone https://github.com/nikokelx/Architecture-Decision-Record-Warehouse
    ```
+
 2. Start docker compose
+
    ```sh
     docker compose -f source/docker/docker-compose.dev.yml up --build -d
    ```
@@ -80,8 +79,8 @@ To get a local copy up and running follow these simple example steps.
 <!-- Overview of the project -->
 ## Overview of the Project
 
-* Open http://localhost:3000 to access the user interface of Architecture Decision Record Warehouse.
-* Open http://localhost:7474 to access the user interface of neo4j. The username is neo4j, and the passwort secret123
+* Open <http://localhost:3000> to access the user interface of Architecture Decision Record Warehouse.
+* Open <http://localhost:7474> to access the user interface of neo4j. The username is neo4j, and the passwort secret123
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -91,4 +90,3 @@ To get a local copy up and running follow these simple example steps.
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-

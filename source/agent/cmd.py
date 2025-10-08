@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from router.agent_router import agent_router
+from source.interface.agent_controller import agent_router
 
 app = FastAPI()
 

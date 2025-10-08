@@ -1,5 +1,4 @@
 services:
-
   frontend:
     container_name: frontend
     hostname: frontend
@@ -10,7 +9,7 @@ services:
       - "3000:3000"
     networks:
       - adrw-net
-  
+
   backend:
     container_name: backend
     hostname: backend
@@ -24,6 +23,19 @@ services:
     networks:
       - adrw-net
 
+  agent:
+    container_name: agent
+    hostname: agent
+    build:
+      context: ../source/agent
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    depends_on:
+      - db-mongodb
+    networks:
+      - adrw-net
+
   db-neo4j:
     container_name: db-neo4j
     hostname: db-neo4j
@@ -34,8 +46,15 @@ services:
     environment:
       - NEO4J_AUTH=neo4j/secret123
       - NEO4J_dbms_default__database=neo4j
-    volumes:
-      - $HOME/neo4j/data:/data
+    networks:
+      - adrw-net
+
+  db-mongodb:
+    container_name: db-mongodb
+    hostname: db-mongodb
+    image: mongodb/mongodb-community-server
+    ports:
+      - "27017:27017"
     networks:
       - adrw-net
 

@@ -3,3 +3,4 @@ internal/
 **/.DS_Store
 **/*:Zone*
 **/.idea
+**/setup.cfg
