@@ -9,34 +9,39 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
 public class NonFunctionalRequirementRepository implements NonFunctionalRequirementPort {
 
-    private final NonFunctionalRequirementCypherPort repository;
+  private final NonFunctionalRequirementCypherPort repository;
 
-    @Override
-    public void create(NonFunctionalRequirement nonFunctionalRequirement) {
-        repository.save(NonFunctionalRequirementNode.create(nonFunctionalRequirement.getId(), nonFunctionalRequirement.getTitle()));
+  @Override
+  public void create(NonFunctionalRequirement nonFunctionalRequirement) {
+    repository.save(
+        NonFunctionalRequirementNode.create(nonFunctionalRequirement.getId(), nonFunctionalRequirement.getTitle(),
+            nonFunctionalRequirement.isCyber()));
+  }
+
+  @Override
+  public NonFunctionalRequirement findById(UUID id) {
+
+    Optional<NonFunctionalRequirementNode> entity = repository.findById(id);
+
+    return entity
+        .map(nonFunctionalRequirementNode -> NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(),
+            nonFunctionalRequirementNode.getTitle(), nonFunctionalRequirementNode.isCyber()))
+        .orElse(null);
+  }
+
+  @Override
+  public void readAll(List<NonFunctionalRequirement> nonFunctionalRequirementList) {
+    List<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList = repository.findAll();
+
+    for (NonFunctionalRequirementNode nonFunctionalRequirementNode : nonFunctionalRequirementNodeList) {
+      nonFunctionalRequirementList.add(NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(),
+          nonFunctionalRequirementNode.getTitle()));
     }
-
-    @Override
-    public NonFunctionalRequirement findById(NonFunctionalRequirement nonFunctionalRequirement) {
-
-        Optional<NonFunctionalRequirementNode> entity = repository.findById(nonFunctionalRequirement.getId());
-
-        entity.ifPresent(element -> nonFunctionalRequirement.setTitle(element.getTitle()));
-
-        return nonFunctionalRequirement;
-    }
-
-    @Override
-    public void readAll(List<NonFunctionalRequirement> nonFunctionalRequirementList) {
-        List<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList = repository.findAll();
-
-        for (NonFunctionalRequirementNode nonFunctionalRequirementNode : nonFunctionalRequirementNodeList) {
-            nonFunctionalRequirementList.add(NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(), nonFunctionalRequirementNode.getTitle()));
-        }
-    }
+  }
 }

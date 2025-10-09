@@ -7,9 +7,10 @@ import java.util.UUID;
 @Getter
 public class CreateSystemRequestDto {
 
-    public final static String MEDIA_TYPE = "application/system+json";
+  public final static String MEDIA_TYPE = "application/system+json";
 
-    private UUID id;
-    private String title;
+  private UUID id;
+  private String title;
+  private boolean cyber;
 
 }

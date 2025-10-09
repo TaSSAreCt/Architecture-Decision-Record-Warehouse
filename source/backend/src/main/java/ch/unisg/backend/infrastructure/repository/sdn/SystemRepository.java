@@ -11,40 +11,44 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
 public class SystemRepository implements SystemPort {
 
-    private final Neo4jClient client;
-    private final SystemCypherPort repository;
+  private final Neo4jClient client;
+  private final SystemCypherPort repository;
 
-    @Override
-    public void createSystem(SystemClass systemClass) {
-        SystemNode systemNode = new SystemNode(systemClass.getId(), systemClass.getTitle());
-        repository.save(systemNode);
-    }
+  @Override
+  public void createSystem(SystemClass systemClass) {
+    SystemNode systemNode = new SystemNode(systemClass.getId(), systemClass.getTitle(), systemClass.isCyber());
+    repository.save(systemNode);
+  }
 
-    @Override
-    public SystemClass findSystemById(SystemClass systemClass) {
+  @Override
+  public SystemClass findSystemById(UUID id) {
 
-        Optional<SystemNode> systemNode = repository.findById(systemClass.getId());
+    Optional<SystemNode> systemNode = repository.findById(id);
 
-        systemNode.ifPresent(value -> systemClass.setTitle(value.getTitle()));
+    SystemClass systemClass = systemNode
+        .map(value -> SystemClass.create(id, value.getTitle(), value.getIsCyber()))
+        .orElse(null);
 
-        return systemClass;
-    }
+    return systemClass;
 
-    @Override
-    public List<SystemClass> findSystems() {
+  }
 
-        List<SystemNode> nodes = repository.findAll();
+  @Override
+  public List<SystemClass> findSystems() {
 
-        List<SystemClass> systemClassList = new ArrayList<SystemClass>();
+    List<SystemNode> nodes = repository.findAll();
 
-        nodes.forEach(node -> {
-            systemClassList.add(SystemClass.create(node.getId(), node.getTitle()));
-        });
-        return systemClassList;
-    }
+    List<SystemClass> systemClassList = new ArrayList<SystemClass>();
+
+    nodes.forEach(node -> {
+      systemClassList.add(SystemClass.create(node.getId(), node.getTitle(), node.getIsCyber()));
+    });
+    return systemClassList;
+  }
 }

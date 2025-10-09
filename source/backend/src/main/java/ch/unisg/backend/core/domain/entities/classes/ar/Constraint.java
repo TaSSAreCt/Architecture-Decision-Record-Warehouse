@@ -8,28 +8,42 @@ import java.util.UUID;
 @Getter
 public class Constraint extends MetaClass implements ArchitectureRequirementType {
 
-    public Constraint() {}
-    public Constraint(UUID id) {
-        super(id);
-    }
-    public Constraint(UUID id, String title) {
-        super(id, title);
-    }
+  private boolean isCyber;
 
-    public static Constraint create() {
-        return new Constraint();
-    }
+  public Constraint() {
+  }
 
-    public static Constraint create(UUID id) {
-        return new Constraint(id);
-    }
+  public Constraint(UUID id) {
+    super(id);
+  }
 
-    public static Constraint create(UUID id, String title) {
-        return new Constraint(id, title);
-    }
+  public Constraint(UUID id, String title) {
+    super(id, title);
+  }
 
-    public String getType() {
-        return "constraint";
-    }
+  public Constraint(UUID id, String title, boolean isCyber) {
+    super(id, title);
+    this.isCyber = isCyber;
+  }
+
+  public static Constraint create() {
+    return new Constraint();
+  }
+
+  public static Constraint create(UUID id) {
+    return new Constraint(id);
+  }
+
+  public static Constraint create(UUID id, String title) {
+    return new Constraint(id, title);
+  }
+
+  public static Constraint create(UUID id, String title, boolean isCyber) {
+    return new Constraint(id, title, isCyber);
+  }
+
+  public String getType() {
+    return "constraint";
+  }
 
 }

@@ -8,31 +8,34 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Node("NonFunctionalRequirement")
-@Getter @Setter
+@Getter
+@Setter
 public class NonFunctionalRequirementNode {
 
-    @Id
-    private UUID id;
+  @Id
+  private UUID id;
 
-    @Property("title")
-    private String title;
+  @Property("title")
+  private String title;
 
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
-    public List<InfluenceRelationship> forcesRelationships;
+  @Property("isCyber")
+  private boolean isCyber;
 
-    public NonFunctionalRequirementNode(UUID id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+  @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
+  public List<InfluenceRelationship> forcesRelationships;
 
-    public static NonFunctionalRequirementNode create(UUID id, String title) {
-        return new NonFunctionalRequirementNode(id, title);
-    }
+  public NonFunctionalRequirementNode(UUID id, String title, boolean isCyber) {
+    this.id = id;
+    this.title = title;
+    this.isCyber = isCyber;
+  }
+
+  public static NonFunctionalRequirementNode create(UUID id, String title, boolean isCyber) {
+    return new NonFunctionalRequirementNode(id, title, isCyber);
+  }
 
 }

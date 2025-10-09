@@ -1,16 +1,17 @@
-import {Constraint} from "$lib/domain/entity/ar/Constraint.svelte";
+import { Constraint } from "$lib/domain/entity/ar/Constraint.svelte";
 
 export class SystemElement {
 
-    id : string | undefined = $state();
-    title : string | undefined = $state();
-    constraintList = $state<Constraint[]>([]);
+  id: string | undefined = $state();
+  title: string | undefined = $state();
+  isCyber: boolean = $state(true);
+  constraintList = $state<Constraint[]>([]);
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    static create() {
-        return new SystemElement();
-    }
+  static create() {
+    return new SystemElement();
+  }
 
 }

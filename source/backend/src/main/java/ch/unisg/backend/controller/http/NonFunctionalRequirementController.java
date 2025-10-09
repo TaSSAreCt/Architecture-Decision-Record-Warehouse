@@ -18,27 +18,26 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class NonFunctionalRequirementController {
 
-    private final NonFunctionalRequirementUseCase nonFunctionalRequirementUseCase;
+  private final NonFunctionalRequirementUseCase nonFunctionalRequirementUseCase;
 
-    @PostMapping(path = "/non-functional-requirements", consumes = NonFunctionalRequirementRequestDto.MEDIA_TYPE)
-    public ResponseEntity<String> createNonFunctionalRequirement(
-            @RequestBody NonFunctionalRequirementRequestDto payload
-    ) {
-        NonFunctionalRequirementCommand command = NonFunctionalRequirementCommand.create(payload.getId(), payload.getTitle());
+  @PostMapping(path = "/non-functional-requirements", consumes = NonFunctionalRequirementRequestDto.MEDIA_TYPE)
+  public ResponseEntity<String> createNonFunctionalRequirement(
+      @RequestBody NonFunctionalRequirementRequestDto payload) {
+    NonFunctionalRequirementCommand command = NonFunctionalRequirementCommand.create(payload.getId(),
+        payload.getTitle(), payload.isCyber());
 
-        nonFunctionalRequirementUseCase.create(command);
+    nonFunctionalRequirementUseCase.create(command);
 
-        return ResponseEntity.created(NonFunctionalRequirementResponseDto.uri(command.id())).build();
-    }
+    return ResponseEntity.created(NonFunctionalRequirementResponseDto.uri(command.id())).build();
+  }
 
-    @GetMapping(path = "/non-functional-requirements/{nonFunctionalRequirementId}")
-    public ResponseEntity<HashMap<String, Object>> findNonFunctionalRequirementById(
-            @PathVariable UUID nonFunctionalRequirementId
-    ) {
-        NonFunctionalRequirementQuery query = NonFunctionalRequirementQuery.create(nonFunctionalRequirementId);
+  @GetMapping(path = "/non-functional-requirements/{nonFunctionalRequirementId}")
+  public ResponseEntity<HashMap<String, Object>> findNonFunctionalRequirementById(
+      @PathVariable UUID nonFunctionalRequirementId) {
+    NonFunctionalRequirementQuery query = NonFunctionalRequirementQuery.create(nonFunctionalRequirementId);
 
-        NonFunctionalRequirement nonFunctionalRequirement = nonFunctionalRequirementUseCase.findById(query);
+    NonFunctionalRequirement nonFunctionalRequirement = nonFunctionalRequirementUseCase.findById(query);
 
-        return ResponseEntity.ok(NonFunctionalRequirementResponseDto.create(nonFunctionalRequirement));
-    }
+    return ResponseEntity.ok(NonFunctionalRequirementResponseDto.create(nonFunctionalRequirement));
+  }
 }

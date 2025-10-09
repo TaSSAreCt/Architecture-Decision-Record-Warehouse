@@ -7,17 +7,18 @@ import java.util.UUID;
 @Getter
 public class ConstraintRequestDto {
 
-    public final static String MEDIA_TYPE = "application/constraint+json";
+  public final static String MEDIA_TYPE = "application/constraint+json";
+
+  private UUID id;
+  private String title;
+  private boolean cyber;
+
+  @Getter
+  public static class IntentionRequestDto {
+
+    public static final String MEDIA_TYPE = "application/intention+json";
 
     private UUID id;
     private String title;
-
-    @Getter
-    public static class IntentionRequestDto {
-
-        public static final String MEDIA_TYPE = "application/intention+json";
-
-        private UUID id;
-        private String title;
-    }
+  }
 }

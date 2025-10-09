@@ -1,19 +1,21 @@
-import {NonFunctionalRequirement} from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte.js";
+import { NonFunctionalRequirement } from "$lib/domain/entity/ar/NonFunctionalRequirement.svelte.js";
 
 export class NonFunctionalRequirementResponseDto {
-    id : string | undefined;
-    title : string | undefined;
+  id: string | undefined;
+  title: string | undefined;
+  isCyber: boolean | undefined;
 }
 
-export function fromNonFunctionalRequirementsResponseDto(nonFunctionalRequirementsResponseDto : NonFunctionalRequirementResponseDto[]) : NonFunctionalRequirement[] {
-    return nonFunctionalRequirementsResponseDto.map(fromNonFunctionalRequirementResponseDto);
+export function fromNonFunctionalRequirementsResponseDto(nonFunctionalRequirementsResponseDto: NonFunctionalRequirementResponseDto[]): NonFunctionalRequirement[] {
+  return nonFunctionalRequirementsResponseDto.map(fromNonFunctionalRequirementResponseDto);
 }
 
-export function fromNonFunctionalRequirementResponseDto(nonFunctionalRequirementResponseDto : NonFunctionalRequirementResponseDto) : NonFunctionalRequirement {
-    const nonFunctionalRequirement : NonFunctionalRequirement = NonFunctionalRequirement.create();
+export function fromNonFunctionalRequirementResponseDto(nonFunctionalRequirementResponseDto: NonFunctionalRequirementResponseDto): NonFunctionalRequirement {
+  const nonFunctionalRequirement: NonFunctionalRequirement = NonFunctionalRequirement.create();
 
-    nonFunctionalRequirement.id = nonFunctionalRequirementResponseDto.id;
-    nonFunctionalRequirement.title = nonFunctionalRequirementResponseDto.title;
+  nonFunctionalRequirement.id = nonFunctionalRequirementResponseDto.id;
+  nonFunctionalRequirement.title = nonFunctionalRequirementResponseDto.title;
+  nonFunctionalRequirement.isCyber = nonFunctionalRequirementResponseDto.isCyber;
 
-    return nonFunctionalRequirement;
+  return nonFunctionalRequirement;
 }
