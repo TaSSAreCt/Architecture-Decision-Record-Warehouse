@@ -65,7 +65,7 @@ To get a local copy up and running follow these simple example steps.
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/nikokelx/Architecture-Decision-Record-Warehouse
+   git clone https://github.com/TaSSAreCt/Architecture-Decision-Record-Warehouse.git
    ```
 
 2. Start docker compose
