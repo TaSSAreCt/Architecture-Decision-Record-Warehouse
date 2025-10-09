@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,35 +19,33 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class SystemElementController {
 
-    private final SystemElementUseCase systemElementUseCase;
+  private final SystemElementUseCase systemElementUseCase;
 
-    @PostMapping(path = "/systems/{systemId}/system-elements", consumes = CreateSystemElementRequestDto.MEDIA_TYPE)
-    public ResponseEntity<String> addSystemElement(
-            @RequestBody CreateSystemElementRequestDto payload,
-            @PathVariable UUID systemId
-    ) throws URISyntaxException {
+  @PostMapping(path = "/systems/{systemId}/system-elements", consumes = CreateSystemElementRequestDto.MEDIA_TYPE)
+  public ResponseEntity<String> addSystemElement(
+      @RequestBody CreateSystemElementRequestDto payload,
+      @PathVariable UUID systemId) throws URISyntaxException {
 
-        CreateSystemElementCommand command = CreateSystemElementCommand.create(
-                payload.getId(),
-                payload.getTitle(),
-                systemId
-        );
+    CreateSystemElementCommand command = CreateSystemElementCommand.create(
+        payload.getId(),
+        payload.getTitle(),
+        payload.isCyber(),
+        systemId);
 
-        systemElementUseCase.addSystemElement(command);
+    systemElementUseCase.addSystemElement(command);
 
-        return ResponseEntity.created(SystemElementResponseDto.uri(command.id())).build();
-    }
+    return ResponseEntity.created(SystemElementResponseDto.uri(command.id())).build();
+  }
 
-    @GetMapping(path = "/system-elements/{systemElementId}")
-    public ResponseEntity<HashMap<String, Object>> getSystemElementById(
-            @PathVariable UUID systemElementId
-    ) {
+  @GetMapping(path = "/system-elements/{systemElementId}")
+  public ResponseEntity<HashMap<String, Object>> getSystemElementById(
+      @PathVariable UUID systemElementId) {
 
-        SystemElementQuery query = new SystemElementQuery(systemElementId);
+    SystemElementQuery query = new SystemElementQuery(systemElementId);
 
-        SystemElement systemElement = systemElementUseCase.getSystemElementById(query);
+    SystemElement systemElement = systemElementUseCase.getSystemElementById(query);
 
-        return ResponseEntity.ok(SystemElementResponseDto.toJson(systemElement));
+    return ResponseEntity.ok(SystemElementResponseDto.toJson(systemElement));
 
-    }
+  }
 }

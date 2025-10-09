@@ -20,36 +20,33 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class SystemController {
 
-    private final SystemUseCase systemUseCase;
+  private final SystemUseCase systemUseCase;
 
-    @PostMapping(path = "/systems", consumes = CreateSystemRequestDto.MEDIA_TYPE)
-    public ResponseEntity<String> addSystem(
-            @RequestBody CreateSystemRequestDto payload
-    ) {
-        SystemCommand command = SystemCommand.create(payload.getId(), payload.getTitle());
+  @PostMapping(path = "/systems", consumes = CreateSystemRequestDto.MEDIA_TYPE)
+  public ResponseEntity<String> addSystem(
+      @RequestBody CreateSystemRequestDto payload) {
+    SystemCommand command = SystemCommand.create(payload.getId(), payload.getTitle(), payload.isCyber());
+    systemUseCase.addSystem(command);
 
-        systemUseCase.addSystem(command);
+    return ResponseEntity.created(SystemClassResponseDto.uri(command.id())).build();
+  }
 
-        return ResponseEntity.created(SystemClassResponseDto.uri(command.id())).build();
-    }
+  @GetMapping(path = "/systems/{systemId}")
+  public ResponseEntity<HashMap<String, Object>> getSystemById(
+      @PathVariable UUID systemId) {
+    SystemQuery query = new SystemQuery(systemId);
 
-    @GetMapping(path = "/systems/{systemId}")
-    public ResponseEntity<HashMap<String, Object>> getSystemById(
-            @PathVariable UUID systemId
-    ) {
-        SystemQuery query = new SystemQuery(systemId);
+    SystemClass systemClass = systemUseCase.getSystemById(query);
 
-        SystemClass systemClass = systemUseCase.getSystemById(query);
+    return ResponseEntity.ok(SystemClassResponseDto.toJson(systemClass));
+  }
 
-        return ResponseEntity.ok(SystemClassResponseDto.toJson(systemClass));
-    }
+  @GetMapping(path = "/systems")
+  public ResponseEntity<List<HashMap<String, Object>>> getSystems() {
 
-    @GetMapping(path = "/systems")
-    public ResponseEntity<List<HashMap<String, Object>>> getSystems() {
+    List<SystemClass> systemClassList = systemUseCase.getSystemList();
 
-        List<SystemClass> systemClassList = systemUseCase.getSystemList();
-
-        return ResponseEntity.ok(SystemClassResponseDto.toJson(systemClassList));
-    }
+    return ResponseEntity.ok(SystemClassResponseDto.toJson(systemClassList));
+  }
 
 }

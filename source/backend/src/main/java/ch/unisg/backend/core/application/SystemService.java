@@ -15,25 +15,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SystemService implements SystemUseCase {
 
-    private final SystemPort systemPort;
+  private final SystemPort systemPort;
 
-    @Override
-    public void addSystem(SystemCommand command) {
+  @Override
+  public void addSystem(SystemCommand command) {
+    System.out.println(command.isCyber());
+    SystemClass system = SystemClass.create(command.id(), command.isCyber());
+    System.out.println(system.isCyber());
+    system.setTitle(command.title());
+    systemPort.createSystem(system);
+  }
 
-        SystemClass system = SystemClass.create(command.id());
-        system.setTitle(command.title());
+  @Override
+  public SystemClass getSystemById(SystemQuery query) {
+    return systemPort.findSystemById(query.id());
+  }
 
-        systemPort.createSystem(system);
-    }
-
-    @Override
-    public SystemClass getSystemById(SystemQuery query) {
-        SystemClass systemClass = SystemClass.create(query.id());
-        return systemPort.findSystemById(systemClass);
-    }
-
-    @Override
-    public List<SystemClass> getSystemList() {
-        return systemPort.findSystems();
-    }
+  @Override
+  public List<SystemClass> getSystemList() {
+    return systemPort.findSystems();
+  }
 }

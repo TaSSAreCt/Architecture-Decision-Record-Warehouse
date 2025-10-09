@@ -9,27 +9,30 @@ import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
 public class SystemElementRepository implements SystemElementPort {
 
-    private final Neo4jClient client;
-    private final SystemElementCypherPort repository;
+  private final Neo4jClient client;
+  private final SystemElementCypherPort repository;
 
-    @Override
-    public void createSystemElement(SystemElement systemElement) {
-        SystemElementNode systemElementNode = new SystemElementNode(systemElement.getId(), systemElement.getTitle());
-        repository.save(systemElementNode);
-    }
+  @Override
+  public void createSystemElement(SystemElement systemElement) {
+    SystemElementNode systemElementNode = new SystemElementNode(systemElement.getId(), systemElement.getTitle(),
+        systemElement.isCyber());
+    repository.save(systemElementNode);
+  }
 
-    @Override
-    public SystemElement findSystemElementById(SystemElement systemElement) {
+  @Override
+  public SystemElement findSystemElementById(UUID id) {
 
-        Optional<SystemElementNode> entity = repository.findById(systemElement.getId());
+    Optional<SystemElementNode> entity = repository.findById(id);
 
-        entity.ifPresent(systemElementNode -> systemElement.setTitle(systemElementNode.getTitle()));
-
-        return systemElement;
-    }
+    return entity
+        .map(systemElementNode -> SystemElement.create(systemElementNode.getId(), systemElementNode.getTitle(),
+            systemElementNode.isCyber()))
+        .orElse(null);
+  }
 }

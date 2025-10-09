@@ -8,30 +8,33 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Node("Constraint")
-@Getter @Setter
+@Getter
+@Setter
 public class ConstraintNode {
 
-    @Id
-    private UUID id;
+  @Id
+  private UUID id;
 
-    @Property("title")
-    private String title;
+  @Property("title")
+  private String title;
 
-    @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
-    public List<InfluenceRelationship> forcesRelationships;
+  @Property("isCyber")
+  private boolean isCyber;
 
-    public ConstraintNode(UUID id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+  @Relationship(type = "INFLUENCES", direction = Relationship.Direction.OUTGOING)
+  public List<InfluenceRelationship> forcesRelationships;
 
-    public static ConstraintNode create(UUID id, String title) {
-        return new ConstraintNode(id, title);
-    }
+  public ConstraintNode(UUID id, String title, boolean isCyber) {
+    this.id = id;
+    this.title = title;
+    this.isCyber = isCyber;
+  }
+
+  public static ConstraintNode create(UUID id, String title, boolean isCyber) {
+    return new ConstraintNode(id, title, isCyber);
+  }
 }

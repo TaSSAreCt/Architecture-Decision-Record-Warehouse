@@ -12,17 +12,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class NonFunctionalRequirementService implements NonFunctionalRequirementUseCase {
 
-    private final NonFunctionalRequirementPort nonFunctionalRequirementPort;
+  private final NonFunctionalRequirementPort nonFunctionalRequirementPort;
 
-    @Override
-    public void create(NonFunctionalRequirementCommand command) {
-        NonFunctionalRequirement nonFunctionalRequirement = NonFunctionalRequirement.create(command.id(), command.title());
-        nonFunctionalRequirementPort.create(nonFunctionalRequirement);
-    }
+  @Override
+  public void create(NonFunctionalRequirementCommand command) {
+    NonFunctionalRequirement nonFunctionalRequirement = NonFunctionalRequirement.create(command.id(), command.title(),
+        command.isCyber());
+    nonFunctionalRequirementPort.create(nonFunctionalRequirement);
+  }
 
-    @Override
-    public NonFunctionalRequirement findById(NonFunctionalRequirementQuery query) {
-        NonFunctionalRequirement nonFunctionalRequirement = NonFunctionalRequirement.create(query.id());
-        return nonFunctionalRequirementPort.findById(nonFunctionalRequirement);
-    }
+  @Override
+  public NonFunctionalRequirement findById(NonFunctionalRequirementQuery query) {
+    return nonFunctionalRequirementPort.findById(query.id());
+  }
 }

@@ -15,36 +15,30 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SystemElementService implements SystemElementUseCase {
 
-    private final ApplicationEventPublisher eventPublisher;
+  private final ApplicationEventPublisher eventPublisher;
 
-    private final SystemElementPort systemElementPort;
+  private final SystemElementPort systemElementPort;
 
-    @Override
-    public void addSystemElement(CreateSystemElementCommand command) {
+  @Override
+  public void addSystemElement(CreateSystemElementCommand command) {
 
-        SystemElement systemElement = SystemElement.create(
-                command.id(),
-                command.title()
-        );
+    SystemElement systemElement = SystemElement.create(
+        command.id(),
+        command.title(),
+        command.isCyber());
 
-        SystemClass systemClass = SystemClass.create(
-                command.systemId()
-        );
+    SystemClass systemClass = SystemClass.create(
+        command.systemId());
 
-        systemElementPort.createSystemElement(systemElement);
+    systemElementPort.createSystemElement(systemElement);
 
-        SystemElementCreatedEvent event = new SystemElementCreatedEvent(this, systemClass, systemElement);
-        eventPublisher.publishEvent(event);
-    }
+    SystemElementCreatedEvent event = new SystemElementCreatedEvent(this, systemClass, systemElement);
+    eventPublisher.publishEvent(event);
+  }
 
-    @Override
-    public SystemElement getSystemElementById(SystemElementQuery query) {
+  @Override
+  public SystemElement getSystemElementById(SystemElementQuery query) {
+    return systemElementPort.findSystemElementById(query.id());
 
-        SystemElement systemElement = new SystemElement();
-
-        systemElement.setId(query.id());
-
-        return systemElementPort.findSystemElementById(systemElement);
-
-    }
+  }
 }

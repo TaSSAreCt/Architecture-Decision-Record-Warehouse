@@ -1,11 +1,12 @@
 export class SystemClassRequestDto {
 
-    id : string = "";
-    title : string = "";
+  id: string = "";
+  title: string = "";
+  cyber: boolean = true;
 
-    constructor() {}
+  constructor() { }
 
-    static create() {
-        return new SystemClassRequestDto();
-    }
+  static create() {
+    return new SystemClassRequestDto();
+  }
 }

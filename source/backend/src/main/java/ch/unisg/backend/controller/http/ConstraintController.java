@@ -19,27 +19,25 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class ConstraintController {
 
-    private final ConstraintUseCase constraintUseCase;
+  private final ConstraintUseCase constraintUseCase;
 
-    @PostMapping(path = "/constraints", consumes = ConstraintRequestDto.MEDIA_TYPE)
-    public ResponseEntity<String> createConstraint(
-            @RequestBody ConstraintRequestDto payload
-    ) {
-        ConstraintCommand command = ConstraintCommand.create(payload.getId(), payload.getTitle());
+  @PostMapping(path = "/constraints", consumes = ConstraintRequestDto.MEDIA_TYPE)
+  public ResponseEntity<String> createConstraint(
+      @RequestBody ConstraintRequestDto payload) {
+    ConstraintCommand command = ConstraintCommand.create(payload.getId(), payload.getTitle(), payload.isCyber());
 
-        constraintUseCase.create(command);
+    constraintUseCase.create(command);
 
-        return new ResponseEntity<>(command.id().toString(), HttpStatus.CREATED);
-    }
+    return new ResponseEntity<>(command.id().toString(), HttpStatus.CREATED);
+  }
 
-    @GetMapping(path = "/constraints/{constraintId}")
-    public ResponseEntity<HashMap<String, Object>> findConstraintById(
-            @PathVariable UUID constraintId
-    ) {
-        ConstraintQuery query = ConstraintQuery.create(constraintId);
+  @GetMapping(path = "/constraints/{constraintId}")
+  public ResponseEntity<HashMap<String, Object>> findConstraintById(
+      @PathVariable UUID constraintId) {
+    ConstraintQuery query = ConstraintQuery.create(constraintId);
 
-        Constraint constraint = constraintUseCase.findById(query);
+    Constraint constraint = constraintUseCase.findById(query);
 
-        return ResponseEntity.ok(ConstraintResponseDto.toJson(constraint));
-    }
+    return ResponseEntity.ok(ConstraintResponseDto.toJson(constraint));
+  }
 }

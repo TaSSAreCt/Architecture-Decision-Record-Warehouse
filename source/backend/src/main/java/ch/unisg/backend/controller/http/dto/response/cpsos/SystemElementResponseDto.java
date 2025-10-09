@@ -9,19 +9,20 @@ import java.util.List;
 
 public class SystemElementResponseDto extends ResponseDto {
 
-    public static HashMap<String, Object> toJson(SystemElement systemElement) {
+  public static HashMap<String, Object> toJson(SystemElement systemElement) {
 
-        HashMap<String, Object> systemElementResponseDto = new HashMap<>();
+    HashMap<String, Object> systemElementResponseDto = new HashMap<>();
 
-        systemElementResponseDto.put("id", systemElement.getId().toString());
-        systemElementResponseDto.put("title", systemElement.getTitle());
-        systemElementResponseDto.put("constraintList", ConstraintResponseDto.toJson(systemElement.getConstraintList()));
+    systemElementResponseDto.put("id", systemElement.getId().toString());
+    systemElementResponseDto.put("title", systemElement.getTitle());
+    systemElementResponseDto.put("isCyber", systemElement.isCyber());
+    systemElementResponseDto.put("constraintList", ConstraintResponseDto.toJson(systemElement.getConstraintList()));
 
-        return systemElementResponseDto;
-    }
+    return systemElementResponseDto;
+  }
 
-    public static List<HashMap<String, Object>> toJson(List<SystemElement> systemElementList) {
-        return systemElementList.stream().map(SystemElementResponseDto::toJson).toList();
-    }
+  public static List<HashMap<String, Object>> toJson(List<SystemElement> systemElementList) {
+    return systemElementList.stream().map(SystemElementResponseDto::toJson).toList();
+  }
 
 }

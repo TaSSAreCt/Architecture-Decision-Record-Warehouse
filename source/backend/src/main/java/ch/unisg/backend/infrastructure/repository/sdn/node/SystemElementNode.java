@@ -7,29 +7,32 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Node("SystemElement")
-@Getter @Setter
+@Getter
+@Setter
 public class SystemElementNode {
 
-    @Id
-    private UUID id;
+  @Id
+  private UUID id;
 
-    @Property("title")
-    private String title;
+  @Property("title")
+  private String title;
 
-    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
-    public List<SystemNode> systemNodes;
+  @Property("isCyber")
+  private boolean isCyber;
 
-    @Relationship(type = "CONSTRAINED_BY",direction = Relationship.Direction.OUTGOING)
-    public List<ConstraintNode> constraintNodes;
+  @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
+  public List<SystemNode> systemNodes;
 
-    public SystemElementNode(UUID id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+  @Relationship(type = "CONSTRAINED_BY", direction = Relationship.Direction.OUTGOING)
+  public List<ConstraintNode> constraintNodes;
+
+  public SystemElementNode(UUID id, String title, boolean isCyber) {
+    this.id = id;
+    this.title = title;
+    this.isCyber = isCyber;
+  }
 }
