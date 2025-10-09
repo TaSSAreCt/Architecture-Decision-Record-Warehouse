@@ -8,6 +8,7 @@
   import NonFunctionalRequirementsComponent from "$lib/components/NonFunctionalRequirementsComponent.svelte";
   import { System } from "$lib/domain/entity/sos/System.svelte";
   import SystemElementListComponent from "$lib/components/SystemElementListComponent.svelte";
+  import TagComponent from "./TagComponent.svelte";
 
   let { system, root }: { system: System; root: boolean } = $props();
 
@@ -46,14 +47,7 @@
               formManager.toggle("updateSystem");
             }}>{childSystem.title}</button
           >
-          <span
-            class="w3-round-xlarge {childSystem.isCyber
-              ? 'w3-green'
-              : 'w3-red'}"
-            style="padding-right: 8px; padding-left: 8px;"
-            >{childSystem.isCyber ? "Cyber" : "Physical"}</span
-          >
-
+          <TagComponent isCyber={childSystem.isCyber} />
           part of system {system.title}
         </p>
         <Self system={childSystem} root={false} />

@@ -4,18 +4,13 @@
   import { SelectionManager } from "$lib/domain/manager/SelectionManager.svelte.js";
   import { SystemElement } from "$lib/domain/entity/sos/SystemElement.svelte";
   import SystemElementComponent from "$lib/components/SystemElementComponent.svelte";
+  import TagComponent from "./TagComponent.svelte";
 
   const { systemElementList }: { systemElementList: SystemElement[] } =
     $props();
 
   const formManager: FormManager = getContext("formManager");
   const selectionManager: SelectionManager = getContext("selectionManager");
-
-  console.log(systemElementList);
-
-  systemElementList.forEach((se) => {
-    console.log(se.constraintList);
-  });
 </script>
 
 <div>
@@ -29,11 +24,7 @@
           formManager.toggle("updateSystemElement");
         }}>{item.title}</button
       >
-      <span
-        class="w3-round-xlarge {item.isCyber ? 'w3-green' : 'w3-red'}"
-        style="padding-right: 8px; padding-left: 8px;"
-        >{item.isCyber ? "Cyber" : "Physical"}</span
-      >
+      <TagComponent isCyber={item.isCyber} />
       {index < systemElementList.length - 1 ? ", " : ""}
     {/each}
   </p>
@@ -44,4 +35,3 @@
     {/if}
   {/each}
 </div>
-

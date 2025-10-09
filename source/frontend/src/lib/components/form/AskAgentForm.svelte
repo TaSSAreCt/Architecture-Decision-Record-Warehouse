@@ -30,9 +30,10 @@
   });
 
   onDestroy(() => {
-    // decrease default width
+    const div = document.getElementById("div-forms");
     const subDiv = document.getElementById("subdiv-forms");
-    if (subDiv !== null) {
+    if (div !== null && subDiv !== null) {
+      div.style.width = "600px";
       subDiv.style.width = "500px";
     }
   });
@@ -165,4 +166,3 @@
     </form>
   {/if}
 </div>
-

@@ -5,7 +5,6 @@ import ch.unisg.backend.core.port.out.ConstraintPort;
 import ch.unisg.backend.infrastructure.repository.sdn.api.ConstraintCypherPort;
 import ch.unisg.backend.infrastructure.repository.sdn.node.ConstraintNode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,7 +39,8 @@ public class ConstraintRepository implements ConstraintPort {
     List<ConstraintNode> constraintNodeList = repository.findAll();
 
     for (ConstraintNode constraintNode : constraintNodeList) {
-      constraintList.add(Constraint.create(constraintNode.getId(), constraintNode.getTitle()));
+      constraintList
+          .add(Constraint.create(constraintNode.getId(), constraintNode.getTitle(), constraintNode.isCyber()));
     }
   }
 }

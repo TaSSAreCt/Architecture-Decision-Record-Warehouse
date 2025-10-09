@@ -41,7 +41,7 @@ public class NonFunctionalRequirementRepository implements NonFunctionalRequirem
 
     for (NonFunctionalRequirementNode nonFunctionalRequirementNode : nonFunctionalRequirementNodeList) {
       nonFunctionalRequirementList.add(NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(),
-          nonFunctionalRequirementNode.getTitle()));
+          nonFunctionalRequirementNode.getTitle(), nonFunctionalRequirementNode.isCyber()));
     }
   }
 }

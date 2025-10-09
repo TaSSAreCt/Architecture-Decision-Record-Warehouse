@@ -8,11 +8,15 @@ import java.util.Set;
 
 public class NonFunctionalRequirementMapper {
 
-    public static NonFunctionalRequirement toNonFunctionalRequirement(NonFunctionalRequirementNode nonFunctionalRequirementNode) {
-        return NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(), nonFunctionalRequirementNode.getTitle());
-    }
+  public static NonFunctionalRequirement toNonFunctionalRequirement(
+      NonFunctionalRequirementNode nonFunctionalRequirementNode) {
+    return NonFunctionalRequirement.create(nonFunctionalRequirementNode.getId(),
+        nonFunctionalRequirementNode.getTitle(), nonFunctionalRequirementNode.isCyber());
+  }
 
-    public static List<NonFunctionalRequirement> toNonFunctionalRequirementList(List<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList) {
-        return nonFunctionalRequirementNodeList.stream().map(NonFunctionalRequirementMapper::toNonFunctionalRequirement).toList();
-    }
+  public static List<NonFunctionalRequirement> toNonFunctionalRequirementList(
+      List<NonFunctionalRequirementNode> nonFunctionalRequirementNodeList) {
+    return nonFunctionalRequirementNodeList.stream().map(NonFunctionalRequirementMapper::toNonFunctionalRequirement)
+        .toList();
+  }
 }

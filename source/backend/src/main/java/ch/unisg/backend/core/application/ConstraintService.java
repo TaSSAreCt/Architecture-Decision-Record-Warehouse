@@ -7,8 +7,6 @@ import ch.unisg.backend.core.port.in.query.ConstraintQuery;
 import ch.unisg.backend.core.port.out.ConstraintPort;
 import lombok.RequiredArgsConstructor;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Component;
 
 @Component
