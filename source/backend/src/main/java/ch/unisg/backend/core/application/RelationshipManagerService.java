@@ -1,14 +1,10 @@
 package ch.unisg.backend.core.application;
 
-import ch.unisg.backend.core.domain.entities.classes.ConstraintNode;
 import ch.unisg.backend.core.domain.entities.classes.Node;
-import ch.unisg.backend.core.domain.entities.classes.SystemElement;
 import ch.unisg.backend.core.domain.entities.classes.SystemElementNode;
 import ch.unisg.backend.core.domain.entities.classes.ad.Alternative;
-import ch.unisg.backend.core.domain.entities.classes.ad.Influence;
-import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.domain.entities.classes.ad.Issue;
-import ch.unisg.backend.core.domain.entities.classes.ar.Constraint;
+import ch.unisg.backend.core.domain.entities.classes.ad.Rationale;
 import ch.unisg.backend.core.domain.entities.classes.ar.NonFunctionalRequirement;
 import ch.unisg.backend.core.domain.entities.classes.sos.SystemClass;
 import ch.unisg.backend.core.domain.entities.relationships.*;
@@ -16,10 +12,10 @@ import ch.unisg.backend.core.port.in.RelationshipManagerUseCase;
 import ch.unisg.backend.core.port.in.command.CreateInfluenceCommand;
 import ch.unisg.backend.core.port.in.command.relationships.*;
 import ch.unisg.backend.core.port.out.RelationshipManagerPort;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
+import org.springframework.stereotype.Component;
+import ch.unisg.backend.core.domain.entities.classes.ConstraintNode;
+
 
 @RequiredArgsConstructor
 @Component
@@ -80,6 +76,7 @@ public class RelationshipManagerService implements RelationshipManagerUseCase {
 
     if (command.isCyber()) {
       CyberEdge edge = CyberEdge.create(UUID.randomUUID(), systemElement, constraint);
+      relationshipManagerPort.create(edge);
     }
 
     ConstrainedBy constrainedBy = ConstrainedBy.create(UUID.randomUUID(), systemElement, constraint, command.isCyber());
