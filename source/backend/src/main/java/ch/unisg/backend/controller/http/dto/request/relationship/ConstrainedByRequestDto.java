@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public class ConstrainedByRequestDto {
 
-    public static final String MEDIA_TYPE = "application/constrained-by+json";
+  public static final String MEDIA_TYPE = "application/constrained-by+json";
 
-    private SystemElementRequestDto systemElement;
-    private ConstraintRequestDto constraint;
-
+  private SystemElementRequestDto systemElement;
+  private ConstraintRequestDto constraint;
+  private boolean cyber;
 
 }

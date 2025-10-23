@@ -95,7 +95,8 @@ public class RelationshipController {
       @RequestBody ConstrainedByRequestDto payload) {
     ConstrainedByCommand command = ConstrainedByCommand.create(
         SystemElementCommand.create(payload.getSystemElement().getId()),
-        ConstraintCommand.create(payload.getConstraint().getId()));
+        ConstraintCommand.create(payload.getConstraint().getId()),
+        payload.isCyber());
 
     UUID id = relationshipManagerUseCase.create(command);
 

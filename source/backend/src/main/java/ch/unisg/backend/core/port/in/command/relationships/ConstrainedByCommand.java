@@ -5,15 +5,25 @@ import ch.unisg.backend.core.port.in.command.classes.SystemElementCommand;
 import lombok.NonNull;
 
 public record ConstrainedByCommand(
-        @NonNull SystemElementCommand systemElementCommand,
-        @NonNull ConstraintCommand constraintCommand
-        ) {
-    public ConstrainedByCommand(SystemElementCommand systemElementCommand, ConstraintCommand constraintCommand) {
-        this.systemElementCommand = systemElementCommand;
-        this.constraintCommand = constraintCommand;
-    }
+    @NonNull SystemElementCommand systemElementCommand,
+    @NonNull ConstraintCommand constraintCommand,
+    boolean isCyber
 
-    public static ConstrainedByCommand create(SystemElementCommand systemElementCommand, ConstraintCommand constraintCommand) {
-        return new ConstrainedByCommand(systemElementCommand, constraintCommand);
-    }
+) {
+  public ConstrainedByCommand(SystemElementCommand systemElementCommand, ConstraintCommand constraintCommand,
+      boolean isCyber) {
+    this.systemElementCommand = systemElementCommand;
+    this.constraintCommand = constraintCommand;
+    this.isCyber = isCyber;
+  }
+
+  public static ConstrainedByCommand create(
+      SystemElementCommand systemElementCommand,
+      ConstraintCommand constraintCommand,
+      boolean isCyber) {
+    return new ConstrainedByCommand(
+        systemElementCommand,
+        constraintCommand,
+        isCyber);
+  }
 }

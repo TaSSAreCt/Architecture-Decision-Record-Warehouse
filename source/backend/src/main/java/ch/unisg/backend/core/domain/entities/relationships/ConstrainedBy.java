@@ -7,20 +7,23 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ConstrainedBy {
 
-    private UUID id;
-    private SystemElement systemElement;
-    private Constraint constraint;
+  private UUID id;
+  private SystemElement systemElement;
+  private Constraint constraint;
+  private boolean isCyber;
 
-    public ConstrainedBy(UUID id, SystemElement systemElement, Constraint constraint) {
-        this.id = id;
-        this.systemElement = systemElement;
-        this.constraint = constraint;
-    }
+  public ConstrainedBy(UUID id, SystemElement systemElement, Constraint constraint, boolean isCyber) {
+    this.id = id;
+    this.systemElement = systemElement;
+    this.constraint = constraint;
+    this.isCyber = isCyber;
+  }
 
-    public static ConstrainedBy create(UUID id, SystemElement systemElement, Constraint constraint) {
-        return new ConstrainedBy(id, systemElement, constraint);
-    }
+  public static ConstrainedBy create(UUID id, SystemElement systemElement, Constraint constraint, boolean isCyber) {
+    return new ConstrainedBy(id, systemElement, constraint, isCyber);
+  }
 }
